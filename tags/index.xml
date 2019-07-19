@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on 听风的小站</title>
+    <link>http://systemime.github.io/systemime/tags/</link>
+    <description>Recent content in Tags on 听风的小站</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh_CN</language>
+    <lastBuildDate>Fri, 19 Jul 2019 13:38:52 +0800</lastBuildDate>
+    
+	<atom:link href="http://systemime.github.io/systemime/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>test</title>
+      <link>http://systemime.github.io/systemime/tags/test/</link>
+      <pubDate>Fri, 19 Jul 2019 13:38:52 +0800</pubDate>
+      
+      <guid>http://systemime.github.io/systemime/tags/test/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>关于</title>
+      <link>http://systemime.github.io/systemime/tags/%E5%85%B3%E4%BA%8E/</link>
+      <pubDate>Fri, 19 Jul 2019 13:38:52 +0800</pubDate>
+      
+      <guid>http://systemime.github.io/systemime/tags/%E5%85%B3%E4%BA%8E/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
