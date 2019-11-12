@@ -17,7 +17,7 @@ cover: '../assets/test.png'
 **经过实践，此方法解决了上述所有的问题，安利一波**
 
 ## TIM安装过程
-1. 首先当然是安装Docker，这个网上有很多教程。~~稍微琢磨一下肯定可以弄出来，再搞个镜像加速什么的，很简单。~~
+1.首先当然是安装Docker，这个网上有很多教程。~~稍微琢磨一下肯定可以弄出来，再搞个镜像加速什么的，很简单。~~
 
 可以参考 [Parrotsec下 Docker](https://parrotsec-cn.org/t/parrotsec-docker/2494) 解决方案
 
@@ -29,7 +29,7 @@ sudo docker run hello-world
 
 ![p1](https://raw.githubusercontent.com/systemime/my_image/master/Solve-Tim-WeChat/p1.jpeg)
 
-2. 然后从`Docker Hub` 上获取 `bestwu/qq`
+2.然后从`Docker Hub` 上获取 `bestwu/qq`
 命令行中输入如下内容
 {% highlight bash %}
 sudo docker pull bestwu/qq
@@ -39,7 +39,7 @@ sudo docker pull bestwu/qq
 
 ~~这里我已经获取过了，第一次可能要稍微等待一会儿~~
 
-3. 接着获取audio的组ID，下面会用到
+3.接着获取audio的组ID，下面会用到
 命令行中输入如下内容
 {% highlight bash %}
 getent group audio | cut -d: -f3
@@ -49,7 +49,7 @@ getent group audio | cut -d: -f3
 
 parrotsec系统中，值为 29
 
-4. 接下来创建一个yml文件，比如说这里创建 docker-tim.yml，添加如下内容
+4.接下来创建一个yml文件，比如说这里创建 docker-tim.yml，添加如下内容
 {% highlight bash %}
 vim docker-tim.yml
 {% endhighlight %}
@@ -77,7 +77,7 @@ services:
 
 ![p4](https://raw.githubusercontent.com/systemime/my_image/master/Solve-Tim-WeChat/p4.png)
 
-5. 最后通过该配置文件启动即可
+5.最后通过该配置文件启动即可
 命令行中输入如下内容
 {% highlight bash %}
 sudo docker-compose -f docker-tim.yml up
@@ -85,10 +85,10 @@ sudo docker-compose -f docker-tim.yml up
 
 ![p5](https://raw.githubusercontent.com/systemime/my_image/master/Solve-Tim-WeChat/p5.png)
 
-6. 桌面自动跳出TIM登录界面
+6.桌面自动跳出TIM登录界面
 ![p6](https://raw.githubusercontent.com/systemime/my_image/master/Solve-Tim-WeChat/p6.png)
 
-7. 登录即可，你会发现各种功能都是正常的
+7.登录即可，你会发现各种功能都是正常的
 ![p7](https://raw.githubusercontent.com/systemime/my_image/master/Solve-Tim-WeChat/p7.png)
 
 ## Wechat安装
