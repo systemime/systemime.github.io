@@ -4,7 +4,7 @@ title: 'Blog test'
 date: 2019-07-18
 author: Jekyll
 color: rgb(255,90,90)
-cover: 'https://systemime.github.io/img/123.jpg'
+cover: '../assets/123.jpg'
 tags: test
 ---
 ## 代码测试
