@@ -19,29 +19,29 @@ NickName: '落羽'
 webtitle: '愿世间美好与你环环相绕'
 bio: '如果所有人都理解你会普通成什么样子'
 about: true
-aboutyou: '一个在自动化运维和运维开发道路上不断淌坑的奇男子'
+aboutyou: '一个在自动化运维和运维开发道路上不断淌坑的男人'
 portraits: '/assets/profile.jpeg' # your portraits image file path
 
 # SNS
 SNS: true
 SNS-icon: #['Facebook', 'weibo', 'qq', 'github', 'Dribbble', 'Twitter', 'instagram', 'weixin', 'Codepen']
   mail: 'mailto:systemime@gmail.com'
-  weixin: '' # 你的微信二维码存放的地址
-  qq: '' # 你的qq二维码存放的地址 or http://wpa.qq.com/msgrd?v=3&uin='你的QQ号'&site=qq&menu=yes
-  github: ''
-  Codepen: ''
-  weibo: ''
-  instagram: ''
-  Twitter: ''
-  Dribbble: ''
-  Facebook: ''
-  Google: ''
-  zhihu: ''
-  juejin: ''
-  twitch: ''
+  weixin: './assets/wechat.png' # 你的微信二维码存放的地址
+  qq: './assets/qq.jpg' # 你的qq二维码存放的地址 or http://wpa.qq.com/msgrd?v=3&uin='你的QQ号'&site=qq&menu=yes
+  github: 'https://github.com/systemime'
+  #Codepen: ''
+  #weibo: ''
+  #instagram: ''
+  #Twitter: ''
+  #Dribbble: ''
+  #Facebook: ''
+  #Google: ''
+  zhihu: 'https://www.zhihu.com/'
+  #juejin: ''
+  #twitch: ''
 
 # 分页
-paginate: 2
+paginate: 3
 paginatepath: ['page:num']
 
 # since
