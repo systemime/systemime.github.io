@@ -80,21 +80,6 @@ ERRORS:
     |---|----| 
     |title|首字母大写|  
 
-6. html中的使用  
-
-        ```html
-        {% extends "base.html" %}
-        
-        
-        {% block css_style %}
-        <link rel="stylesheet" href="/static/test.css" />
-        {% endblock %}
-        
-        {% block content %}
-            {{ name|title }}
-        {% endblock %}
-        ```
-   * 过滤器传参数使用括号
-        ```html
-        {{ age|test(int_type num) }}
-        ``` 
+6. 测试
+   * 操你妈
+   * {% extends ’base.html‘ %}
