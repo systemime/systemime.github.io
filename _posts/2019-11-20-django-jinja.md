@@ -80,4 +80,23 @@ ERRORS:
     |---|----| 
     |title|首字母大写|  
 
-6. html中的使用 
+6. html中的使用  
+
+   * 没有`{% load %}`的方法，增加会报错
+   * 引入cssjs直接 `{% block css_style %}` 即可  
+        ```html
+        {% extends "base.html" %}
+        
+        
+        {% block css_style %}
+        <link rel="stylesheet" href="/static/test.css" />
+        {% endblock %}
+        
+        {% block content %}
+            {{ name|title }}
+        {% endblock %}
+        ```
+   * 过滤器传参数使用括号
+        ```html
+        {{ age|test(int_type num) }}
+        ``` 
