@@ -5,7 +5,7 @@ subtitle: 'django2.2使用jinja和以前的django版本中有些区别，这里�
 date:   2019-11-21 15:33:13
 tags: django jinja template
 color: rgb(154,133,255)
-cover: ''
+cover: '../assets/jinja.png'
 ---
 ## 使用jinja2.Jinja2代替django.DjangoTemplates
 
