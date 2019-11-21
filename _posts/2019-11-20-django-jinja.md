@@ -81,4 +81,5 @@ ERRORS:
     |title|首字母大写|  
 
 6. 测试
-    <span>{% extends ’base.html‘ %}</span>
+    <span>\{\\% extends ’base.html‘ \\%\}</span>
+    
