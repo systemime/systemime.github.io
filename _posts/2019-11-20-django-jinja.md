@@ -2,7 +2,7 @@
 layout: post
 title:  "django2.2使用jinja模板"
 subtitle: 'django2.2使用jinja和以前的django版本中有些区别，这里顺便会说明'
-date:   2019-11-21 15:33:13
+date:   2019-11-20 15:33:13
 tags: django jinja template
 color: rgb(154,133,255)
 cover: ''
