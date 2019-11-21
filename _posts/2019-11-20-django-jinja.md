@@ -82,4 +82,4 @@ ERRORS:
 
 6. 测试
    - 操你妈
-   - \{% extends ’base.html‘ %\}
+   - <p>{% extends ’base.html‘ %\}</p>
