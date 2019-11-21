@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.1">Jekyll</generator><link href="http://0.0.0.0/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0/" rel="alternate" type="text/html" /><updated>2019-11-12T13:01:11+08:00</updated><id>http://0.0.0.0/</id><title type="html">Breeze and me</title><subtitle>如果所有人都理解你会普通成什么样子</subtitle><author><name>true</name></author><entry><title type="html">Linux下Tim/Wechat的新方案</title><link href="http://0.0.0.0/2019/11/12/solve-tim-wechat.html" rel="alternate" type="text/html" title="Linux下Tim/Wechat的新方案" /><published>2019-11-12T04:35:13+08:00</published><updated>2019-11-12T04:35:13+08:00</updated><id>http://0.0.0.0/2019/11/12/solve-tim-wechat</id><content type="html" xml:base="http://0.0.0.0/2019/11/12/solve-tim-wechat.html">&lt;h2 id=&quot;linux下timwechat的一种解决方案&quot;&gt;Linux下Tim/Wechat的一种解决方案&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.1">Jekyll</generator><link href="https://547feng.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://547feng.github.io/" rel="alternate" type="text/html" /><updated>2019-11-21T15:38:07+08:00</updated><id>https://547feng.github.io/</id><title type="html">Breeze and me</title><subtitle>如果所有人都理解你会普通成什么样子</subtitle><author><name>true</name></author><entry><title type="html">Linux下Tim/Wechat的新方案</title><link href="https://547feng.github.io/2019/11/12/solve-tim-wechat.html" rel="alternate" type="text/html" title="Linux下Tim/Wechat的新方案" /><published>2019-11-12T04:35:13+08:00</published><updated>2019-11-12T04:35:13+08:00</updated><id>https://547feng.github.io/2019/11/12/solve-tim-wechat</id><content type="html" xml:base="https://547feng.github.io/2019/11/12/solve-tim-wechat.html">&lt;h2 id=&quot;linux下timwechat的一种解决方案&quot;&gt;Linux下Tim/Wechat的一种解决方案&lt;/h2&gt;
 &lt;p&gt;之前通过 Wine 和 CrossOver安装过TIM，但是出现了各种的Bug 乱码，输入法无法切换，闪退等等,一直用的不爽。&lt;/p&gt;
 
 &lt;p&gt;今天在逛 Docker Hub 时发现了一种Linux下的Tim和Wechat解决方案&lt;/p&gt;
@@ -8,9 +8,7 @@
 &lt;p&gt;&lt;strong&gt;经过实践，此方法解决了上述所有的问题，安利一波&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;tim安装过程&quot;&gt;TIM安装过程&lt;/h2&gt;
-&lt;ol&gt;
-  &lt;li&gt;首先当然是安装Docker，这个网上有很多教程。&lt;del&gt;稍微琢磨一下肯定可以弄出来，再搞个镜像加速什么的，很简单。&lt;/del&gt;&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;1.首先当然是安装Docker，这个网上有很多教程。&lt;del&gt;稍微琢磨一下肯定可以弄出来，再搞个镜像加速什么的，很简单。&lt;/del&gt;&lt;/p&gt;
 
 &lt;p&gt;可以参考 &lt;a href=&quot;https://parrotsec-cn.org/t/parrotsec-docker/2494&quot;&gt;Parrotsec下 Docker&lt;/a&gt; 解决方案&lt;/p&gt;
 
@@ -20,10 +18,8 @@
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/systemime/my_image/master/Solve-Tim-WeChat/p1.jpeg&quot; alt=&quot;p1&quot; /&gt;&lt;/p&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;然后从&lt;code class=&quot;highlighter-rouge&quot;&gt;Docker Hub&lt;/code&gt; 上获取 &lt;code class=&quot;highlighter-rouge&quot;&gt;bestwu/qq&lt;/code&gt;
-命令行中输入如下内容&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;2.然后从&lt;code class=&quot;highlighter-rouge&quot;&gt;Docker Hub&lt;/code&gt; 上获取 &lt;code class=&quot;highlighter-rouge&quot;&gt;bestwu/qq&lt;/code&gt;
+命令行中输入如下内容&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;docker pull bestwu/qq&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
@@ -31,10 +27,8 @@
 
 &lt;p&gt;&lt;del&gt;这里我已经获取过了，第一次可能要稍微等待一会儿&lt;/del&gt;&lt;/p&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;接着获取audio的组ID，下面会用到
-命令行中输入如下内容&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;3.接着获取audio的组ID，下面会用到
+命令行中输入如下内容&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;getent group audio | &lt;span class=&quot;nb&quot;&gt;cut&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt;: &lt;span class=&quot;nt&quot;&gt;-f3&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
@@ -42,9 +36,7 @@
 
 &lt;p&gt;parrotsec系统中，值为 29&lt;/p&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;接下来创建一个yml文件，比如说这里创建 docker-tim.yml，添加如下内容&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;4.接下来创建一个yml文件，比如说这里创建 docker-tim.yml，添加如下内容&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;vim docker-tim.yml&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
@@ -69,25 +61,18 @@ services:
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/systemime/my_image/master/Solve-Tim-WeChat/p4.png&quot; alt=&quot;p4&quot; /&gt;&lt;/p&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;最后通过该配置文件启动即可
-命令行中输入如下内容&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;5.最后通过该配置文件启动即可
+命令行中输入如下内容&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;docker-compose &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; docker-tim.yml up&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/systemime/my_image/master/Solve-Tim-WeChat/p5.png&quot; alt=&quot;p5&quot; /&gt;&lt;/p&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;桌面自动跳出TIM登录界面
+&lt;p&gt;6.桌面自动跳出TIM登录界面
 &lt;img src=&quot;https://raw.githubusercontent.com/systemime/my_image/master/Solve-Tim-WeChat/p6.png&quot; alt=&quot;p6&quot; /&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;登录即可，你会发现各种功能都是正常的
+
+&lt;p&gt;7.登录即可，你会发现各种功能都是正常的
 &lt;img src=&quot;https://raw.githubusercontent.com/systemime/my_image/master/Solve-Tim-WeChat/p7.png&quot; alt=&quot;p7&quot; /&gt;&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
 
 &lt;h2 id=&quot;wechat安装&quot;&gt;Wechat安装&lt;/h2&gt;
 
@@ -98,11 +83,11 @@ services:
 &lt;p&gt;中找到相关内容, 不多说了&lt;/p&gt;
 
 &lt;h2 id=&quot;参考来源&quot;&gt;参考来源&lt;/h2&gt;
-&lt;p&gt;[bestwu] &lt;a href=&quot;https://hub.docker.com/r/bestwu/&quot;&gt;https://hub.docker.com/r/bestwu/&lt;/a&gt;&lt;/p&gt;</content><author><name>true</name></author><category term="docker" /><category term="tim" /><category term="wechat" /><summary type="html">Linux下Tim/Wechat的一种解决方案 之前通过 Wine 和 CrossOver安装过TIM，但是出现了各种的Bug 乱码，输入法无法切换，闪退等等,一直用的不爽。</summary></entry><entry><title type="html">你好</title><link href="http://0.0.0.0/2019/11/12/nihao.html" rel="alternate" type="text/html" title="你好" /><published>2019-11-12T00:00:00+08:00</published><updated>2019-11-12T00:00:00+08:00</updated><id>http://0.0.0.0/2019/11/12/nihao</id><content type="html" xml:base="http://0.0.0.0/2019/11/12/nihao.html">&lt;h1 id=&quot;你好啊&quot;&gt;你好啊&lt;/h1&gt;
+&lt;p&gt;[bestwu] &lt;a href=&quot;https://hub.docker.com/r/bestwu/&quot;&gt;https://hub.docker.com/r/bestwu/&lt;/a&gt;&lt;/p&gt;</content><author><name>true</name></author><category term="docker" /><category term="tim" /><category term="wechat" /><summary type="html">Linux下Tim/Wechat的一种解决方案 之前通过 Wine 和 CrossOver安装过TIM，但是出现了各种的Bug 乱码，输入法无法切换，闪退等等,一直用的不爽。</summary></entry><entry><title type="html">你好</title><link href="https://547feng.github.io/2019/11/12/nihao.html" rel="alternate" type="text/html" title="你好" /><published>2019-11-12T00:00:00+08:00</published><updated>2019-11-12T00:00:00+08:00</updated><id>https://547feng.github.io/2019/11/12/nihao</id><content type="html" xml:base="https://547feng.github.io/2019/11/12/nihao.html">&lt;h1 id=&quot;你好啊&quot;&gt;你好啊&lt;/h1&gt;
 
 &lt;h4 id=&quot;陌生人&quot;&gt;陌生人&lt;/h4&gt;
 
-&lt;p&gt;是梦，那就打碎它&lt;/p&gt;</content><author><name>Jekyll</name></author><category term="welcome" /><summary type="html">你好啊 陌生人 是梦，那就打碎它</summary></entry><entry><title type="html">Blog test</title><link href="http://0.0.0.0/2019/07/18/test.html" rel="alternate" type="text/html" title="Blog test" /><published>2019-07-18T00:00:00+08:00</published><updated>2019-07-18T00:00:00+08:00</updated><id>http://0.0.0.0/2019/07/18/test</id><content type="html" xml:base="http://0.0.0.0/2019/07/18/test.html">&lt;h2 id=&quot;代码测试&quot;&gt;代码测试&lt;/h2&gt;
+&lt;p&gt;是梦，那就打碎它&lt;/p&gt;</content><author><name>Jekyll</name></author><category term="welcome" /><summary type="html">你好啊 陌生人 是梦，那就打碎它</summary></entry><entry><title type="html">Blog test</title><link href="https://547feng.github.io/2019/07/18/test.html" rel="alternate" type="text/html" title="Blog test" /><published>2019-07-18T00:00:00+08:00</published><updated>2019-07-18T00:00:00+08:00</updated><id>https://547feng.github.io/2019/07/18/test</id><content type="html" xml:base="https://547feng.github.io/2019/07/18/test.html">&lt;h2 id=&quot;代码测试&quot;&gt;代码测试&lt;/h2&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
   &lt;span class=&quot;n&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Hi, #{name}&quot;&lt;/span&gt;
@@ -350,7 +335,7 @@ Also you can &lt;em&gt;put&lt;/em&gt; &lt;strong&gt;Markdown&lt;/strong&gt; into
 
 &lt;p&gt;Press &lt;kbd&gt;X&lt;/kbd&gt; to win. Or press &lt;kbd&gt;&lt;kbd&gt;CTRL&lt;/kbd&gt;+&lt;kbd&gt;ALT&lt;/kbd&gt;+&lt;kbd&gt;F&lt;/kbd&gt;&lt;/kbd&gt; to show FPS counter.&lt;/p&gt;
 
-&lt;p&gt;&lt;mark&gt;As a unit of information in information theory, the bit has alternatively been called a shannon&lt;/mark&gt;, named after Claude Shannon, the founder of field of information theory.&lt;/p&gt;</content><author><name>Jekyll</name></author><category term="test" /><summary type="html">代码测试</summary></entry><entry><title type="html">Welcome to Jekyll!</title><link href="http://0.0.0.0/2018/05/17/welcome-to-jekyll.html" rel="alternate" type="text/html" title="Welcome to Jekyll!" /><published>2018-05-17T14:05:21+08:00</published><updated>2018-05-17T14:05:21+08:00</updated><id>http://0.0.0.0/2018/05/17/welcome-to-jekyll</id><content type="html" xml:base="http://0.0.0.0/2018/05/17/welcome-to-jekyll.html">&lt;p&gt;You’ll find this post in your &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
+&lt;p&gt;&lt;mark&gt;As a unit of information in information theory, the bit has alternatively been called a shannon&lt;/mark&gt;, named after Claude Shannon, the founder of field of information theory.&lt;/p&gt;</content><author><name>Jekyll</name></author><category term="test" /><summary type="html">代码测试</summary></entry><entry><title type="html">Welcome to Jekyll!</title><link href="https://547feng.github.io/2018/05/17/welcome-to-jekyll.html" rel="alternate" type="text/html" title="Welcome to Jekyll!" /><published>2018-05-17T14:05:21+08:00</published><updated>2018-05-17T14:05:21+08:00</updated><id>https://547feng.github.io/2018/05/17/welcome-to-jekyll</id><content type="html" xml:base="https://547feng.github.io/2018/05/17/welcome-to-jekyll.html">&lt;p&gt;You’ll find this post in your &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
 
 &lt;p&gt;To add new posts, simply add a file in the &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory that follows the convention &lt;code class=&quot;highlighter-rouge&quot;&gt;YYYY-MM-DD-name-of-post.ext&lt;/code&gt; and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
 
@@ -362,7 +347,7 @@ Also you can &lt;em&gt;put&lt;/em&gt; &lt;strong&gt;Markdown&lt;/strong&gt; into
 &lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Tom'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints 'Hi, Tom' to STDOUT.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;Check out the &lt;a href=&quot;https://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;</content><author><name>true</name></author><category term="jekyll" /><category term="update" /><summary type="html">You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated.</summary></entry><entry><title type="html">Hello Jekyll</title><link href="http://0.0.0.0/2017/04/18/hello-jekyll.html" rel="alternate" type="text/html" title="Hello Jekyll" /><published>2017-04-18T00:00:00+08:00</published><updated>2017-04-18T00:00:00+08:00</updated><id>http://0.0.0.0/2017/04/18/hello-jekyll</id><content type="html" xml:base="http://0.0.0.0/2017/04/18/hello-jekyll.html">&lt;blockquote&gt;
+&lt;p&gt;Check out the &lt;a href=&quot;https://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;</content><author><name>true</name></author><category term="jekyll" /><category term="update" /><summary type="html">You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated.</summary></entry><entry><title type="html">Hello Jekyll</title><link href="https://547feng.github.io/2017/04/18/hello-jekyll.html" rel="alternate" type="text/html" title="Hello Jekyll" /><published>2017-04-18T00:00:00+08:00</published><updated>2017-04-18T00:00:00+08:00</updated><id>https://547feng.github.io/2017/04/18/hello-jekyll</id><content type="html" xml:base="https://547feng.github.io/2017/04/18/hello-jekyll.html">&lt;blockquote&gt;
   &lt;p&gt;Transform your plain text into static websites and blogs.&lt;/p&gt;
 &lt;/blockquote&gt;
 

@@ -152,9 +152,7 @@
 <p><strong>经过实践，此方法解决了上述所有的问题，安利一波</strong></p>
 
 <h2 id="tim安装过程">TIM安装过程</h2>
-<ol>
-  <li>首先当然是安装Docker，这个网上有很多教程。<del>稍微琢磨一下肯定可以弄出来，再搞个镜像加速什么的，很简单。</del></li>
-</ol>
+<p>1.首先当然是安装Docker，这个网上有很多教程。<del>稍微琢磨一下肯定可以弄出来，再搞个镜像加速什么的，很简单。</del></p>
 
 <p>可以参考 <a href="https://parrotsec-cn.org/t/parrotsec-docker/2494">Parrotsec下 Docker</a> 解决方案</p>
 
@@ -164,10 +162,8 @@
 
 <p><img src="https://raw.githubusercontent.com/systemime/my_image/master/Solve-Tim-WeChat/p1.jpeg" alt="p1" /></p>
 
-<ol>
-  <li>然后从<code class="highlighter-rouge">Docker Hub</code> 上获取 <code class="highlighter-rouge">bestwu/qq</code>
-命令行中输入如下内容</li>
-</ol>
+<p>2.然后从<code class="highlighter-rouge">Docker Hub</code> 上获取 <code class="highlighter-rouge">bestwu/qq</code>
+命令行中输入如下内容</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">sudo </span>docker pull bestwu/qq</code></pre></figure>
 
@@ -175,10 +171,8 @@
 
 <p><del>这里我已经获取过了，第一次可能要稍微等待一会儿</del></p>
 
-<ol>
-  <li>接着获取audio的组ID，下面会用到
-命令行中输入如下内容</li>
-</ol>
+<p>3.接着获取audio的组ID，下面会用到
+命令行中输入如下内容</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">getent group audio | <span class="nb">cut</span> <span class="nt">-d</span>: <span class="nt">-f3</span></code></pre></figure>
 
@@ -186,9 +180,7 @@
 
 <p>parrotsec系统中，值为 29</p>
 
-<ol>
-  <li>接下来创建一个yml文件，比如说这里创建 docker-tim.yml，添加如下内容</li>
-</ol>
+<p>4.接下来创建一个yml文件，比如说这里创建 docker-tim.yml，添加如下内容</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">vim docker-tim.yml</code></pre></figure>
 
@@ -213,25 +205,18 @@ services:
 
 <p><img src="https://raw.githubusercontent.com/systemime/my_image/master/Solve-Tim-WeChat/p4.png" alt="p4" /></p>
 
-<ol>
-  <li>最后通过该配置文件启动即可
-命令行中输入如下内容</li>
-</ol>
+<p>5.最后通过该配置文件启动即可
+命令行中输入如下内容</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">sudo </span>docker-compose <span class="nt">-f</span> docker-tim.yml up</code></pre></figure>
 
 <p><img src="https://raw.githubusercontent.com/systemime/my_image/master/Solve-Tim-WeChat/p5.png" alt="p5" /></p>
 
-<ol>
-  <li>
-    <p>桌面自动跳出TIM登录界面
+<p>6.桌面自动跳出TIM登录界面
 <img src="https://raw.githubusercontent.com/systemime/my_image/master/Solve-Tim-WeChat/p6.png" alt="p6" /></p>
-  </li>
-  <li>
-    <p>登录即可，你会发现各种功能都是正常的
+
+<p>7.登录即可，你会发现各种功能都是正常的
 <img src="https://raw.githubusercontent.com/systemime/my_image/master/Solve-Tim-WeChat/p7.png" alt="p7" /></p>
-  </li>
-</ol>
 
 <h2 id="wechat安装">Wechat安装</h2>
 
@@ -290,6 +275,28 @@ services:
 
 
 
+    <section class="post-footer-item comment">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80NzUwOC8yNDAwOA=="></div>
+    </section>
+
+    <!-- 来必力City版安装代码 -->
+    <script type="text/javascript">
+       (function(d, s) {
+           var j, e = d.getElementsByTagName(s)[0];
+
+           if (typeof LivereTower === 'function') { return; }
+
+           j = d.createElement(s);
+           j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+           j.async = true;
+
+           e.parentNode.insertBefore(j, e);
+       })(document, 'script');
+    </script>
+    <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+    <!-- City版安装代码已完成 -->
+
+
 
 
 
@@ -300,7 +307,7 @@ services:
         Top
     </div>
   </a>
-  <a title="底部有评论哦" class="gotobottom" href="#htmldown" target="_self">
+  <a title="底部有livere评论哦" class="gotobottom" href="#htmldown" target="_self">
     <div class="box" style="font-family:'ffad_matroregular';">
         Foot
     </div>
