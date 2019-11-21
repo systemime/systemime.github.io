@@ -1,11 +1,11 @@
----
+ ---
 layout: post
 title:  "django2.2使用jinja模板"
 subtitle: 'django2.2使用jinja和以前的django版本中有些区别，这里顺便会说明'
 date:   2019-11-21 15:33:13
 tags: django jinja template
 color: rgb(154,133,255)
-cover: '../assets/jinja.png'
+cover: ''
 ---
 ## 使用jinja2.Jinja2代替django.DjangoTemplates
 
@@ -83,7 +83,7 @@ ERRORS:
     |...|...|
       
 6. html中的使用
-   * 没有`{% load %}`的方法，增加会报错
+   * 没有{% load %}的方法，增加会报错
    * 引入cssjs直接 `{% block css_style %}` 即可  
        ```html
        {% extends "base.html" %}
@@ -138,3 +138,4 @@ ERRORS:
         ```html
         {{ age|test(int_type num) }}
         ```
+

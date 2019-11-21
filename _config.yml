@@ -2,7 +2,9 @@
 title: 'Breeze and me'
 description: '如果所有人都理解你会普通成什么样子'
 keywords: '自述, 柒麟'
-url: 'https://547feng.github.io' # your host
+url: 'https://systemime.github.io' # your host
+
+timezone: Asia/Shanghai
 
 # nav 中文字符空格：&emsp;
 nav: # 最佳体验 六个标签 且最好每个标签不超过4中文字
