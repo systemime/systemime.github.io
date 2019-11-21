@@ -1,0 +1,26 @@
+Configuration file: /opt/HardCandy-Jekyll/_config.yml
+            Source: /opt/HardCandy-Jekyll
+       Destination: /opt/HardCandy-Jekyll/_site
+ Incremental build: disabled. Enable with --incremental
+      Generating... 
+                    done in 0.45 seconds.
+ Auto-regeneration: enabled for '/opt/HardCandy-Jekyll'
+    Server address: http://0.0.0.0:80
+  Server running... press ctrl-c to stop.
+      Regenerating: 1 file(s) changed at 2019-11-11 16:14:28
+                    5504
+                    ...done in 0.101687427 seconds.
+
+Configuration file: /opt/HardCandy-Jekyll/_config.yml
+            Source: /opt/HardCandy-Jekyll
+       Destination: /opt/HardCandy-Jekyll/_site
+ Incremental build: disabled. Enable with --incremental
+      Generating... 
+                    done in 0.425 seconds.
+ Auto-regeneration: enabled for '/opt/HardCandy-Jekyll'
+    Server address: http://0.0.0.0:80
+  Server running... press ctrl-c to stop.
+      Regenerating: 1 file(s) changed at 2019-11-11 16:27:22
+                    5531
+                    ...done in 0.090131819 seconds.
+
