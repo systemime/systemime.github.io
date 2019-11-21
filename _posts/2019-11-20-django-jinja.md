@@ -82,7 +82,7 @@ ERRORS:
 
 6. html中的使用  
 
-   * 没有<code class="language-plaintext highlighter-rouge">{% load %}</code>的方法，增加会报错
+   *没有&#123;% load %&#123;的方法，增加会报错
    * 引入cssjs直接 `{% block css_style %}` 即可  
         ```html
         {% extends "base.html" %}
