@@ -80,6 +80,4 @@ ERRORS:
     |---|----| 
     |title|首字母大写|
 
-6. html中的使用  
-   * 没有 `{% load %}` 的方法，增加会报错
-   * 引入cssjs直接 `{% block css_style %}` 即可  
+6. html中的使用 
