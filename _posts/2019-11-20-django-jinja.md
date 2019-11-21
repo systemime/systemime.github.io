@@ -69,23 +69,24 @@ ERRORS:
             },
         }
     ]
-    ```
+    ```  
 
 4. 启动  
     > **注意：** `jinja` **不建议与** `django` **的上下文处理器一起使用**  
 
 5. jinja模板语法  
-
+  
     |名称|描述|  
     |---|----|  
     |title|首字母大写|
     |...|...|
       
-6. html中的使用
-   * 没有`{% load %}`的方法，增加会报错
+6. html中的使用  
+   * 没有 `{% load %}` 的方法，增加会报错
    * 引入cssjs直接 `{% block css_style %}` 即可  
-       ```html
-       {% extends "base.html" %}
+       
+        ```html
+        {% extends "base.html" %}
         
         
         {% block css_style %}
@@ -95,7 +96,8 @@ ERRORS:
         {% block content %}
             {{ name|title }}
         {% endblock %}
-        ```
+        ```  
+
    * 过滤器传参数使用括号
         ```html
         {{ age|test(int_type num) }}
