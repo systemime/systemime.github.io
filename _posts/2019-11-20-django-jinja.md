@@ -81,5 +81,4 @@ ERRORS:
     |title|首字母大写|  
 
 6. 测试
-   - 操你妈
-   - <p>{% extends ’base.html‘ %\}</p>
+    <span>{% extends ’base.html‘ %}</span>
