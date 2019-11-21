@@ -37,3 +37,38 @@ ERRORS:
         })
         return env
     ```
+3. **~~在setting中修改templates配置~~** 在setting中添加如下配置  
+    [`Django`文档中有关`jinja`的说明](https://docs.djangoproject.com/en/2.2/topics/templates/#django.template.backends.django.DjangoTemplates)  
+    3.1 新增模板引擎  
+    3.2 添加其他参数  
+    3.3 完整配置如下  
+    ```python
+    TEMPLATES = [
+        {
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            'DIRS': [],
+            'APP_DIRS': True,
+            'OPTIONS': {
+                'context_processors': [
+                    'django.template.context_processors.debug',
+                    'django.template.context_processors.request',
+                    'django.contrib.auth.context_processors.auth',
+                    'django.contrib.messages.context_processors.messages',
+                ],
+            },
+        },
+        {
+            'BACKEND': 'django.template.backends.jinja2.Jinja2',  # jinja模板引擎
+            'DIRS': [os.path.join(BASE_DIR, 'templates')],  # 可以使用app内的template自定义文件夹
+            'APP_DIRS': True,
+            'OPTIONS': {
+                'environment': 'myjinjia.base_jinja.environment',  # 添加jinja2模板引擎虚拟环境
+                'context_processors': [
+                   # 默认为空即可,具体配置参考django文档
+                ],
+            },
+        }
+    ]
+    ```
+
+
