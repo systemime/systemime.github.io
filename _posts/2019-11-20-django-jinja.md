@@ -81,5 +81,5 @@ ERRORS:
     |title|首字母大写|  
 
 6. 测试
-   * 操你妈
-   * \{% extends ’base.html‘ %\}
+   - 操你妈
+   - \{% extends ’base.html‘ %\}
