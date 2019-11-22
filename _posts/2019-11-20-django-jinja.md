@@ -80,6 +80,60 @@ ERRORS:
     |---|----| 
     |title|首字母大写|  
 
+{% assign openTag = '{%' %}
+{% assign openTa = '{{' %}
 6. 测试
-    <span>\{\\% extends ’base.html‘ \\%\}</span>
-    
+    * 没有<code class="highlighter-rouge">{<span>% load %}</span></code>的方法，增加会报错
+    * <code class="highlighter-rouge">{<span>% extends 'base.html' %}</span></code>
+        ```html
+        {{ openTag }} extends "base.html" %}
+        
+        
+        {{ openTag }} block css_style %}
+        <link rel="stylesheet" href="/static/test.css" />
+        {{ openTag }} endblock %}
+        
+        {{ openTag }} block content %}
+            {{ name|title }}        
+        {{ openTag }} endblock %}
+        ```  
+    * 过滤器传参数使用括号
+        ```html
+        {{ openTa }} age|test(int_type num) }}
+        ```
+7. 自定义过滤器  
+    * 同app下新建myfilter.py文件，内容如下
+        ```python
+        #cofing:utf-8
+        
+        def test(value, args):
+            return value * args
+        ```  
+   
+    * 在base_jinja.py中增加自定义过滤器信息
+        ```python
+        #coding:utf-8
+        from django.templatetags.static import static
+        from django.urls import reverse
+        
+        from jinja2 import Environment
+        
+        from .myfilter import test
+        # 新增
+        
+        def environment(**options):
+            env = Environment(**options)
+            env.globals.update({
+                'static': static,
+                'url': reverse,
+            })
+            env.filters['test'] = test
+            # 新增
+        
+            return env
+        ```  
+   
+    * 在html中  
+        ```html
+        {{openTa}} age|test(int_type num) }}
+        ```
