@@ -1,6 +1,7 @@
 ---
 layout: post
 title: 'django2.2使用jinja配置'
+subtitle: 'django2.2使用jinja和以前的django版本中有些区别，这里顺便会说明'
 date: 2019-11-20 18:40:59
 author: qifeng
 color: rgb(255,210,32)
