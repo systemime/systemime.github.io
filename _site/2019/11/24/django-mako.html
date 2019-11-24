@@ -1,0 +1,463 @@
+<!-- 博文的布局-Layout -->
+<!DOCTYPE html>
+<html>
+<head>
+<!-- 引入head标签 -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-sclable=0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="description" content="如果所有人都理解你会普通成什么样子" />
+<meta name="keywords" content="自述, 柒麟" />
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/media.css">
+<link rel="stylesheet" href="/assets/css/animate.min.css">
+<link rel="stylesheet" href="/assets/css/pygments/pygments_default.css">
+<link rel="stylesheet" href="/assets/css/github-markdown.css">
+<!-- SNS-icon -->
+<script src="//at.alicdn.com/t/font_856428_y9z6nq7zf5.js"></script>
+<!-- share.css -->
+<link rel="stylesheet" href="/assets/css/share.min.css">
+<!-- font -->
+<link rel="stylesheet" href="/assets/css/font.css">
+<!-- <link href="https://fonts.googleapis.com/css?family=Kaushan+Script|Pacifico|Ubuntu|Roboto+Mono|Source+Sans+Pro" rel="stylesheet"> -->
+
+<!-- Favicon -->
+<link href="/assets/profile.jpeg" rel="shortcut icon" />
+<link href="/assets/profile.jpeg" rel="apple-touch-icon-precomposed" />
+<!-- Android Lolipop Theme Color -->
+<!-- <meta name="theme-color" content="#1464FB"> -->
+<title>django2.2使用mako配置</title>
+<!-- 百度统计 -->
+
+<!-- 谷歌分析 -->
+
+
+<!-- Android Lolipop Theme Color -->
+<meta name="theme-color" content=" rgb(154,133,255) ">
+</head>
+<body>
+
+<!-- 顶部锚点 -->
+<a id="htmlup" name="htmlup"></a>
+<!-- 引入博文顶部选项 -->
+
+<header id="post-header" style="background-color:rgb(154,133,255);">
+  <div class="top-center">
+      <div class="logo">
+          <a href="/" title="my awesome webtitle" style="color: white;">愿世间美好与你环环相绕</a>
+      </div>
+      <nav class="top-nav">
+          <ul>
+              
+                <li><a href="/" style="color: white;">首页</a></li>
+              
+                <li><a href="/tags.html" style="color: white;">标签</a></li>
+              
+                <li><a href="/timeline.html" style="color: white;">时间线</a></li>
+              
+                <li><a href="/about.html" style="color: white;">关于博主</a></li>
+              
+                <li><a href="/friendLink.html" style="color: white;">友情链接</a></li>
+              
+          </ul>
+      </nav>
+      <div id="top-boot">
+        <a href="javascript:;" id="boot1" style="display:block;" onclick="document.getElementById('boot-area').style.display='block';document.getElementById('boot1').style.display='none';document.getElementById('boot2').style.display='block';"><img src="/assets/boot_white.png" alt=""></a>
+        <a href="javascript:;" id="boot2" style="display: none;" onclick="document.getElementById('boot-area').style.display='none';document.getElementById('boot1').style.display='block';document.getElementById('boot2').style.display='none';"><img src="/assets/boot_white.png" alt=""></a>
+      </div>
+  </div>
+
+</header>
+
+
+<!-- 引入移动下拉选项 -->
+<div id="boot-area">
+    <ul>
+        
+          <a href="/"><li>首页</li></a>
+        
+          <a href="/tags.html"><li>标签</li></a>
+        
+          <a href="/timeline.html"><li>时间线</li></a>
+        
+          <a href="/about.html"><li>关于博主</li></a>
+        
+          <a href="/friendLink.html"><li>友情链接</li></a>
+        
+    </ul>
+</div>
+
+<!-- 引入博文顶部样式 -->
+<!-- 版本一 垃圾 -->
+<!-- <div class="wow fadeIn top" data-wow-duration="3.5s" >
+    <span class="wow fadeInUp" data-wow-delay="0.2s">django2.2使用mako配置</span>
+    <span class="wow fadeInUp" data-wow-delay="0.4s"></span>
+    <span class="wow fadeInUp" data-wow-delay="0.4s"></span>
+    <span class="wow fadeInUp" data-wow-delay="0.6s">作者&nbsp;&nbsp;|&nbsp;&nbsp;qifeng</span>
+</div> -->
+
+<!-- 版本二 可切换页面 -->
+
+<div class="post-top" style="background-color:rgb(154,133,255);">
+  <!-- 页面宽度大于800px -->
+  <div class="left-area">
+    
+      <a href="javascript:;" class="btn bounceInLeft animated" onmouseover="showLeft();this.style.color='rgb(154,133,255)';" onmouseout="goneLeft();this.style.color='rgba(0,0,0,.2)';"><</a>
+      <div id="left-tab" style="display:none;"><span class="left-san"></span><span class="left-main" style="color:rgb(154,133,255);"><sapn class="main">没有上一页咯</sapn></span></div>
+    
+  </div>
+  <div class="post-titlearea">
+    <span class="wow fadeInUp" data-wow-delay="0.2s">django2.2使用mako配置</span>
+    <!-- <span class="wow fadeInUp" data-wow-delay="0.4s"></span> -->
+    <!-- <span class="wow fadeInUp" data-wow-delay="0.4s"></span> -->
+    <!-- <span class="wow fadeInUp" data-wow-delay="0.6s">作者&nbsp;&nbsp;|&nbsp;&nbsp;qifeng</span> -->
+  </div>
+  <div class="right-area">
+    
+      <a href="/2019/11/22/nihao.html" class="btn bounceInRight self-animated" onmouseover="showRight();this.style.color='rgb(154,133,255)';" onmouseout="goneRight();this.style.color='rgba(0,0,0,.2)';">></a>
+      <div id="right-tab" style="display:none;"><span class="right-san"></span><span class="right-main" style="color:rgb(154,133,255);"><sapn class="main">你好</sapn></span></div>
+    
+  </div>
+
+  <!-- 页面宽度小于800px -->
+  <div class="post-changearea">
+    
+      <a href="javascript:;" class="leftchange" style="border-right: 1px solid rgb(154,133,255);border-bottom: 2px solid rgb(154,133,255);"><span><br>没有上一篇咯</span></a>
+    
+    
+      <a href="/2019/11/22/nihao.html" class="rightchange" style="border-left: 1px solid rgb(154,133,255);border-bottom: 2px solid rgb(154,133,255);"><span>下一篇<br><br>你好</span></a>
+    
+  </div>
+</div>
+
+
+<div class="markdown-body fadeInUp animated">
+
+  
+    
+      <div class="postpage-subtitle" style="border-left: 8px solid rgb(154,133,255); border-right: 8px solid rgb(154,133,255)">
+        django2.2使用mako做为网页模板语言的使用方式
+      </div>
+    
+  
+
+  <!-- 文章内容 -->
+  <h3 id="一安装mako">一、安装mako</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip install mako
+</code></pre></div></div>
+
+<h3 id="二创建mako配置文件">二、创建mako配置文件</h3>
+
+<blockquote>
+  <p>该步骤最重要的是重写了render函数</p>
+</blockquote>
+
+<h4 id="在app内新建-base_renderpy-文件">在app内新建 <code class="highlighter-rouge">base_render.py</code> 文件</h4>
+
+<blockquote>
+  <p>文件名可变，保证引用正确即可</p>
+</blockquote>
+
+<p>写入如下内容：</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#coding:utf-8</span>
+
+<span class="kn">from</span> <span class="nn">mako.lookup</span> <span class="kn">import</span> <span class="n">TemplateLookup</span>
+<span class="kn">from</span> <span class="nn">django.template</span> <span class="kn">import</span> <span class="n">RequestContext</span>
+<span class="kn">from</span> <span class="nn">django.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">django.template.context</span> <span class="kn">import</span> <span class="n">Context</span>
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+
+
+<span class="k">def</span> <span class="nf">render_to_response</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">template</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="n">context_instance</span> <span class="o">=</span> <span class="n">RequestContext</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="c"># 引入模板位置</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">TEMPLATES</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s">'DIRS'</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">lookup</span> <span class="o">=</span> <span class="n">TemplateLookup</span><span class="p">(</span>
+        <span class="n">directories</span><span class="o">=</span><span class="p">[</span><span class="n">path</span><span class="p">],</span>
+        <span class="n">output_encoding</span><span class="o">=</span><span class="s">'utf-8'</span><span class="p">,</span>
+        <span class="n">input_encoding</span><span class="o">=</span><span class="s">'utf-8'</span>
+    <span class="p">)</span>
+    <span class="c"># 导入模板路径</span>
+    <span class="n">mako_template</span> <span class="o">=</span> <span class="n">lookup</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="n">template</span><span class="p">)</span>
+    <span class="c"># 防空</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="c"># 判断实例是否存</span>
+    <span class="k">if</span> <span class="n">context_instance</span><span class="p">:</span>
+        <span class="n">context_instance</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">context_instance</span> <span class="o">=</span> <span class="n">Context</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">context_instance</span><span class="p">:</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+    <span class="c"># 加入csrf_token关键字 csrfmiddlewaretoke 中间件</span>
+    <span class="n">result</span><span class="p">[</span><span class="s">'csrf_token'</span><span class="p">]</span> <span class="o">=</span> <span class="s">'&lt;input type="hidden" name="csrfmiddlewaretoken" value="{0}" /&gt;'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">META</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'CSRF_COOKIE'</span><span class="p">,</span> <span class="s">''</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">mako_template</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="o">**</span><span class="n">result</span><span class="p">))</span>
+</code></pre></div></div>
+
+<h3 id="在视图中-viewspy-导入mako配置">在视图中 <code class="highlighter-rouge">views.py</code> 导入mako配置</h3>
+<p>内容如下：</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span>
+<span class="kn">from</span> <span class="nn">django.views.generic</span> <span class="kn">import</span> <span class="n">View</span>
+<span class="c"># Create your views here.</span>
+
+<span class="kn">from</span> <span class="nn">.bash_render</span> <span class="kn">import</span> <span class="n">render_to_response</span>
+<span class="c"># 此句导入mako配置，引入重写的render方法</span>
+
+<span class="k">class</span> <span class="nc">Test</span><span class="p">(</span><span class="n">View</span><span class="p">):</span>  <span class="c"># 测试类</span>
+    <span class="n">TEMPLATE</span> <span class="o">=</span> <span class="s">'test.html'</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">'name'</span><span class="p">:</span> <span class="s">'dewei'</span><span class="p">,</span> <span class="s">'age'</span><span class="p">:</span> <span class="mi">30</span><span class="p">}</span>
+
+        <span class="k">print</span><span class="p">(</span><span class="nb">dir</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">render_to_response</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">TEMPLATE</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+        <span class="c"># 此处data = data中，第一个data为传入数据名，与base_render中定义的参数名需要相同</span>
+</code></pre></div></div>
+
+<h3 id="三使用测试">三、使用测试</h3>
+
+<h4 id="新建模板页-basehtml">新建模板页 <code class="highlighter-rouge">base.html</code></h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```html
+<span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">"X-UA-Compatible"</span> <span class="na">content=</span><span class="s">"IE=edge"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;</span>${self.title()}<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">""</span><span class="nt">&gt;</span>
+    ${self.css()}
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    <span class="c">&lt;!--子页面的导入--&gt;</span>
+    ${self.content()}
+    <span class="c">&lt;!--子页面js导入--&gt;</span>
+    ${self.js()}
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+<span class="c">&lt;!--主体函数--&gt;</span>
+<span class="nt">&lt;</span><span class="err">%</span><span class="na">def</span> <span class="na">name=</span><span class="s">"content()"</span><span class="nt">&gt;</span>
+    ${self.main()}
+<span class="nt">&lt;/</span><span class="err">%</span><span class="nt">def&gt;</span>
+<span class="c">&lt;!--主函数--&gt;</span>
+<span class="nt">&lt;</span><span class="err">%</span><span class="na">def</span> <span class="na">name=</span><span class="s">"main()"</span><span class="nt">&gt;&lt;/</span><span class="err">%</span><span class="nt">def&gt;</span>
+<span class="c">&lt;!--标签名--&gt;</span>
+<span class="nt">&lt;</span><span class="err">%</span><span class="na">def</span> <span class="na">name=</span><span class="s">"title()"</span><span class="nt">&gt;&lt;/</span><span class="err">%</span><span class="nt">def&gt;</span>
+<span class="c">&lt;!--导入css和js--&gt;</span>
+<span class="nt">&lt;</span><span class="err">%</span><span class="na">def</span> <span class="na">name=</span><span class="s">"js()"</span><span class="nt">&gt;&lt;/</span><span class="err">%</span><span class="nt">def&gt;</span>
+<span class="nt">&lt;</span><span class="err">%</span><span class="na">def</span> <span class="na">name=</span><span class="s">"css()"</span><span class="nt">&gt;&lt;/</span><span class="err">%</span><span class="nt">def&gt;</span>
+```  
+</code></pre></div></div>
+
+<h4 id="新建子页面-testhtml">新建子页面 <code class="highlighter-rouge">test.html</code></h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```html  
+&lt;!--引入主页面--&gt;
+&lt;%inherit file="base.html" /&gt;
+
+&lt;!--标签页名--&gt;
+&lt;%def name="title()"&gt;
+    test
+&lt;/%def&gt;
+
+&lt;!--js导入--&gt;
+&lt;%def name="js()"&gt;
+    &lt;script src="https://cdn.bootcss.com/jquery/2.2.0/jquery.js"&gt;&lt;/script&gt;
+&lt;/%def&gt;
+
+&lt;!--主内容--&gt;
+&lt;%def name="main()"&gt;
+    &lt;h1&gt;hello mako&lt;/h1&gt;
+&lt;/%def&gt;
+
+&lt;!--css导入--&gt;
+&lt;%def name="css()"&gt;
+    &lt;link rel="stylesheet" href="/static/test.css" /&gt;
+&lt;/%def&gt;
+
+&lt;!--
+&lt;!--mako变量显示方法--&gt;
+${name}
+${age}
+
+&lt;br /&gt;
+&lt;!--mako 在页面中导入模块--&gt;
+&lt;%!
+    from django.conf import settings
+%&gt;
+&lt;!--mako 输出--&gt;
+${settings.TEMPLATES[0]['DIRS'][0]}
+
+&lt;br /&gt;
+&lt;!--csrf验证--&gt;
+${csrf_token}
+
+&lt;br /&gt;
+
+&lt;!--mako 在页面中循环用法--&gt;
+%for i in range(20):
+    &lt;input type="text" value="${i}" /&gt;
+%endfor
+
+&lt;!--mako 在页面中定义函数并使用--&gt;
+&lt;%!
+def name():
+    return 'my name is qifeng'
+%&gt;
+
+&lt;input style="display: block" type="text" name="username" value="${name()}" /&gt;
+
+--&gt;
+```  
+</code></pre></div></div>
+
+<h4 id="不同页面之间传参">不同页面之间传参</h4>
+<ul>
+  <li>在子页面 <code class="highlighter-rouge">test.html</code> 中
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nt">&lt;</span><span class="err">%</span><span class="na">def</span> <span class="na">name=</span><span class="s">"main()"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;</span><span class="err">%</span><span class="na">include</span> <span class="na">file=</span><span class="s">"extend.html"</span> <span class="na">args=</span><span class="s">"local_content='你好 mako'"</span> <span class="nt">/&gt;</span>
+      <span class="c">&lt;!--参数传递, file为引入文件名，args为引入界面的变量名及参数内容--&gt;</span>
+  <span class="nt">&lt;/</span><span class="err">%</span><span class="nt">def&gt;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>在 <code class="highlighter-rouge">extend.html</code> 中
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nt">&lt;</span><span class="err">%</span><span class="na">page</span> <span class="na">args=</span><span class="s">"local_content"</span> <span class="nt">/&gt;</span>
+  <span class="c">&lt;!--通过page方法定义args使得其他页面能定位该页面位置，能够将local_content内容传入--&gt;</span>
+  <span class="nt">&lt;textarea&gt;</span>
+  ${local_content}
+  <span class="c">&lt;!-- local_content仅仅是个变量名 --&gt;</span>
+  <span class="nt">&lt;/textarea&gt;</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+  <!-- 引入share模块 -->
+  
+  <div class="social-share-wrapper">
+    <div class="social-share"></div>
+  </div>
+
+
+<!-- share.js -->
+<script src="/assets/js/social-share.min.js"></script>
+<script>
+  socialShare('.social-share', {
+    sites: [
+      
+        'qq'
+        ,
+        
+      
+        'wechat'
+        ,
+        
+      
+        'weibo'
+        ,
+        
+      
+        'twitter'
+        ,
+        
+      
+        'facebook'
+        
+      
+    ],
+    wechatQrcodeTitle: "分享到微信朋友圈",
+    wechatQrcodeHelper: '期待在朋友圈见到这篇文章'
+  });
+</script>
+
+</div>
+
+<!-- 底部锚点 -->
+<a id="htmldown" name="htmldown"></a>
+<!-- 引入评论模块 -->
+
+
+
+    <section class="post-footer-item comment">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80NzUwOC8yNDAwOA=="></div>
+    </section>
+
+    <!-- 来必力City版安装代码 -->
+    <script type="text/javascript">
+       (function(d, s) {
+           var j, e = d.getElementsByTagName(s)[0];
+
+           if (typeof LivereTower === 'function') { return; }
+
+           j = d.createElement(s);
+           j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+           j.async = true;
+
+           e.parentNode.insertBefore(j, e);
+       })(document, 'script');
+    </script>
+    <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+    <!-- City版安装代码已完成 -->
+
+
+
+
+
+<!-- 引入goto模块 -->
+<div class="bounceInRight animated go">
+  <a title="顶部切换页面" class="gototop" href="#htmlup" target="_self">
+    <div class="box" style="font-family:'ffad_matroregular';">
+        Top
+    </div>
+  </a>
+  <a title="底部有livere评论哦" class="gotobottom" href="#htmldown" target="_self">
+    <div class="box" style="font-family:'ffad_matroregular';">
+        Foot
+    </div>
+  </a>
+</div>
+
+<!-- 引入页面底部模块 -->
+<footer id="bottom">
+  <br>
+  <span>Breeze and me ©
+  
+  
+    2018
+    -
+  
+  2019
+  <br>
+  Powered by <a href="https://www.jekyll.com.cn/">Jekyll</a> | <a href="https://github.com/xukimseven/HardCandy-Jekyll">HardCandy-Jekyll</a></span>
+</footer>
+
+
+<!-- 引用wow.js的动画效果 -->
+<script src="/assets/js/wow.js"></script>
+<script>
+    var wow = new WOW({
+        boxClass: 'wow',
+        animateClass: 'animated',
+        // offset: 600,
+        mobile: true,
+        live: true
+    });
+    wow.init();
+</script>
+<!-- 页面刷新回到顶部 -->
+<script>
+    window.onbeforeunload = function(){
+        //刷新后页面自动回到顶部
+        document.documentElement.scrollTop = 0;  //ie下
+        document.body.scrollTop = 0;  //非ie
+    }
+</script>
+<script src="/assets/js/main.js"></script>
+</body>
+</html>
