@@ -191,9 +191,21 @@ from django import template
 register = template.Labrary()
 
 @register.filter
+# 该解释器有name属性，可以定义自定义过滤器使用时的名称，默认为函数名
+# @register.filter(name='自定义名称')
 def test(value, args):
     return value * args
 ```  
+
+> **在 `setting.py` 自定义app注册下方添加**  
+
+```
+INSTALLED_APPS = [
+	...
+	'app.templateages',
+]
+```
+
 
 > **错误记录：**
 
