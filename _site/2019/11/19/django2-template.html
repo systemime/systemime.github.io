@@ -425,8 +425,20 @@ DIRS = os.join.path(BASE_DIR, 'templates')
 <span class="n">register</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">Labrary</span><span class="p">()</span>
 
 <span class="nd">@register.filter</span>
+<span class="c"># 该解释器有name属性，可以定义自定义过滤器使用时的名称，默认为函数名</span>
+<span class="c"># @register.filter(name='自定义名称')</span>
 <span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">value</span> <span class="o">*</span> <span class="n">args</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>在 <code class="highlighter-rouge">setting.py</code> 自定义app注册下方添加</strong></p>
+</blockquote>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>INSTALLED_APPS = [
+	...
+	'app.templateages',
+]
 </code></pre></div></div>
 
 <blockquote>

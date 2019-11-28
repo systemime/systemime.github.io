@@ -1,4 +1,277 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.1">Jekyll</generator><link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/" rel="alternate" type="text/html" /><updated>2019-11-24T20:10:52+08:00</updated><id>http://0.0.0.0:4000/</id><title type="html">Breeze and me</title><subtitle>如果所有人都理解你会普通成什么样子</subtitle><author><name>true</name></author><entry><title type="html">django2.2使用mako配置</title><link href="http://0.0.0.0:4000/2019/11/24/django-mako.html" rel="alternate" type="text/html" title="django2.2使用mako配置" /><published>2019-11-24T02:40:59+08:00</published><updated>2019-11-24T02:40:59+08:00</updated><id>http://0.0.0.0:4000/2019/11/24/django-mako</id><content type="html" xml:base="http://0.0.0.0:4000/2019/11/24/django-mako.html">&lt;h3 id=&quot;一安装mako&quot;&gt;一、安装mako&lt;/h3&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.1">Jekyll</generator><link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/" rel="alternate" type="text/html" /><updated>2019-11-28T21:39:17+08:00</updated><id>http://0.0.0.0:4000/</id><title type="html">Breeze and me</title><subtitle>如果所有人都理解你会普通成什么样子</subtitle><author><name>true</name></author><entry><title type="html">django2.2关于”str object has no attribute decode” 的错误处理</title><link href="http://0.0.0.0:4000/2019/11/27/django-str-not-decode.html" rel="alternate" type="text/html" title="django2.2关于&quot;str object has no attribute decode&quot; 的错误处理" /><published>2019-11-27T00:00:00+08:00</published><updated>2019-11-27T00:00:00+08:00</updated><id>http://0.0.0.0:4000/2019/11/27/django-str-not-decode</id><content type="html" xml:base="http://0.0.0.0:4000/2019/11/27/django-str-not-decode.html">&lt;h2 id=&quot;关于-str-object-has-no-attribute-decode-的报错处理&quot;&gt;关于 &lt;code class=&quot;highlighter-rouge&quot;&gt;'str' object has no attribute 'decode'&lt;/code&gt; 的报错处理&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;报错代码段&lt;/p&gt;
+
+    &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;      &lt;span class=&quot;c&quot;&gt;# 位于/home/soul/anaconda3/lib/python3.6/site-packages/django/db/backends/mysql/operations.py &lt;/span&gt;
+      &lt;span class=&quot;c&quot;&gt;# 第140行&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;last_executed_query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cursor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sql&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+          &lt;span class=&quot;c&quot;&gt;# With MySQLdb, cursor objects have an (undocumented) &quot;_executed&quot;&lt;/span&gt;
+          &lt;span class=&quot;c&quot;&gt;# attribute where the exact query sent to the database is saved.&lt;/span&gt;
+          &lt;span class=&quot;c&quot;&gt;# See MySQLdb/cursors.py in the source distribution.&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;query&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;getattr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cursor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'_executed'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+          &lt;span class=&quot;c&quot;&gt;# print(&quot;=========================&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&quot;, type(query))&lt;/span&gt;
+          &lt;span class=&quot;c&quot;&gt;# 这句话是我自己加的&lt;/span&gt;
+          &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;query&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+              &lt;span class=&quot;n&quot;&gt;query&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;errors&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'replace'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+          &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;报错信息&lt;br /&gt;
+同时可以看出 &lt;code class=&quot;highlighter-rouge&quot;&gt;getattr&lt;/code&gt; 函数返回值类型为 &lt;code class=&quot;highlighter-rouge&quot;&gt;str&lt;/code&gt;&lt;/p&gt;
+    &lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  (base) [soul@listener one_orm]$ python manage.py makemigrations
+  =========================&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; &amp;lt;class 'str'&amp;gt;
+  Traceback (most recent call last):
+    File &quot;manage.py&quot;, line 21, in &amp;lt;module&amp;gt;
+      main()
+    File &quot;manage.py&quot;, line 17, in main
+      execute_from_command_line(sys.argv)
+    File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/core/management/__init__.py&quot;, line 381, in execute_from_command_line
+      utility.execute()
+    File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/core/management/__init__.py&quot;, line 375, in execute
+      self.fetch_command(subcommand).run_from_argv(self.argv)
+    File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/core/management/base.py&quot;, line 323, in run_from_argv
+      self.execute(*args, **cmd_options)
+    File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/core/management/base.py&quot;, line 364, in execute
+      output = self.handle(*args, **options)
+    File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/core/management/base.py&quot;, line 83, in wrapped
+      res = handle_func(*args, **kwargs)
+    File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/core/management/commands/makemigrations.py&quot;, line 101, in handle
+      loader.check_consistent_history(connection)
+    File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/db/migrations/loader.py&quot;, line 283, in check_consistent_history
+      applied = recorder.applied_migrations()
+    File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/db/migrations/recorder.py&quot;, line 73, in applied_migrations
+      if self.has_table():
+    File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/db/migrations/recorder.py&quot;, line 56, in has_table
+      return self.Migration._meta.db_table in self.connection.introspection.table_names(self.connection.cursor())
+    File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/db/backends/base/base.py&quot;, line 256, in cursor
+      return self._cursor()
+    File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/db/backends/base/base.py&quot;, line 233, in _cursor
+      self.ensure_connection()
+    File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/db/backends/base/base.py&quot;, line 217, in ensure_connection
+      self.connect()
+    File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/db/backends/base/base.py&quot;, line 197, in connect
+      self.init_connection_state()
+    File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/db/backends/mysql/base.py&quot;, line 231, in init_connection_state
+      if self.features.is_sql_auto_is_null_enabled:
+    File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/utils/functional.py&quot;, line 80, in __get__
+      res = instance.__dict__[self.name] = self.func(instance)
+    File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/db/backends/mysql/features.py&quot;, line 82, in is_sql_auto_is_null_enabled
+      cursor.execute('SELECT @@SQL_AUTO_IS_NULL')
+    File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/db/backends/utils.py&quot;, line 103, in execute
+      sql = self.db.ops.last_executed_query(self.cursor, sql, params)
+    File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/db/backends/mysql/operations.py&quot;, line 147, in last_executed_query
+      query = query.decode(errors='replace')
+  AttributeError: 'str' object has no attribute 'decode'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;编码解码解释&quot;&gt;编码解码解释&lt;/h4&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;内存的Unicode格式编码成为硬盘Utf-8格式，逆过程为解码&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;编码：&lt;/strong&gt; 将文本转换成字节流的过程。即 &lt;code class=&quot;highlighter-rouge&quot;&gt;Unicode&lt;/code&gt;，特定格式的编码方式，产生特定的字节流保存在硬盘中(一般为utf-8格式)&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;解码：&lt;/strong&gt; 将硬盘中的字节流转换成文本的过程。即特定格式的字节流 &lt;code class=&quot;highlighter-rouge&quot;&gt;Unicode&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt; 在内存中写的所有的字符，一视同仁，都是Unicode编码，但只有往硬盘保存或者基于网络传输时，才能确定你输入的字符是英文还好汉文，这就是&lt;code class=&quot;highlighter-rouge&quot;&gt;Unicode&lt;/code&gt;转换成其他编码格式的过程。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;decode(“utf-8”, “ignore”) 忽略其中有异常的编码，仅显示有效的编码&lt;/li&gt;
+  &lt;li&gt;decode(“utf-8”, “replace”) 替换其中异常的编码，这个相对更容易找出错误字符编码&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;python3中字符串格式&quot;&gt;python3中字符串格式&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;文本字符串类型：&lt;br /&gt;
+即我们通常定义的str类型的对象。在Python3中，str类型的对象都是Unicode，因此对于str类型的对象只有encode（）方法，没有decode（）方法（若运行，会报错）&lt;/li&gt;
+  &lt;li&gt;字节字符串类型：&lt;br /&gt;
+即byte类型的对象。对于该类对象，是由str类型对象使用encode()方法产生，byte对象可以进行解码过程，从而得到真正的内容&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;其实到这里我们已经知道报错原因了，继续往下看&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;python3中-getattr-函数&quot;&gt;python3中 &lt;code class=&quot;highlighter-rouge&quot;&gt;getattr()&lt;/code&gt; 函数&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;描述：&lt;br /&gt;
+getattr()函数用于返回一个对象属性值&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;语法：&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  getattr(object,name,default)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;参数：
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;object&lt;/code&gt;–对象&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;name&lt;/code&gt;–字符串，对象属性&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;default&lt;/code&gt;–默认返回值，如果不提供该参数，在没有对于属性时，将触发AttributeError&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;返回值：&lt;br /&gt;
+返回对象属性值&lt;/p&gt;
+
+    &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;People&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;country&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'China'&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+      &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;
+     
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;people_info&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s is xxx'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;obj&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;getattr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;People&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'country'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;obj&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;#返回值China&lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;#obj=getattr(People,'countryaaaaaa')&lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;#print(obj)&lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;#报错&lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;# File &quot;/getattr()函数.py&quot;, line 32, in &amp;lt;module&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;#   obj=getattr(People,'countryaaaaaa')&lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;# AttributeError: type object 'People' has no attribute 'countryaaaaaa'&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;obj&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;getattr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;People&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'countryaaaaaa'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;obj&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;#返回值None&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;修改方案&quot;&gt;修改方案&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;结合上面python3中字符串的相关知识与 &lt;code class=&quot;highlighter-rouge&quot;&gt;getattr&lt;/code&gt; 函数返回值类型可以断定，这里的错误是由于 &lt;code class=&quot;highlighter-rouge&quot;&gt;str&lt;/code&gt; 没有 &lt;code class=&quot;highlighter-rouge&quot;&gt;decode（）&lt;/code&gt; 方法引起的&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;方案一&quot;&gt;方案一&lt;/h4&gt;
+&lt;p&gt;直接对这两句代码进行注释&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 位于/home/soul/anaconda3/lib/python3.6/site-packages/django/db/backends/mysql/operations.py &lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 第140行&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;last_executed_query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cursor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sql&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# With MySQLdb, cursor objects have an (undocumented) &quot;_executed&quot;&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# attribute where the exact query sent to the database is saved.&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# See MySQLdb/cursors.py in the source distribution.&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;query&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;getattr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cursor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'_executed'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# if query is not None:&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;#     query = query.decode(errors='replace')&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;方案二&quot;&gt;方案二&lt;/h4&gt;
+&lt;p&gt;这个方案看起来有些多余，对比 &lt;code class=&quot;highlighter-rouge&quot;&gt;django&lt;/code&gt; 1.11版本代码以及代码段注释，这段代码加入的具体意义有些莫名其妙&lt;/p&gt;
+
+&lt;p&gt;但是为了保险起见，可以加入 &lt;code class=&quot;highlighter-rouge&quot;&gt;try&lt;/code&gt; 方法达到另一种注释的方法&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;last_executed_query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cursor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sql&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# With MySQLdb, cursor objects have an (undocumented) &quot;_executed&quot;&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# attribute where the exact query sent to the database is saved.&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# See MySQLdb/cursors.py in the source distribution.&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;query&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;getattr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cursor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'_executed'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;query&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;query&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;errors&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'replace'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;except&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;还没结束&quot;&gt;还没结束！！！&lt;/h2&gt;
+&lt;p&gt;众所周知，&lt;code class=&quot;highlighter-rouge&quot;&gt;django&lt;/code&gt; 是个开源项目，那么为什么去不去github上看看呢？&lt;/p&gt;
+
+&lt;p&gt;我在 &lt;code class=&quot;highlighter-rouge&quot;&gt;Pull requests&lt;/code&gt; 中并没有找到想要的答案，于是我在django项目里按照目录寻找 &lt;code class=&quot;highlighter-rouge&quot;&gt;operations.py&lt;/code&gt; 文件&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;django/django/db/backends/mysql/operations.py
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;果然，开源社区最棒！！！&lt;/p&gt;
+
+&lt;p&gt;在最新的代码中， &lt;code class=&quot;highlighter-rouge&quot;&gt;last_executed_query&lt;/code&gt; 函数被修改成如下&lt;/p&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 19年11月27日，位于157行&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;last_executed_query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cursor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sql&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# With MySQLdb, cursor objects have an (undocumented) &quot;_executed&quot;&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# attribute where the exact query sent to the database is saved.&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# See MySQLdb/cursors.py in the source distribution.&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# MySQLdb returns string, PyMySQL bytes.&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;force_str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;getattr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cursor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'_executed'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;errors&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'replace'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;force_str&lt;/code&gt; 方法定义在 &lt;code class=&quot;highlighter-rouge&quot;&gt;django/django/utils/encoding.py&lt;/code&gt; 的48行，对比目前代码&lt;/p&gt;
+
+&lt;p&gt;本地的代码为：&lt;/p&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DjangoUnicodeDecodeError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;UnicodeDecodeError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;obj&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;obj&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;obj&lt;/span&gt;
+        &lt;span class=&quot;nb&quot;&gt;super&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__str__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s. You passed in &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;r (&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s)'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;super&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__str__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;obj&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;obj&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;is_protected_type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;obj&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;Determine if the object instance is of a protected type.
+
+    Objects of protected types are preserved as-is when passed to
+    force_text(strings_only=True).
+    &quot;&quot;&quot;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;isinstance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;obj&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_PROTECTED_TYPES&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;force_text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;encoding&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'utf-8'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;strings_only&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;errors&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'strict'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;
+    Similar to smart_text, except that lazy instances are resolved to
+    strings, rather than kept as lazy objects.
+
+    If strings_only is True, don't convert (some) non-string-like objects.
+    &quot;&quot;&quot;&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# Handle the common case first for performance reasons.&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;issubclass&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;strings_only&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;is_protected_type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;isinstance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;bytes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;encoding&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;errors&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;except&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;UnicodeDecodeError&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;raise&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DjangoUnicodeDecodeError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;force_str&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;force_text&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;对比发现，(本地环境为 &lt;code class=&quot;highlighter-rouge&quot;&gt;django2.2.6&lt;/code&gt; )，在我本地django源码中，&lt;code class=&quot;highlighter-rouge&quot;&gt;force_str&lt;/code&gt; 方法和 &lt;code class=&quot;highlighter-rouge&quot;&gt;force_text&lt;/code&gt; 相同，而其他部分与github目前代码相同，尝试修改&lt;code class=&quot;highlighter-rouge&quot;&gt;operations.py&lt;/code&gt; 文件与github相同&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;django.utils.encoding&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;force_text&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;last_executed_query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cursor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sql&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# With MySQLdb, cursor objects have an (undocumented) &quot;_executed&quot;&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# attribute where the exact query sent to the database is saved.&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# See MySQLdb/cursors.py in the source distribution.&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# MySQLdb returns string, PyMySQL bytes.&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;force_text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;getattr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cursor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'_executed'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;errors&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'replace'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;运行测试：&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;(base) [soul@listener one_orm]$ python manage.py makemigrations
+No changes detected
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;奥利给！！！！！&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;到此，问题解决&lt;/p&gt;
+&lt;/blockquote&gt;</content><author><name>qifeng</name></author><category term="error" /><category term="django" /><summary type="html">关于 'str' object has no attribute 'decode' 的报错处理</summary></entry><entry><title type="html">django2.2使用mako配置</title><link href="http://0.0.0.0:4000/2019/11/24/django-mako.html" rel="alternate" type="text/html" title="django2.2使用mako配置" /><published>2019-11-24T02:40:59+08:00</published><updated>2019-11-24T02:40:59+08:00</updated><id>http://0.0.0.0:4000/2019/11/24/django-mako</id><content type="html" xml:base="http://0.0.0.0:4000/2019/11/24/django-mako.html">&lt;h3 id=&quot;一安装mako&quot;&gt;一、安装mako&lt;/h3&gt;
 
 &lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pip install mako
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -192,7 +465,7 @@ def name():
   &lt;span class=&quot;nt&quot;&gt;&amp;lt;/textarea&amp;gt;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
-&lt;/ul&gt;</content><author><name>qifeng</name></author><category term="mako" /><category term="django" /><summary type="html">一、安装mako</summary></entry><entry><title type="html">你好</title><link href="http://0.0.0.0:4000/2019/11/22/nihao.html" rel="alternate" type="text/html" title="你好" /><published>2019-11-22T00:00:00+08:00</published><updated>2019-11-22T00:00:00+08:00</updated><id>http://0.0.0.0:4000/2019/11/22/nihao</id><content type="html" xml:base="http://0.0.0.0:4000/2019/11/22/nihao.html">&lt;h1 id=&quot;你好啊&quot;&gt;你好啊&lt;/h1&gt;
+&lt;/ul&gt;</content><author><name>qifeng</name></author><category term="mako" /><category term="django" /><summary type="html">一、安装mako</summary></entry><entry><title type="html">你好</title><link href="http://0.0.0.0:4000/2019/11/24/nihao.html" rel="alternate" type="text/html" title="你好" /><published>2019-11-24T00:00:00+08:00</published><updated>2019-11-24T00:00:00+08:00</updated><id>http://0.0.0.0:4000/2019/11/24/nihao</id><content type="html" xml:base="http://0.0.0.0:4000/2019/11/24/nihao.html">&lt;h1 id=&quot;你好啊&quot;&gt;你好啊&lt;/h1&gt;
 
 &lt;h4 id=&quot;陌生人&quot;&gt;陌生人&lt;/h4&gt;
 
@@ -628,8 +901,20 @@ DIRS = os.join.path(BASE_DIR, 'templates')
 &lt;span class=&quot;n&quot;&gt;register&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Labrary&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 
 &lt;span class=&quot;nd&quot;&gt;@register.filter&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 该解释器有name属性，可以定义自定义过滤器使用时的名称，默认为函数名&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# @register.filter(name='自定义名称')&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;在 &lt;code class=&quot;highlighter-rouge&quot;&gt;setting.py&lt;/code&gt; 自定义app注册下方添加&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;INSTALLED_APPS = [
+	...
+	'app.templateages',
+]
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;blockquote&gt;

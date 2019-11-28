@@ -1,0 +1,543 @@
+<!-- 博文的布局-Layout -->
+<!DOCTYPE html>
+<html>
+<head>
+<!-- 引入head标签 -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-sclable=0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="description" content="如果所有人都理解你会普通成什么样子" />
+<meta name="keywords" content="自述, 柒麟" />
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/media.css">
+<link rel="stylesheet" href="/assets/css/animate.min.css">
+<link rel="stylesheet" href="/assets/css/pygments/pygments_default.css">
+<link rel="stylesheet" href="/assets/css/github-markdown.css">
+<!-- SNS-icon -->
+<script src="//at.alicdn.com/t/font_856428_y9z6nq7zf5.js"></script>
+<!-- share.css -->
+<link rel="stylesheet" href="/assets/css/share.min.css">
+<!-- font -->
+<link rel="stylesheet" href="/assets/css/font.css">
+<!-- <link href="https://fonts.googleapis.com/css?family=Kaushan+Script|Pacifico|Ubuntu|Roboto+Mono|Source+Sans+Pro" rel="stylesheet"> -->
+
+<!-- Favicon -->
+<link href="/assets/profile.jpeg" rel="shortcut icon" />
+<link href="/assets/profile.jpeg" rel="apple-touch-icon-precomposed" />
+<!-- Android Lolipop Theme Color -->
+<!-- <meta name="theme-color" content="#1464FB"> -->
+<title>django2.2关于"str object has no attribute decode" 的错误处理</title>
+<!-- 百度统计 -->
+
+<!-- 谷歌分析 -->
+
+
+<!-- Android Lolipop Theme Color -->
+<meta name="theme-color" content=" rgb(255,90,90) ">
+</head>
+<body>
+
+<!-- 顶部锚点 -->
+<a id="htmlup" name="htmlup"></a>
+<!-- 引入博文顶部选项 -->
+
+<header id="post-header" style="background-color:rgb(255,90,90);">
+  <div class="top-center">
+      <div class="logo">
+          <a href="/" title="my awesome webtitle" style="color: white;">愿世间美好与你环环相绕</a>
+      </div>
+      <nav class="top-nav">
+          <ul>
+              
+                <li><a href="/" style="color: white;">首页</a></li>
+              
+                <li><a href="/tags.html" style="color: white;">标签</a></li>
+              
+                <li><a href="/timeline.html" style="color: white;">时间线</a></li>
+              
+                <li><a href="/about.html" style="color: white;">关于博主</a></li>
+              
+                <li><a href="/friendLink.html" style="color: white;">友情链接</a></li>
+              
+          </ul>
+      </nav>
+      <div id="top-boot">
+        <a href="javascript:;" id="boot1" style="display:block;" onclick="document.getElementById('boot-area').style.display='block';document.getElementById('boot1').style.display='none';document.getElementById('boot2').style.display='block';"><img src="/assets/boot_white.png" alt=""></a>
+        <a href="javascript:;" id="boot2" style="display: none;" onclick="document.getElementById('boot-area').style.display='none';document.getElementById('boot1').style.display='block';document.getElementById('boot2').style.display='none';"><img src="/assets/boot_white.png" alt=""></a>
+      </div>
+  </div>
+
+</header>
+
+
+<!-- 引入移动下拉选项 -->
+<div id="boot-area">
+    <ul>
+        
+          <a href="/"><li>首页</li></a>
+        
+          <a href="/tags.html"><li>标签</li></a>
+        
+          <a href="/timeline.html"><li>时间线</li></a>
+        
+          <a href="/about.html"><li>关于博主</li></a>
+        
+          <a href="/friendLink.html"><li>友情链接</li></a>
+        
+    </ul>
+</div>
+
+<!-- 引入博文顶部样式 -->
+<!-- 版本一 垃圾 -->
+<!-- <div class="wow fadeIn top" data-wow-duration="3.5s" >
+    <span class="wow fadeInUp" data-wow-delay="0.2s">django2.2关于"str object has no attribute decode" 的错误处理</span>
+    <span class="wow fadeInUp" data-wow-delay="0.4s"></span>
+    <span class="wow fadeInUp" data-wow-delay="0.4s"></span>
+    <span class="wow fadeInUp" data-wow-delay="0.6s">作者&nbsp;&nbsp;|&nbsp;&nbsp;qifeng</span>
+</div> -->
+
+<!-- 版本二 可切换页面 -->
+
+<div class="post-top" style="background-color:rgb(255,90,90);">
+  <!-- 页面宽度大于800px -->
+  <div class="left-area">
+    
+      <a href="javascript:;" class="btn bounceInLeft animated" onmouseover="showLeft();this.style.color='rgb(255,90,90)';" onmouseout="goneLeft();this.style.color='rgba(0,0,0,.2)';"><</a>
+      <div id="left-tab" style="display:none;"><span class="left-san"></span><span class="left-main" style="color:rgb(255,90,90);"><sapn class="main">没有上一页咯</sapn></span></div>
+    
+  </div>
+  <div class="post-titlearea">
+    <span class="wow fadeInUp" data-wow-delay="0.2s">django2.2关于"str object has no attribute decode" 的错误处理</span>
+    <!-- <span class="wow fadeInUp" data-wow-delay="0.4s"></span> -->
+    <!-- <span class="wow fadeInUp" data-wow-delay="0.4s"></span> -->
+    <!-- <span class="wow fadeInUp" data-wow-delay="0.6s">作者&nbsp;&nbsp;|&nbsp;&nbsp;qifeng</span> -->
+  </div>
+  <div class="right-area">
+    
+      <a href="/2019/11/24/django-mako.html" class="btn bounceInRight self-animated" onmouseover="showRight();this.style.color='rgb(255,90,90)';" onmouseout="goneRight();this.style.color='rgba(0,0,0,.2)';">></a>
+      <div id="right-tab" style="display:none;"><span class="right-san"></span><span class="right-main" style="color:rgb(255,90,90);"><sapn class="main">django2.2使用mako配置</sapn></span></div>
+    
+  </div>
+
+  <!-- 页面宽度小于800px -->
+  <div class="post-changearea">
+    
+      <a href="javascript:;" class="leftchange" style="border-right: 1px solid rgb(255,90,90);border-bottom: 2px solid rgb(255,90,90);"><span><br>没有上一篇咯</span></a>
+    
+    
+      <a href="/2019/11/24/django-mako.html" class="rightchange" style="border-left: 1px solid rgb(255,90,90);border-bottom: 2px solid rgb(255,90,90);"><span>下一篇<br><br>django2.2使用mako配置</span></a>
+    
+  </div>
+</div>
+
+
+<div class="markdown-body fadeInUp animated">
+
+  
+    
+      <div class="postpage-subtitle" style="border-left: 8px solid rgb(255,90,90); border-right: 8px solid rgb(255,90,90)">
+        django2.2这段报错在django的github仓库中已修复，但是还未发布，本文说明几种处理方法
+      </div>
+    
+  
+
+  <!-- 文章内容 -->
+  <h2 id="关于-str-object-has-no-attribute-decode-的报错处理">关于 <code class="highlighter-rouge">'str' object has no attribute 'decode'</code> 的报错处理</h2>
+
+<ul>
+  <li>
+    <p>报错代码段</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      <span class="c"># 位于/home/soul/anaconda3/lib/python3.6/site-packages/django/db/backends/mysql/operations.py </span>
+      <span class="c"># 第140行</span>
+      <span class="k">def</span> <span class="nf">last_executed_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cursor</span><span class="p">,</span> <span class="n">sql</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+          <span class="c"># With MySQLdb, cursor objects have an (undocumented) "_executed"</span>
+          <span class="c"># attribute where the exact query sent to the database is saved.</span>
+          <span class="c"># See MySQLdb/cursors.py in the source distribution.</span>
+          <span class="n">query</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">cursor</span><span class="p">,</span> <span class="s">'_executed'</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+          <span class="c"># print("=========================&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;", type(query))</span>
+          <span class="c"># 这句话是我自己加的</span>
+          <span class="k">if</span> <span class="n">query</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+              <span class="n">query</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">errors</span><span class="o">=</span><span class="s">'replace'</span><span class="p">)</span>
+          <span class="k">return</span> <span class="n">query</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>报错信息<br />
+同时可以看出 <code class="highlighter-rouge">getattr</code> 函数返回值类型为 <code class="highlighter-rouge">str</code></p>
+    <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  (base) [soul@listener one_orm]$ python manage.py makemigrations
+  =========================&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; &lt;class 'str'&gt;
+  Traceback (most recent call last):
+    File "manage.py", line 21, in &lt;module&gt;
+      main()
+    File "manage.py", line 17, in main
+      execute_from_command_line(sys.argv)
+    File "/home/soul/anaconda3/lib/python3.6/site-packages/django/core/management/__init__.py", line 381, in execute_from_command_line
+      utility.execute()
+    File "/home/soul/anaconda3/lib/python3.6/site-packages/django/core/management/__init__.py", line 375, in execute
+      self.fetch_command(subcommand).run_from_argv(self.argv)
+    File "/home/soul/anaconda3/lib/python3.6/site-packages/django/core/management/base.py", line 323, in run_from_argv
+      self.execute(*args, **cmd_options)
+    File "/home/soul/anaconda3/lib/python3.6/site-packages/django/core/management/base.py", line 364, in execute
+      output = self.handle(*args, **options)
+    File "/home/soul/anaconda3/lib/python3.6/site-packages/django/core/management/base.py", line 83, in wrapped
+      res = handle_func(*args, **kwargs)
+    File "/home/soul/anaconda3/lib/python3.6/site-packages/django/core/management/commands/makemigrations.py", line 101, in handle
+      loader.check_consistent_history(connection)
+    File "/home/soul/anaconda3/lib/python3.6/site-packages/django/db/migrations/loader.py", line 283, in check_consistent_history
+      applied = recorder.applied_migrations()
+    File "/home/soul/anaconda3/lib/python3.6/site-packages/django/db/migrations/recorder.py", line 73, in applied_migrations
+      if self.has_table():
+    File "/home/soul/anaconda3/lib/python3.6/site-packages/django/db/migrations/recorder.py", line 56, in has_table
+      return self.Migration._meta.db_table in self.connection.introspection.table_names(self.connection.cursor())
+    File "/home/soul/anaconda3/lib/python3.6/site-packages/django/db/backends/base/base.py", line 256, in cursor
+      return self._cursor()
+    File "/home/soul/anaconda3/lib/python3.6/site-packages/django/db/backends/base/base.py", line 233, in _cursor
+      self.ensure_connection()
+    File "/home/soul/anaconda3/lib/python3.6/site-packages/django/db/backends/base/base.py", line 217, in ensure_connection
+      self.connect()
+    File "/home/soul/anaconda3/lib/python3.6/site-packages/django/db/backends/base/base.py", line 197, in connect
+      self.init_connection_state()
+    File "/home/soul/anaconda3/lib/python3.6/site-packages/django/db/backends/mysql/base.py", line 231, in init_connection_state
+      if self.features.is_sql_auto_is_null_enabled:
+    File "/home/soul/anaconda3/lib/python3.6/site-packages/django/utils/functional.py", line 80, in __get__
+      res = instance.__dict__[self.name] = self.func(instance)
+    File "/home/soul/anaconda3/lib/python3.6/site-packages/django/db/backends/mysql/features.py", line 82, in is_sql_auto_is_null_enabled
+      cursor.execute('SELECT @@SQL_AUTO_IS_NULL')
+    File "/home/soul/anaconda3/lib/python3.6/site-packages/django/db/backends/utils.py", line 103, in execute
+      sql = self.db.ops.last_executed_query(self.cursor, sql, params)
+    File "/home/soul/anaconda3/lib/python3.6/site-packages/django/db/backends/mysql/operations.py", line 147, in last_executed_query
+      query = query.decode(errors='replace')
+  AttributeError: 'str' object has no attribute 'decode'
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h4 id="编码解码解释">编码解码解释</h4>
+
+<blockquote>
+  <p>内存的Unicode格式编码成为硬盘Utf-8格式，逆过程为解码</p>
+</blockquote>
+
+<ul>
+  <li><strong>编码：</strong> 将文本转换成字节流的过程。即 <code class="highlighter-rouge">Unicode</code>，特定格式的编码方式，产生特定的字节流保存在硬盘中(一般为utf-8格式)</li>
+  <li><strong>解码：</strong> 将硬盘中的字节流转换成文本的过程。即特定格式的字节流 <code class="highlighter-rouge">Unicode</code></li>
+  <li>
+    <p><strong>注意：</strong> 在内存中写的所有的字符，一视同仁，都是Unicode编码，但只有往硬盘保存或者基于网络传输时，才能确定你输入的字符是英文还好汉文，这就是<code class="highlighter-rouge">Unicode</code>转换成其他编码格式的过程。</p>
+  </li>
+  <li>decode(“utf-8”, “ignore”) 忽略其中有异常的编码，仅显示有效的编码</li>
+  <li>decode(“utf-8”, “replace”) 替换其中异常的编码，这个相对更容易找出错误字符编码</li>
+</ul>
+
+<h4 id="python3中字符串格式">python3中字符串格式</h4>
+
+<ul>
+  <li>文本字符串类型：<br />
+即我们通常定义的str类型的对象。在Python3中，str类型的对象都是Unicode，因此对于str类型的对象只有encode（）方法，没有decode（）方法（若运行，会报错）</li>
+  <li>字节字符串类型：<br />
+即byte类型的对象。对于该类对象，是由str类型对象使用encode()方法产生，byte对象可以进行解码过程，从而得到真正的内容</li>
+</ul>
+
+<blockquote>
+  <p>其实到这里我们已经知道报错原因了，继续往下看</p>
+</blockquote>
+
+<h4 id="python3中-getattr-函数">python3中 <code class="highlighter-rouge">getattr()</code> 函数</h4>
+<ul>
+  <li>描述：<br />
+getattr()函数用于返回一个对象属性值</li>
+  <li>
+    <p>语法：</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  getattr(object,name,default)
+</code></pre></div>    </div>
+  </li>
+  <li>参数：
+    <ul>
+      <li><code class="highlighter-rouge">object</code>–对象</li>
+      <li><code class="highlighter-rouge">name</code>–字符串，对象属性</li>
+      <li><code class="highlighter-rouge">default</code>–默认返回值，如果不提供该参数，在没有对于属性时，将触发AttributeError</li>
+    </ul>
+  </li>
+  <li>
+    <p>返回值：<br />
+返回对象属性值</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">class</span> <span class="nc">People</span><span class="p">:</span>
+    <span class="n">country</span><span class="o">=</span><span class="s">'China'</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">name</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="o">=</span><span class="n">name</span>
+     
+    <span class="k">def</span> <span class="nf">people_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="k">print</span><span class="p">(</span><span class="s">'</span><span class="si">%</span><span class="s">s is xxx'</span> <span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+  <span class="n">obj</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span><span class="n">People</span><span class="p">,</span><span class="s">'country'</span><span class="p">)</span>
+  <span class="k">print</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+  <span class="c">#返回值China</span>
+  <span class="c">#obj=getattr(People,'countryaaaaaa')</span>
+  <span class="c">#print(obj)</span>
+  <span class="c">#报错</span>
+  <span class="c"># File "/getattr()函数.py", line 32, in &lt;module&gt;</span>
+  <span class="c">#   obj=getattr(People,'countryaaaaaa')</span>
+  <span class="c"># AttributeError: type object 'People' has no attribute 'countryaaaaaa'</span>
+  <span class="n">obj</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span><span class="n">People</span><span class="p">,</span><span class="s">'countryaaaaaa'</span><span class="p">,</span><span class="bp">None</span><span class="p">)</span>
+  <span class="k">print</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+  <span class="c">#返回值None</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="修改方案">修改方案</h2>
+
+<blockquote>
+  <p>结合上面python3中字符串的相关知识与 <code class="highlighter-rouge">getattr</code> 函数返回值类型可以断定，这里的错误是由于 <code class="highlighter-rouge">str</code> 没有 <code class="highlighter-rouge">decode（）</code> 方法引起的</p>
+</blockquote>
+
+<h4 id="方案一">方案一</h4>
+<p>直接对这两句代码进行注释</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 位于/home/soul/anaconda3/lib/python3.6/site-packages/django/db/backends/mysql/operations.py </span>
+<span class="c"># 第140行</span>
+<span class="k">def</span> <span class="nf">last_executed_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cursor</span><span class="p">,</span> <span class="n">sql</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+    <span class="c"># With MySQLdb, cursor objects have an (undocumented) "_executed"</span>
+    <span class="c"># attribute where the exact query sent to the database is saved.</span>
+    <span class="c"># See MySQLdb/cursors.py in the source distribution.</span>
+    <span class="n">query</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">cursor</span><span class="p">,</span> <span class="s">'_executed'</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+    <span class="c"># if query is not None:</span>
+    <span class="c">#     query = query.decode(errors='replace')</span>
+    <span class="k">return</span> <span class="n">query</span>
+</code></pre></div></div>
+
+<h4 id="方案二">方案二</h4>
+<p>这个方案看起来有些多余，对比 <code class="highlighter-rouge">django</code> 1.11版本代码以及代码段注释，这段代码加入的具体意义有些莫名其妙</p>
+
+<p>但是为了保险起见，可以加入 <code class="highlighter-rouge">try</code> 方法达到另一种注释的方法</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">last_executed_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cursor</span><span class="p">,</span> <span class="n">sql</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+    <span class="c"># With MySQLdb, cursor objects have an (undocumented) "_executed"</span>
+    <span class="c"># attribute where the exact query sent to the database is saved.</span>
+    <span class="c"># See MySQLdb/cursors.py in the source distribution.</span>
+    <span class="n">query</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">cursor</span><span class="p">,</span> <span class="s">'_executed'</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">query</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">errors</span><span class="o">=</span><span class="s">'replace'</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">query</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">query</span>
+</code></pre></div></div>
+
+<h2 id="还没结束">还没结束！！！</h2>
+<p>众所周知，<code class="highlighter-rouge">django</code> 是个开源项目，那么为什么去不去github上看看呢？</p>
+
+<p>我在 <code class="highlighter-rouge">Pull requests</code> 中并没有找到想要的答案，于是我在django项目里按照目录寻找 <code class="highlighter-rouge">operations.py</code> 文件</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>django/django/db/backends/mysql/operations.py
+</code></pre></div></div>
+
+<p>果然，开源社区最棒！！！</p>
+
+<p>在最新的代码中， <code class="highlighter-rouge">last_executed_query</code> 函数被修改成如下</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 19年11月27日，位于157行</span>
+<span class="k">def</span> <span class="nf">last_executed_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cursor</span><span class="p">,</span> <span class="n">sql</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+    <span class="c"># With MySQLdb, cursor objects have an (undocumented) "_executed"</span>
+    <span class="c"># attribute where the exact query sent to the database is saved.</span>
+    <span class="c"># See MySQLdb/cursors.py in the source distribution.</span>
+    <span class="c"># MySQLdb returns string, PyMySQL bytes.</span>
+    <span class="k">return</span> <span class="n">force_str</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">cursor</span><span class="p">,</span> <span class="s">'_executed'</span><span class="p">,</span> <span class="bp">None</span><span class="p">),</span> <span class="n">errors</span><span class="o">=</span><span class="s">'replace'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">force_str</code> 方法定义在 <code class="highlighter-rouge">django/django/utils/encoding.py</code> 的48行，对比目前代码</p>
+
+<p>本地的代码为：</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">...</span>
+<span class="k">class</span> <span class="nc">DjangoUnicodeDecodeError</span><span class="p">(</span><span class="nb">UnicodeDecodeError</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">obj</span> <span class="o">=</span> <span class="n">obj</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">'</span><span class="si">%</span><span class="s">s. You passed in </span><span class="si">%</span><span class="s">r (</span><span class="si">%</span><span class="s">s)'</span> <span class="o">%</span> <span class="p">(</span><span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__str__</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">))</span>
+
+<span class="o">...</span>
+<span class="k">def</span> <span class="nf">is_protected_type</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+    <span class="s">"""Determine if the object instance is of a protected type.
+
+    Objects of protected types are preserved as-is when passed to
+    force_text(strings_only=True).
+    """</span>
+    <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">_PROTECTED_TYPES</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">force_text</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s">'utf-8'</span><span class="p">,</span> <span class="n">strings_only</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s">'strict'</span><span class="p">):</span>
+    <span class="s">"""
+    Similar to smart_text, except that lazy instances are resolved to
+    strings, rather than kept as lazy objects.
+
+    If strings_only is True, don't convert (some) non-string-like objects.
+    """</span>
+    <span class="c"># Handle the common case first for performance reasons.</span>
+    <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">s</span>
+    <span class="k">if</span> <span class="n">strings_only</span> <span class="ow">and</span> <span class="n">is_protected_type</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">s</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+    <span class="k">except</span> <span class="nb">UnicodeDecodeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">DjangoUnicodeDecodeError</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="o">*</span><span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">s</span>
+
+<span class="o">...</span>
+
+<span class="n">force_str</span> <span class="o">=</span> <span class="n">force_text</span>
+
+</code></pre></div></div>
+
+<p>对比发现，(本地环境为 <code class="highlighter-rouge">django2.2.6</code> )，在我本地django源码中，<code class="highlighter-rouge">force_str</code> 方法和 <code class="highlighter-rouge">force_text</code> 相同，而其他部分与github目前代码相同，尝试修改<code class="highlighter-rouge">operations.py</code> 文件与github相同</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">django.utils.encoding</span> <span class="kn">import</span> <span class="n">force_text</span>
+
+<span class="o">...</span>
+
+<span class="k">def</span> <span class="nf">last_executed_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cursor</span><span class="p">,</span> <span class="n">sql</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+    <span class="c"># With MySQLdb, cursor objects have an (undocumented) "_executed"</span>
+    <span class="c"># attribute where the exact query sent to the database is saved.</span>
+    <span class="c"># See MySQLdb/cursors.py in the source distribution.</span>
+    <span class="c"># MySQLdb returns string, PyMySQL bytes.</span>
+    <span class="k">return</span> <span class="n">force_text</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">cursor</span><span class="p">,</span> <span class="s">'_executed'</span><span class="p">,</span> <span class="bp">None</span><span class="p">),</span> <span class="n">errors</span><span class="o">=</span><span class="s">'replace'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>运行测试：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(base) [soul@listener one_orm]$ python manage.py makemigrations
+No changes detected
+</code></pre></div></div>
+
+<p>奥利给！！！！！</p>
+
+<blockquote>
+  <p>到此，问题解决</p>
+</blockquote>
+
+
+  <!-- 引入share模块 -->
+  
+  <div class="social-share-wrapper">
+    <div class="social-share"></div>
+  </div>
+
+
+<!-- share.js -->
+<script src="/assets/js/social-share.min.js"></script>
+<script>
+  socialShare('.social-share', {
+    sites: [
+      
+        'qq'
+        ,
+        
+      
+        'wechat'
+        ,
+        
+      
+        'weibo'
+        ,
+        
+      
+        'twitter'
+        ,
+        
+      
+        'facebook'
+        
+      
+    ],
+    wechatQrcodeTitle: "分享到微信朋友圈",
+    wechatQrcodeHelper: '期待在朋友圈见到这篇文章'
+  });
+</script>
+
+</div>
+
+<!-- 底部锚点 -->
+<a id="htmldown" name="htmldown"></a>
+<!-- 引入评论模块 -->
+
+
+
+    <section class="post-footer-item comment">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80NzUwOC8yNDAwOA=="></div>
+    </section>
+
+    <!-- 来必力City版安装代码 -->
+    <script type="text/javascript">
+       (function(d, s) {
+           var j, e = d.getElementsByTagName(s)[0];
+
+           if (typeof LivereTower === 'function') { return; }
+
+           j = d.createElement(s);
+           j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+           j.async = true;
+
+           e.parentNode.insertBefore(j, e);
+       })(document, 'script');
+    </script>
+    <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+    <!-- City版安装代码已完成 -->
+
+
+
+
+
+<!-- 引入goto模块 -->
+<div class="bounceInRight animated go">
+  <a title="顶部切换页面" class="gototop" href="#htmlup" target="_self">
+    <div class="box" style="font-family:'ffad_matroregular';">
+        Top
+    </div>
+  </a>
+  <a title="底部有livere评论哦" class="gotobottom" href="#htmldown" target="_self">
+    <div class="box" style="font-family:'ffad_matroregular';">
+        Foot
+    </div>
+  </a>
+</div>
+
+<!-- 引入页面底部模块 -->
+<footer id="bottom">
+  <br>
+  <span>Breeze and me ©
+  
+  
+    2018
+    -
+  
+  2019
+  <br>
+  Powered by <a href="https://www.jekyll.com.cn/">Jekyll</a> | <a href="https://github.com/xukimseven/HardCandy-Jekyll">HardCandy-Jekyll</a></span>
+</footer>
+
+
+<!-- 引用wow.js的动画效果 -->
+<script src="/assets/js/wow.js"></script>
+<script>
+    var wow = new WOW({
+        boxClass: 'wow',
+        animateClass: 'animated',
+        // offset: 600,
+        mobile: true,
+        live: true
+    });
+    wow.init();
+</script>
+<!-- 页面刷新回到顶部 -->
+<script>
+    window.onbeforeunload = function(){
+        //刷新后页面自动回到顶部
+        document.documentElement.scrollTop = 0;  //ie下
+        document.body.scrollTop = 0;  //非ie
+    }
+</script>
+<script src="/assets/js/main.js"></script>
+</body>
+</html>
