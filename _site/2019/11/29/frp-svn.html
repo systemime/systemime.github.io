@@ -1,0 +1,408 @@
+<!-- 博文的布局-Layout -->
+<!DOCTYPE html>
+<html>
+<head>
+<!-- 引入head标签 -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-sclable=0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="description" content="如果所有人都理解你会普通成什么样子" />
+<meta name="keywords" content="自述, 柒麟" />
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/media.css">
+<link rel="stylesheet" href="/assets/css/animate.min.css">
+<link rel="stylesheet" href="/assets/css/pygments/pygments_default.css">
+<link rel="stylesheet" href="/assets/css/github-markdown.css">
+<!-- SNS-icon -->
+<script src="//at.alicdn.com/t/font_856428_y9z6nq7zf5.js"></script>
+<!-- share.css -->
+<link rel="stylesheet" href="/assets/css/share.min.css">
+<!-- font -->
+<link rel="stylesheet" href="/assets/css/font.css">
+<!-- <link href="https://fonts.googleapis.com/css?family=Kaushan+Script|Pacifico|Ubuntu|Roboto+Mono|Source+Sans+Pro" rel="stylesheet"> -->
+
+<!-- Favicon -->
+<link href="/assets/profile.jpeg" rel="shortcut icon" />
+<link href="/assets/profile.jpeg" rel="apple-touch-icon-precomposed" />
+<!-- Android Lolipop Theme Color -->
+<!-- <meta name="theme-color" content="#1464FB"> -->
+<title>使用frp内网穿透映射内网svn</title>
+<!-- 百度统计 -->
+
+<!-- 谷歌分析 -->
+
+
+<!-- Android Lolipop Theme Color -->
+<meta name="theme-color" content=" rgb(255,90,90) ">
+</head>
+<body>
+
+<!-- 顶部锚点 -->
+<a id="htmlup" name="htmlup"></a>
+<!-- 引入博文顶部选项 -->
+
+<header id="post-header" style="background-color:rgb(255,90,90);">
+  <div class="top-center">
+      <div class="logo">
+          <a href="/" title="my awesome webtitle" style="color: white;">愿世间美好与你环环相绕</a>
+      </div>
+      <nav class="top-nav">
+          <ul>
+              
+                <li><a href="/" style="color: white;">首页</a></li>
+              
+                <li><a href="/tags.html" style="color: white;">标签</a></li>
+              
+                <li><a href="/timeline.html" style="color: white;">时间线</a></li>
+              
+                <li><a href="/about.html" style="color: white;">关于博主</a></li>
+              
+                <li><a href="/friendLink.html" style="color: white;">友情链接</a></li>
+              
+          </ul>
+      </nav>
+      <div id="top-boot">
+        <a href="javascript:;" id="boot1" style="display:block;" onclick="document.getElementById('boot-area').style.display='block';document.getElementById('boot1').style.display='none';document.getElementById('boot2').style.display='block';"><img src="/assets/boot_white.png" alt=""></a>
+        <a href="javascript:;" id="boot2" style="display: none;" onclick="document.getElementById('boot-area').style.display='none';document.getElementById('boot1').style.display='block';document.getElementById('boot2').style.display='none';"><img src="/assets/boot_white.png" alt=""></a>
+      </div>
+  </div>
+
+</header>
+
+
+<!-- 引入移动下拉选项 -->
+<div id="boot-area">
+    <ul>
+        
+          <a href="/"><li>首页</li></a>
+        
+          <a href="/tags.html"><li>标签</li></a>
+        
+          <a href="/timeline.html"><li>时间线</li></a>
+        
+          <a href="/about.html"><li>关于博主</li></a>
+        
+          <a href="/friendLink.html"><li>友情链接</li></a>
+        
+    </ul>
+</div>
+
+<!-- 引入博文顶部样式 -->
+<!-- 版本一 垃圾 -->
+<!-- <div class="wow fadeIn top" data-wow-duration="3.5s" >
+    <span class="wow fadeInUp" data-wow-delay="0.2s">使用frp内网穿透映射内网svn</span>
+    <span class="wow fadeInUp" data-wow-delay="0.4s"></span>
+    <span class="wow fadeInUp" data-wow-delay="0.4s"></span>
+    <span class="wow fadeInUp" data-wow-delay="0.6s">作者&nbsp;&nbsp;|&nbsp;&nbsp;qifeng</span>
+</div> -->
+
+<!-- 版本二 可切换页面 -->
+
+<div class="post-top" style="background-color:rgb(255,90,90);">
+  <!-- 页面宽度大于800px -->
+  <div class="left-area">
+    
+      <a href="/2019/11/30/centos7-kernel-update.html" class="btn bounceInLeft animated" onmouseover="showLeft();this.style.color='rgb(255,90,90)';" onmouseout="goneLeft();this.style.color='rgba(0,0,0,.2)';"><</a>
+      <div id="left-tab" style="display:none;"><span class="left-san"></span><span class="left-main" style="color:rgb(255,90,90);"><sapn class="main">CentOS7升级内核版本</sapn></span></div>
+    
+  </div>
+  <div class="post-titlearea">
+    <span class="wow fadeInUp" data-wow-delay="0.2s">使用frp内网穿透映射内网svn</span>
+    <!-- <span class="wow fadeInUp" data-wow-delay="0.4s"></span> -->
+    <!-- <span class="wow fadeInUp" data-wow-delay="0.4s"></span> -->
+    <!-- <span class="wow fadeInUp" data-wow-delay="0.6s">作者&nbsp;&nbsp;|&nbsp;&nbsp;qifeng</span> -->
+  </div>
+  <div class="right-area">
+    
+      <a href="/2019/11/29/langchao-raid-webbios.html" class="btn bounceInRight self-animated" onmouseover="showRight();this.style.color='rgb(255,90,90)';" onmouseout="goneRight();this.style.color='rgba(0,0,0,.2)';">></a>
+      <div id="right-tab" style="display:none;"><span class="right-san"></span><span class="right-main" style="color:rgb(255,90,90);"><sapn class="main">浪潮服务器RAID 磁盘状态foreign解决方案</sapn></span></div>
+    
+  </div>
+
+  <!-- 页面宽度小于800px -->
+  <div class="post-changearea">
+    
+      <a href="/2019/11/30/centos7-kernel-update.html" class="leftchange" style="border-right: 1px solid rgb(255,90,90);border-bottom: 2px solid rgb(255,90,90);"><span>上一篇<br><br>CentOS7升级内核版本</span></a>
+    
+    
+      <a href="/2019/11/29/langchao-raid-webbios.html" class="rightchange" style="border-left: 1px solid rgb(255,90,90);border-bottom: 2px solid rgb(255,90,90);"><span>下一篇<br><br>浪潮服务器RAID 磁盘状态foreign解决方案</span></a>
+    
+  </div>
+</div>
+
+
+<div class="markdown-body fadeInUp animated">
+
+  
+    
+      <div class="postpage-subtitle" style="border-left: 8px solid rgb(255,90,90); border-right: 8px solid rgb(255,90,90)">
+        利用有独立IP的远程云端服务器搭建frp服务
+      </div>
+    
+  
+
+  <!-- 文章内容 -->
+  <h1 id="frp内网-穿透映射使内网svn可外网访问">frp内网 穿透映射使内网svn可外网访问</h1>
+
+<ul>
+  <li>部署准备</li>
+  <li>需要有一个带固定IP的服务器，用来服务端部署</li>
+  <li>如果想用域名访问的话，还需要准备一个域名，指向上方的服务端服务器</li>
+  <li>从github中release中下载即可，写文章时，作者刚release一个新版本v0.23.0，linux和windows下载amd64(64位)或者386(32位)，貌似还支持嵌入式arm版本什么的</li>
+  <li>下载解压后主要有frps(服务端)和frpc(客户端)两种，可以根据教程进行部署了</li>
+</ul>
+
+<h2 id="frp">frp</h2>
+<p>这个东西配置还是挺复杂的，<a href="https://github.com/fatedier/frp">github地址</a></p>
+
+<h2 id="开始部署">开始部署</h2>
+<p>目前服务器端用的linux，而客户端用的是windows，两者配置和命令基本一致：</p>
+<ul>
+  <li>
+    <p>服务端用到的是frps，修改 <code class="highlighter-rouge">frps.ini</code> 文件</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="o">[</span>common]
+  <span class="c">#服务端绑定端口</span>
+  bind_port <span class="o">=</span> 7000
+  <span class="c">#服务端token</span>
+  token <span class="o">=</span> xxxxxx
+  <span class="c">#服务端设置https访问端口</span>
+  vhost_https_port <span class="o">=</span> 7000
+</code></pre></div>    </div>
+
+    <p>token为服务端token，客户端需要与此一致，由于svn开的是8443https访问，所以当需要域名时则需要设置vhost_https_port（如果不用域名，此行可省略，或者用http的话就需要vhost_http_port参数）</p>
+  </li>
+  <li>
+    <p>客户端用到的是frpc，修改 <code class="highlighter-rouge">frpc.ini</code> 文件</p>
+    <ol>
+      <li>
+        <p>用域名</p>
+
+        <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [common]
+ #服务端IP
+ server_addr = xx.xx.xx.xx
+ #服务端端口
+ server_port = 7000
+ #与服务端token一致
+ token = xxxxxx
+ [svn]
+ #由于svn用的是https访问，这里设置为https
+ type = https
+ #由于svn的端口是8443，这里设置为8443
+ local_port = 8443
+ #此为绑定的域名
+ custom_domains = example.com
+</code></pre></div>        </div>
+
+        <p>此时svn访问地址为：https://example.com:7000/svn/项目名称 ，需要注意的是7000是vhost_https_port代表的地址，它可以 <code class="highlighter-rouge">bind_port</code> 同用一个，所以为了少开放端口就用了一个。</p>
+      </li>
+      <li>
+        <p>用IP</p>
+        <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [common]
+ #服务端IP
+ server_addr = xx.xx.xx.xx
+ #服务端端口
+ server_port = 7000
+ #与服务端token一致
+ token =xxxxxx
+ [svn]
+ #用IP访问所以设置为tcp
+ type = tcp
+ #由于svn的端口是8443，这里设置为8443
+ local_port = 8443
+ #此为绑定的域名端口，地址中是要带此端口而不是上方的7000端口
+ remote_port = 9000
+</code></pre></div>        </div>
+
+        <p>此时svn访问地址为：https://xx.xx.xx.xx:9000/svn/项目名称</p>
+      </li>
+    </ol>
+
+    <p>以上的配置仅仅是简单的配置，更多功能请查看官方文档，服务端启动命令就是在此目录下 <code class="highlighter-rouge">./frps -c ./frps.ini</code>，客户端同理 <code class="highlighter-rouge">./frpc -c ./frpc.ini</code> ，都启动后，在家中的机器中直接 <code class="highlighter-rouge">checkout</code> 项目，输入上方的svn访问地址即可下载。</p>
+
+    <p><strong>特别需要要注意的是，请开放上述涉及到的7000端口，如果用IP，则还需要开放9000端口，否则checkout会卡住超时。</strong></p>
+  </li>
+</ul>
+
+<h2 id="优化-后台执行">优化 后台执行</h2>
+<p>通过上方部署后，已经可以正常访问了，但是命令只能前台运行，所以我们需要将其部署到后台运行，否则太麻烦而且容易不小心关闭。分为linux和windows两平台。</p>
+
+<ul>
+  <li>
+    <p>linux端<br />
+  由于是centos7，所以通过systemctl来后台运行：</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  [Unit]
+  Description=fraps service
+  After=network.target syslog.target
+  Wants=network.target
+  [Service]
+  Type=simple
+  #这里是和上方的命令一致的，请按照自己的实际路径修改，如果你客户端是在linux中，将frps改为frpc即可
+  ExecStart=/home/xxx/frp/frp_0.22.0_linux_amd64/frps -c /home/xxx/frp/frp_0.22.0_linux_amd64/frps.ini
+  [Install]
+  WantedBy=multi-user.target
+</code></pre></div>    </div>
+
+    <p>此时通过systemctl start frps即可启动服务端，更多的命名请搜索systemctl相关用法。</p>
+  </li>
+  <li>
+    <p>windows端<br />
+  我这边采用的是WinSW来部署服务，安装步骤：</p>
+
+    <ol>
+      <li>
+        <p>release中下载WinSW.NET4.exe和sample-minimal.xml这两个（电脑中有.net4.0所以选的4版本的），放到同一目录中。</p>
+      </li>
+      <li>
+        <p>将sample-minimal.xml修改为WinSW.NET4.xml，当然也可以将两个都改简短一些，但需要同名才行。</p>
+      </li>
+      <li>
+        <p>配置WinSW.NET4.xml如下：</p>
+
+        <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> &lt;configuration&gt;
+     &lt;!--服务ID--&gt;
+     &lt;id&gt;frpc&lt;/id&gt;
+     &lt;!-- 服务名称 --&gt;
+     &lt;name&gt;frp Client (powered by WinSW)&lt;/name&gt;
+     &lt;!-- 服务描述 --&gt;
+     &lt;description&gt;frp内网穿透客户端&lt;/description&gt;
+     &lt;!-- 路径，请按照自己的路径配置，如果服务端在windows中，将frpc改为frps即可,%BASE%就是当前文件位置 --&gt;
+     &lt;executable&gt;%BASE%\frp\frpc.exe&lt;/executable&gt;
+     &lt;arguments&gt;-c %BASE%\frp\frpc.ini&lt;/arguments&gt;
+ &lt;/configuration&gt;
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>用<strong>管理员权限</strong>运行cmd窗口，切换到WinSW文件所在的目录下，运行 <code class="highlighter-rouge">WinSW.NET4 install</code>，即可生成服务，可以在管理工具-服务中找到此服务，如果出错，也会在当前目录下生成错误日志，对照排查即可。</p>
+      </li>
+    </ol>
+
+    <p>此时运行WinSW.NET4 start启动客户端服务，也可直接在管理工具-服务中启动，更多的命令请搜索WinSW相关功能。</p>
+  </li>
+</ul>
+
+
+  <!-- 引入share模块 -->
+  
+  <div class="social-share-wrapper">
+    <div class="social-share"></div>
+  </div>
+
+
+<!-- share.js -->
+<script src="/assets/js/social-share.min.js"></script>
+<script>
+  socialShare('.social-share', {
+    sites: [
+      
+        'qq'
+        ,
+        
+      
+        'wechat'
+        ,
+        
+      
+        'weibo'
+        ,
+        
+      
+        'twitter'
+        ,
+        
+      
+        'facebook'
+        
+      
+    ],
+    wechatQrcodeTitle: "分享到微信朋友圈",
+    wechatQrcodeHelper: '期待在朋友圈见到这篇文章'
+  });
+</script>
+
+</div>
+
+<!-- 底部锚点 -->
+<a id="htmldown" name="htmldown"></a>
+<!-- 引入评论模块 -->
+
+
+
+    <section class="post-footer-item comment">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80NzUwOC8yNDAwOA=="></div>
+    </section>
+
+    <!-- 来必力City版安装代码 -->
+    <script type="text/javascript">
+       (function(d, s) {
+           var j, e = d.getElementsByTagName(s)[0];
+
+           if (typeof LivereTower === 'function') { return; }
+
+           j = d.createElement(s);
+           j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+           j.async = true;
+
+           e.parentNode.insertBefore(j, e);
+       })(document, 'script');
+    </script>
+    <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+    <!-- City版安装代码已完成 -->
+
+
+
+
+
+<!-- 引入goto模块 -->
+<div class="bounceInRight animated go">
+  <a title="顶部切换页面" class="gototop" href="#htmlup" target="_self">
+    <div class="box" style="font-family:'ffad_matroregular';">
+        Top
+    </div>
+  </a>
+  <a title="底部有livere评论哦" class="gotobottom" href="#htmldown" target="_self">
+    <div class="box" style="font-family:'ffad_matroregular';">
+        Foot
+    </div>
+  </a>
+</div>
+
+<!-- 引入页面底部模块 -->
+<footer id="bottom">
+  <br>
+  <span>Breeze and me ©
+  
+  
+    2018
+    -
+  
+  2019
+  <br>
+  Powered by <a href="https://www.jekyll.com.cn/">Jekyll</a> | <a href="https://github.com/xukimseven/HardCandy-Jekyll">HardCandy-Jekyll</a></span>
+</footer>
+
+
+<!-- 引用wow.js的动画效果 -->
+<script src="/assets/js/wow.js"></script>
+<script>
+    var wow = new WOW({
+        boxClass: 'wow',
+        animateClass: 'animated',
+        // offset: 600,
+        mobile: true,
+        live: true
+    });
+    wow.init();
+</script>
+<!-- 页面刷新回到顶部 -->
+<script>
+    window.onbeforeunload = function(){
+        //刷新后页面自动回到顶部
+        document.documentElement.scrollTop = 0;  //ie下
+        document.body.scrollTop = 0;  //非ie
+    }
+</script>
+<script src="/assets/js/main.js"></script>
+</body>
+</html>

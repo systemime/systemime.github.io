@@ -102,8 +102,8 @@
   <!-- 页面宽度大于800px -->
   <div class="left-area">
     
-      <a href="javascript:;" class="btn bounceInLeft animated" onmouseover="showLeft();this.style.color='rgb(0,162,255)';" onmouseout="goneLeft();this.style.color='rgba(0,0,0,.2)';"><</a>
-      <div id="left-tab" style="display:none;"><span class="left-san"></span><span class="left-main" style="color:rgb(0,162,255);"><sapn class="main">没有上一页咯</sapn></span></div>
+      <a href="/2019/11/30/linux-kill-tty.html" class="btn bounceInLeft animated" onmouseover="showLeft();this.style.color='rgb(0,162,255)';" onmouseout="goneLeft();this.style.color='rgba(0,0,0,.2)';"><</a>
+      <div id="left-tab" style="display:none;"><span class="left-san"></span><span class="left-main" style="color:rgb(0,162,255);"><sapn class="main">Linux杀死其他tty终端</sapn></span></div>
     
   </div>
   <div class="post-titlearea">
@@ -114,18 +114,18 @@
   </div>
   <div class="right-area">
     
-      <a href="/2019/11/30/nihao.html" class="btn bounceInRight self-animated" onmouseover="showRight();this.style.color='rgb(0,162,255)';" onmouseout="goneRight();this.style.color='rgba(0,0,0,.2)';">></a>
-      <div id="right-tab" style="display:none;"><span class="right-san"></span><span class="right-main" style="color:rgb(0,162,255);"><sapn class="main">你好</sapn></span></div>
+      <a href="/2019/11/29/frp-svn.html" class="btn bounceInRight self-animated" onmouseover="showRight();this.style.color='rgb(0,162,255)';" onmouseout="goneRight();this.style.color='rgba(0,0,0,.2)';">></a>
+      <div id="right-tab" style="display:none;"><span class="right-san"></span><span class="right-main" style="color:rgb(0,162,255);"><sapn class="main">使用frp内网穿透映射内网svn</sapn></span></div>
     
   </div>
 
   <!-- 页面宽度小于800px -->
   <div class="post-changearea">
     
-      <a href="javascript:;" class="leftchange" style="border-right: 1px solid rgb(0,162,255);border-bottom: 2px solid rgb(0,162,255);"><span><br>没有上一篇咯</span></a>
+      <a href="/2019/11/30/linux-kill-tty.html" class="leftchange" style="border-right: 1px solid rgb(0,162,255);border-bottom: 2px solid rgb(0,162,255);"><span>上一篇<br><br>Linux杀死其他tty终端</span></a>
     
     
-      <a href="/2019/11/30/nihao.html" class="rightchange" style="border-left: 1px solid rgb(0,162,255);border-bottom: 2px solid rgb(0,162,255);"><span>下一篇<br><br>你好</span></a>
+      <a href="/2019/11/29/frp-svn.html" class="rightchange" style="border-left: 1px solid rgb(0,162,255);border-bottom: 2px solid rgb(0,162,255);"><span>下一篇<br><br>使用frp内网穿透映射内网svn</span></a>
     
   </div>
 </div>
@@ -167,10 +167,8 @@
 
 <p>使用 <code class="highlighter-rouge">uname -r</code> 区分你用的是官方内核还是 <code class="highlighter-rouge">Linux</code> 发行版内核，横线后面有任何东西都表示这不是官方内核：</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```text
-# uname -r
-3.10.0-514.26.2.el7.x86_64
-```  
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   # uname -r
+   3.10.0-514.26.2.el7.x86_64
 </code></pre></div></div>
 
 <h3 id="2-查看当前的内核版本">2. 查看当前的内核版本</h3>
@@ -179,7 +177,7 @@
 
 <h4 id="22-常用的查看内核信息的命令">2.2 常用的查看内核信息的命令</h4>
 
-<p>**2.2.1 <code class="highlighter-rouge">uname</code> **</p>
+<p><strong>2.2.1 <code class="highlighter-rouge">uname</code></strong></p>
 
 <p>打印指定的系统信息。不带参数时，默认使用 <code class="highlighter-rouge">-s</code> 参数。</p>
 
