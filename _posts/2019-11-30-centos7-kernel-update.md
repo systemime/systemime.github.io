@@ -6,7 +6,7 @@ date: 2019-11-30 00:20:00
 author: qifeng
 color: rgb(0,162,255)
 cover: 'https://raw.githubusercontent.com/systemime/my_image/master/linux.jpg'
-tags: centos kernel update 
+tags: linux centos kernel update 
 ---
 ## CentOS7升级Linux内核
 
