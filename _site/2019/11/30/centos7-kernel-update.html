@@ -1,0 +1,503 @@
+<!-- 博文的布局-Layout -->
+<!DOCTYPE html>
+<html>
+<head>
+<!-- 引入head标签 -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-sclable=0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="description" content="如果所有人都理解你会普通成什么样子" />
+<meta name="keywords" content="自述, 柒麟" />
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/media.css">
+<link rel="stylesheet" href="/assets/css/animate.min.css">
+<link rel="stylesheet" href="/assets/css/pygments/pygments_default.css">
+<link rel="stylesheet" href="/assets/css/github-markdown.css">
+<!-- SNS-icon -->
+<script src="//at.alicdn.com/t/font_856428_y9z6nq7zf5.js"></script>
+<!-- share.css -->
+<link rel="stylesheet" href="/assets/css/share.min.css">
+<!-- font -->
+<link rel="stylesheet" href="/assets/css/font.css">
+<!-- <link href="https://fonts.googleapis.com/css?family=Kaushan+Script|Pacifico|Ubuntu|Roboto+Mono|Source+Sans+Pro" rel="stylesheet"> -->
+
+<!-- Favicon -->
+<link href="/assets/profile.jpeg" rel="shortcut icon" />
+<link href="/assets/profile.jpeg" rel="apple-touch-icon-precomposed" />
+<!-- Android Lolipop Theme Color -->
+<!-- <meta name="theme-color" content="#1464FB"> -->
+<title>CentOS7升级内核版本</title>
+<!-- 百度统计 -->
+
+<!-- 谷歌分析 -->
+
+
+<!-- Android Lolipop Theme Color -->
+<meta name="theme-color" content=" rgb(0,162,255) ">
+</head>
+<body>
+
+<!-- 顶部锚点 -->
+<a id="htmlup" name="htmlup"></a>
+<!-- 引入博文顶部选项 -->
+
+<header id="post-header" style="background-color:rgb(0,162,255);">
+  <div class="top-center">
+      <div class="logo">
+          <a href="/" title="my awesome webtitle" style="color: white;">愿世间美好与你环环相绕</a>
+      </div>
+      <nav class="top-nav">
+          <ul>
+              
+                <li><a href="/" style="color: white;">首页</a></li>
+              
+                <li><a href="/tags.html" style="color: white;">标签</a></li>
+              
+                <li><a href="/timeline.html" style="color: white;">时间线</a></li>
+              
+                <li><a href="/about.html" style="color: white;">关于博主</a></li>
+              
+                <li><a href="/friendLink.html" style="color: white;">友情链接</a></li>
+              
+          </ul>
+      </nav>
+      <div id="top-boot">
+        <a href="javascript:;" id="boot1" style="display:block;" onclick="document.getElementById('boot-area').style.display='block';document.getElementById('boot1').style.display='none';document.getElementById('boot2').style.display='block';"><img src="/assets/boot_white.png" alt=""></a>
+        <a href="javascript:;" id="boot2" style="display: none;" onclick="document.getElementById('boot-area').style.display='none';document.getElementById('boot1').style.display='block';document.getElementById('boot2').style.display='none';"><img src="/assets/boot_white.png" alt=""></a>
+      </div>
+  </div>
+
+</header>
+
+
+<!-- 引入移动下拉选项 -->
+<div id="boot-area">
+    <ul>
+        
+          <a href="/"><li>首页</li></a>
+        
+          <a href="/tags.html"><li>标签</li></a>
+        
+          <a href="/timeline.html"><li>时间线</li></a>
+        
+          <a href="/about.html"><li>关于博主</li></a>
+        
+          <a href="/friendLink.html"><li>友情链接</li></a>
+        
+    </ul>
+</div>
+
+<!-- 引入博文顶部样式 -->
+<!-- 版本一 垃圾 -->
+<!-- <div class="wow fadeIn top" data-wow-duration="3.5s" >
+    <span class="wow fadeInUp" data-wow-delay="0.2s">CentOS7升级内核版本</span>
+    <span class="wow fadeInUp" data-wow-delay="0.4s"></span>
+    <span class="wow fadeInUp" data-wow-delay="0.4s"></span>
+    <span class="wow fadeInUp" data-wow-delay="0.6s">作者&nbsp;&nbsp;|&nbsp;&nbsp;qifeng</span>
+</div> -->
+
+<!-- 版本二 可切换页面 -->
+
+<div class="post-top" style="background-color:rgb(0,162,255);">
+  <!-- 页面宽度大于800px -->
+  <div class="left-area">
+    
+      <a href="javascript:;" class="btn bounceInLeft animated" onmouseover="showLeft();this.style.color='rgb(0,162,255)';" onmouseout="goneLeft();this.style.color='rgba(0,0,0,.2)';"><</a>
+      <div id="left-tab" style="display:none;"><span class="left-san"></span><span class="left-main" style="color:rgb(0,162,255);"><sapn class="main">没有上一页咯</sapn></span></div>
+    
+  </div>
+  <div class="post-titlearea">
+    <span class="wow fadeInUp" data-wow-delay="0.2s">CentOS7升级内核版本</span>
+    <!-- <span class="wow fadeInUp" data-wow-delay="0.4s"></span> -->
+    <!-- <span class="wow fadeInUp" data-wow-delay="0.4s"></span> -->
+    <!-- <span class="wow fadeInUp" data-wow-delay="0.6s">作者&nbsp;&nbsp;|&nbsp;&nbsp;qifeng</span> -->
+  </div>
+  <div class="right-area">
+    
+      <a href="/2019/11/30/nihao.html" class="btn bounceInRight self-animated" onmouseover="showRight();this.style.color='rgb(0,162,255)';" onmouseout="goneRight();this.style.color='rgba(0,0,0,.2)';">></a>
+      <div id="right-tab" style="display:none;"><span class="right-san"></span><span class="right-main" style="color:rgb(0,162,255);"><sapn class="main">你好</sapn></span></div>
+    
+  </div>
+
+  <!-- 页面宽度小于800px -->
+  <div class="post-changearea">
+    
+      <a href="javascript:;" class="leftchange" style="border-right: 1px solid rgb(0,162,255);border-bottom: 2px solid rgb(0,162,255);"><span><br>没有上一篇咯</span></a>
+    
+    
+      <a href="/2019/11/30/nihao.html" class="rightchange" style="border-left: 1px solid rgb(0,162,255);border-bottom: 2px solid rgb(0,162,255);"><span>下一篇<br><br>你好</span></a>
+    
+  </div>
+</div>
+
+
+<div class="markdown-body fadeInUp animated">
+
+  
+    
+      <div class="postpage-subtitle" style="border-left: 8px solid rgb(0,162,255); border-right: 8px solid rgb(0,162,255)">
+        centos7中原内核版本很低，而像docker要求内核版本为3.1以上，本文介绍如何升级
+      </div>
+    
+  
+
+  <!-- 文章内容 -->
+  <h2 id="centos7升级linux内核">CentOS7升级Linux内核</h2>
+
+<h3 id="1-关于linux内核">1. 关于Linux内核</h3>
+<p>Linux 内核分两种：官方内核（通常是内核开发人员用）和各大 Linux 发行版内核（一般用户常用）</p>
+
+<h4 id="11-官方内核">1.1 官方内核</h4>
+
+<p>在使用 Docker 时，发现其对 Linux 内核版本的最低要求是 3.10（这也刚好是 CentOS 7.2 的内核版本），但是在这个版本上有部分功能无法实现。目前 Linux 内核已经发布到 4.X（可以随时在 <a href="https://www.kernel.org/">Linux 内核官网</a> 查看当前版本），为了使用最新版本的内核，只好在安装 CentOS 7 后对内核进行升级。</p>
+
+<p>当然，内核也不能选最新的，防止有尚未发现的 BUG。而且为了减少以后停止维护带来的麻烦，最好安装长期支持版本。各个版本的支持时间在 <a href="https://www.kernel.org/category/releases.html">这个页面</a> 查看。每个版本可能有四种类型，概述如下：</p>
+
+<ul>
+  <li>Prepatch：Prepatch 或 “RC” 内核是主要的内核预发行版本，主要针对内核开发人员和 Linux 爱好者。必须从源代码进行编译，并且通常包含必须在可以放入稳定版本之前进行测试的新功能。Prepatch 内核由 Linus Torvalds 维护和发布。</li>
+  <li>Mainline：Mainline 主线树由 Linus Torvalds 维护。这个版本的内核会引入所有新功能。新的 Mainline 内核每 2-3 个月发布一次。</li>
+  <li>Stable：每个主线内核被发布后，即被认为是“stable”。任何对 stable 内核的 BUG 修复都会从 Mainline 主线树中回溯并由指定的 stable 内核维护人员使用。 在下一个主线内核可用之前，通常只有几个 BUG 修复内核版本 - 除非它被指定为“longterm maintenance kernel（长期维护内核）”。stable 内核更新按需发布，通常每月 2-3 次。</li>
+  <li>Longterm：通常会提供几个“longterm maintenance”内核版本，用于修复旧版内核的 BUG。这些内核只会修复重大 BUG，并且不会频繁发布版本</li>
+</ul>
+
+<h4 id="12-各大-linux-发行版内核">1.2 各大 Linux 发行版内核</h4>
+
+<p>一般来说，只有从 <code class="highlighter-rouge">kernel.org</code> 下载并编译安装的内核才是官方内核。
+大多数 <code class="highlighter-rouge">Linux</code> 发行版提供自行维护的内核，可以通过 <code class="highlighter-rouge">yum</code> 或 <code class="highlighter-rouge">rpm</code> 等包管理系统升级。这些内核可能不再和 <code class="highlighter-rouge">Linux</code> 内核官方开发维护人员有关系了。通过这个由各大 <code class="highlighter-rouge">Linux</code> 发行版支持的仓库升级内核，通常来说更简单可靠，但是可选择的内核版本也更少。</p>
+
+<p>使用 <code class="highlighter-rouge">uname -r</code> 区分你用的是官方内核还是 <code class="highlighter-rouge">Linux</code> 发行版内核，横线后面有任何东西都表示这不是官方内核：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```text
+# uname -r
+3.10.0-514.26.2.el7.x86_64
+```  
+</code></pre></div></div>
+
+<h3 id="2-查看当前的内核版本">2. 查看当前的内核版本</h3>
+<h4 id="21-概述">2.1 概述</h4>
+<p>Linux 只表示内核。各大 Linux 发行版（RedHat、Ubuntu、CentOS 等）在内核基础上集成了其他的一系列软件，按照各自的版本规则发布。例如 CentOS 7.2 中，通过 <code class="highlighter-rouge">uname -r</code> 查看内核版本时，会看到 <code class="highlighter-rouge">3.10.0-514.26.2.el7.x86_64</code>，表示对应的 Linux 内核版本是 <code class="highlighter-rouge">3.10</code>。</p>
+
+<h4 id="22-常用的查看内核信息的命令">2.2 常用的查看内核信息的命令</h4>
+
+<p>**2.2.1 <code class="highlighter-rouge">uname</code> **</p>
+
+<p>打印指定的系统信息。不带参数时，默认使用 <code class="highlighter-rouge">-s</code> 参数。</p>
+
+<ul>
+  <li>参数：
+    <ul>
+      <li>-a, –all：按照下面的顺序打印所有信息，如果 -p 和 -i 未知时排除掉。</li>
+      <li>-s, –kernel-name：打印内核名字，一般就是 Linux。</li>
+      <li>-n, –nodename：打印网络节点的主机名。</li>
+      <li>-r, –kernel-release：打印内核发行版的版本。常用。3.10.0-514.26.2.el7.x86_64</li>
+      <li>-v, –kernel-version：打印内核的版本。#1 SMP Tue Jul 4 15:04:05 UTC 2017</li>
+      <li>-m, –machine：打印机器硬件名。</li>
+      <li>-p, –processor：打印处理器名字或“unknown”。</li>
+      <li>-i, –hardware-platform：打印硬件平台或“unknown”。</li>
+      <li>-o, –operating-system：打印操作系统。</li>
+      <li>–help：显示这个帮助并退出。</li>
+      <li>–version：显示这版本信息并退出。</li>
+    </ul>
+  </li>
+  <li>实例</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="c"># uname -r</span>
+    3.10.0-514.26.2.el7.x86_64
+    <span class="c"># uname -a</span>
+    Linux VM_139_74_centos 3.10.0-514.26.2.el7.x86_64 <span class="c">#1 SMP Tue Jul 4 15:04:05 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux</span>
+    <span class="c"># cat /etc/redhat-release </span>
+    CentOS Linux release 7.2.1511 <span class="o">(</span>Core<span class="o">)</span> 
+</code></pre></div></div>
+
+<p><strong>2.2.2  <code class="highlighter-rouge">/proc</code> 虚拟文件系统</strong><br />
+内核空间和用户空间通过 <code class="highlighter-rouge">/proc</code> 虚拟文件系统可以通信。</p>
+
+<p><code class="highlighter-rouge">/proc</code> 目录中包含一些目录和虚拟文件，这些虚拟文件可以向用户呈现内核信息或者从用户空间向内核发送信息。</p>
+
+<p>常用文件：</p>
+
+<ul>
+  <li>cpuinfo：标识了处理器的类型和速度</li>
+  <li>pci：显示在 PCI 总线上找到的设备</li>
+  <li>modules：当前加载到内核中的模块</li>
+  <li>version：系统版本及内核版本</li>
+</ul>
+
+<p>示例：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="c"># cat /proc/version </span>
+    Linux version 3.10.0-514.26.2.el7.x86_64 <span class="o">(</span>builder@kbuilder.dev.centos.org<span class="o">)</span> <span class="o">(</span>gcc version 4.8.5 20150623 <span class="o">(</span>Red Hat 4.8.5-11<span class="o">)</span> <span class="o">(</span>GCC<span class="o">)</span> <span class="o">)</span> <span class="c">#1 SMP Tue Jul 4 15:04:05 UTC 2017</span>
+</code></pre></div></div>
+
+<h3 id="3-备份数据">3. 备份数据</h3>
+<h3 id="4-升级内核">4. 升级内核</h3>
+<p>记得首先更新仓库：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    yum -y update
+</code></pre></div></div>
+
+<h4 id="41-启用-elrepo-仓库">4.1 启用 ELRepo 仓库</h4>
+
+<p>ELRepo 仓库是基于社区的用于企业级 Linux 仓库，提供对 RedHat Enterprise (RHEL) 和 其他基于 RHEL的 Linux 发行版（CentOS、Scientific、Fedora 等）的支持。<br />
+ELRepo 聚焦于和硬件相关的软件包，包括文件系统驱动、显卡驱动、网络驱动、声卡驱动和摄像头驱动等。</p>
+
+<p>启用 ELRepo 仓库：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
+# rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm
+</code></pre></div></div>
+
+<h4 id="42-查看可用的系统内核包">4.2 查看可用的系统内核包:</h4>
+
+<p>可以看到，只有 4.4 和 4.15 两个版本可以使用：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    # yum --disablerepo="*" --enablerepo="elrepo-kernel" list available
+    Loaded plugins: fastestmirror, langpacks
+    elrepo-kernel                                                   | 2.9 kB  00:00:00     
+    elrepo-kernel/primary_db                                        | 1.7 MB  00:00:02     
+    Determining fastest mirrors
+    * elrepo-kernel: elrepo.org
+    Available Packages
+    kernel-lt.x86_64                           4.4.118-1.el7.elrepo            elrepo-kernel
+    kernel-lt-devel.x86_64                     4.4.118-1.el7.elrepo            elrepo-kernel
+    kernel-lt-doc.noarch                       4.4.118-1.el7.elrepo            elrepo-kernel
+    kernel-lt-headers.x86_64                   4.4.118-1.el7.elrepo            elrepo-kernel
+    kernel-lt-tools.x86_64                     4.4.118-1.el7.elrepo            elrepo-kernel
+    kernel-lt-tools-libs.x86_64                4.4.118-1.el7.elrepo            elrepo-kernel
+    kernel-lt-tools-libs-devel.x86_64          4.4.118-1.el7.elrepo            elrepo-kernel
+    kernel-ml.x86_64                           4.15.6-1.el7.elrepo             elrepo-kernel
+    kernel-ml-devel.x86_64                     4.15.6-1.el7.elrepo             elrepo-kernel
+    kernel-ml-doc.noarch                       4.15.6-1.el7.elrepo             elrepo-kernel
+    kernel-ml-headers.x86_64                   4.15.6-1.el7.elrepo             elrepo-kernel
+    kernel-ml-tools.x86_64                     4.15.6-1.el7.elrepo             elrepo-kernel
+    kernel-ml-tools-libs.x86_64                4.15.6-1.el7.elrepo             elrepo-kernel
+    kernel-ml-tools-libs-devel.x86_64          4.15.6-1.el7.elrepo             elrepo-kernel
+    perf.x86_64                                4.15.6-1.el7.elrepo             elrepo-kernel
+    python-perf.x86_64                   
+</code></pre></div></div>
+
+<h4 id="43-安装最新内核">4.3 安装最新内核:</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    # yum --enablerepo=elrepo-kernel install kernel-ml
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">--enablerepo</code> 选项开启 CentOS 系统上的指定仓库。默认开启的是 <code class="highlighter-rouge">elrepo</code>，这里用 <code class="highlighter-rouge">elrepo-kernel</code> 替换</p>
+
+<h3 id="5-设置-grub2">5. 设置 grub2</h3>
+
+<p>内核安装好后，需要设置为默认启动选项并重启后才会生效</p>
+
+<h4 id="51-查看系统上的所有可以内核">5.1 查看系统上的所有可以内核：</h4>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># sudo awk -F\' '$1=="menuentry " {print i++ " : " $2}' /etc/grub2.cfg
+0 : CentOS Linux (4.15.6-1.el7.elrepo.x86_64) 7 (Core)
+1 : CentOS Linux (3.10.0-514.26.2.el7.x86_64) 7 (Core)
+2 : CentOS Linux (3.10.0-327.el7.x86_64) 7 (Core)
+3 : CentOS Linux (0-rescue-f9d400c5e1e8c3a8209e990d887d4ac1) 7 (Core)
+</code></pre></div></div>
+
+<h4 id="52-设置-grub2">5.2 设置 grub2</h4>
+
+<p>机器上存在 4 个内核，我们要使用 4.15 这个版本，可以通过 grub2-set-default 0 命令或编辑 /etc/default/grub 文件来设置。</p>
+
+<ol>
+  <li>
+    <p><code class="highlighter-rouge">通过 grub2-set-default 0</code> 命令设置：<br />
+ 其中 0 来自上一步的 awk 命令：</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> sudo grub2-set-default 0
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>编辑 <code class="highlighter-rouge">/etc/default/grub</code> 文件</p>
+
+    <p>设置 <code class="highlighter-rouge">GRUB_DEFAULT=0</code>，表示使用上一步的 <code class="highlighter-rouge">awk</code> 命令显示的编号为 0 的内核作为默认内核：</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> # vi /etc/default/grub
+
+ &gt; GRUB_TIMEOUT=5
+ &gt; GRUB_DISTRIBUTOR="$(sed 's, release .*$,,g' /etc/system-release)"
+ &gt; GRUB_DEFAULT=0
+ &gt; GRUB_DISABLE_SUBMENU=true
+ &gt; GRUB_TERMINAL_OUTPUT="console"
+ &gt; GRUB_CMDLINE_LINUX="crashkernel=auto console=ttyS0 console=tty0 panic=5"
+ &gt; GRUB_DISABLE_RECOVERY="true"
+ &gt; GRUB_TERMINAL="serial console"
+ &gt; GRUB_TERMINAL_OUTPUT="serial console"
+ &gt; GRUB_SERIAL_COMMAND="serial --speed=9600 --unit=0 --word=8 --parity=no --stop=1"
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h4 id="53-生成-grub-配置文件并重启">5.3 生成 grub 配置文件并重启</h4>
+
+<p>下一步，通过 <code class="highlighter-rouge">gurb2-mkconfig</code> 命令创建 <code class="highlighter-rouge">grub2</code> 的配置文件，然后重启：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    sudo grub2-mkconfig -o /boot/grub2/grub.cfg
+    sudo reboot
+</code></pre></div></div>
+
+<h4 id="54-验证">5.4 验证</h4>
+<p>通过 <code class="highlighter-rouge">uname -r</code> 查看，可以发现已经生效了。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    # uname -r
+    4.15.6-1.el7.elrepo.x86_64
+</code></pre></div></div>
+
+<h3 id="6-删除旧内核可选">6. 删除旧内核（可选）</h3>
+
+<p>内核有两种删除方式：通过 <code class="highlighter-rouge">yum remove</code> 命令或通过 <code class="highlighter-rouge">yum-utils</code> 工具。</p>
+
+<h4 id="61-通过-yum-remove-命令">6.1 通过 <code class="highlighter-rouge">yum remove</code> 命令</h4>
+
+<p>查看系统中全部的内核：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    # rpm -qa | grep kernel
+    kernel-tools-libs-3.10.0-514.26.2.el7.x86_64
+    kernel-ml-4.15.6-1.el7.elrepo.x86_64
+    kernel-3.10.0-327.el7.x86_64
+    kernel-tools-3.10.0-514.26.2.el7.x86_64
+    kernel-headers-3.10.0-514.26.2.el7.x86_64
+    kernel-3.10.0-514.26.2.el7.x86_64
+</code></pre></div></div>
+
+<p>删除旧内核的 RPM 包</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    yum remove kernel-tools-libs-3.10.0-514.26.2.el7.x86_64 kernel-3.10.0-327.el7.x86_64 kernel-tools-3.10.0-514.26.2.el7.x86_64 kernel-headers-3.10.0-514.26.2.el7.x86_64 kernel-3.10.0-514.26.2.el7.x86_64
+</code></pre></div></div>
+
+<h3 id="62-通过-yum-utils-工具">6.2 通过 <code class="highlighter-rouge">yum-utils</code> 工具</h3>
+<p>如果安装的内核不多于 3 个，yum-utils 工具不会删除任何一个。只有在安装的内核大于 3 个时，才会自动删除旧内核。</p>
+
+<h4 id="621-安装">6.2.1 安装</h4>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    yum install yum-utils
+</code></pre></div></div>
+
+<h4 id="622-删除">6.2.2 删除</h4>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    package-cleanup --oldkernels
+</code></pre></div></div>
+
+
+  <!-- 引入share模块 -->
+  
+  <div class="social-share-wrapper">
+    <div class="social-share"></div>
+  </div>
+
+
+<!-- share.js -->
+<script src="/assets/js/social-share.min.js"></script>
+<script>
+  socialShare('.social-share', {
+    sites: [
+      
+        'qq'
+        ,
+        
+      
+        'wechat'
+        ,
+        
+      
+        'weibo'
+        ,
+        
+      
+        'twitter'
+        ,
+        
+      
+        'facebook'
+        
+      
+    ],
+    wechatQrcodeTitle: "分享到微信朋友圈",
+    wechatQrcodeHelper: '期待在朋友圈见到这篇文章'
+  });
+</script>
+
+</div>
+
+<!-- 底部锚点 -->
+<a id="htmldown" name="htmldown"></a>
+<!-- 引入评论模块 -->
+
+
+
+    <section class="post-footer-item comment">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80NzUwOC8yNDAwOA=="></div>
+    </section>
+
+    <!-- 来必力City版安装代码 -->
+    <script type="text/javascript">
+       (function(d, s) {
+           var j, e = d.getElementsByTagName(s)[0];
+
+           if (typeof LivereTower === 'function') { return; }
+
+           j = d.createElement(s);
+           j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+           j.async = true;
+
+           e.parentNode.insertBefore(j, e);
+       })(document, 'script');
+    </script>
+    <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+    <!-- City版安装代码已完成 -->
+
+
+
+
+
+<!-- 引入goto模块 -->
+<div class="bounceInRight animated go">
+  <a title="顶部切换页面" class="gototop" href="#htmlup" target="_self">
+    <div class="box" style="font-family:'ffad_matroregular';">
+        Top
+    </div>
+  </a>
+  <a title="底部有livere评论哦" class="gotobottom" href="#htmldown" target="_self">
+    <div class="box" style="font-family:'ffad_matroregular';">
+        Foot
+    </div>
+  </a>
+</div>
+
+<!-- 引入页面底部模块 -->
+<footer id="bottom">
+  <br>
+  <span>Breeze and me ©
+  
+  
+    2018
+    -
+  
+  2019
+  <br>
+  Powered by <a href="https://www.jekyll.com.cn/">Jekyll</a> | <a href="https://github.com/xukimseven/HardCandy-Jekyll">HardCandy-Jekyll</a></span>
+</footer>
+
+
+<!-- 引用wow.js的动画效果 -->
+<script src="/assets/js/wow.js"></script>
+<script>
+    var wow = new WOW({
+        boxClass: 'wow',
+        animateClass: 'animated',
+        // offset: 600,
+        mobile: true,
+        live: true
+    });
+    wow.init();
+</script>
+<!-- 页面刷新回到顶部 -->
+<script>
+    window.onbeforeunload = function(){
+        //刷新后页面自动回到顶部
+        document.documentElement.scrollTop = 0;  //ie下
+        document.body.scrollTop = 0;  //非ie
+    }
+</script>
+<script src="/assets/js/main.js"></script>
+</body>
+</html>

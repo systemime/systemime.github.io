@@ -1,4 +1,243 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.1">Jekyll</generator><link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/" rel="alternate" type="text/html" /><updated>2019-11-29T19:17:32+08:00</updated><id>http://0.0.0.0:4000/</id><title type="html">Breeze and me</title><subtitle>如果所有人都理解你会普通成什么样子</subtitle><author><name>true</name></author><entry><title type="html">浪潮服务器RAID 磁盘状态foreign解决方案</title><link href="http://0.0.0.0:4000/2019/11/29/langchao-raid-webbios.html" rel="alternate" type="text/html" title="浪潮服务器RAID 磁盘状态foreign解决方案" /><published>2019-11-29T04:35:13+08:00</published><updated>2019-11-29T04:35:13+08:00</updated><id>http://0.0.0.0:4000/2019/11/29/langchao-raid-webbios</id><content type="html" xml:base="http://0.0.0.0:4000/2019/11/29/langchao-raid-webbios.html">&lt;h2 id=&quot;解决方案记录&quot;&gt;解决方案记录&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.1">Jekyll</generator><link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/" rel="alternate" type="text/html" /><updated>2019-11-30T14:25:57+08:00</updated><id>http://0.0.0.0:4000/</id><title type="html">Breeze and me</title><subtitle>如果所有人都理解你会普通成什么样子</subtitle><author><name>true</name></author><entry><title type="html">CentOS7升级内核版本</title><link href="http://0.0.0.0:4000/2019/11/30/centos7-kernel-update.html" rel="alternate" type="text/html" title="CentOS7升级内核版本" /><published>2019-11-30T08:20:00+08:00</published><updated>2019-11-30T08:20:00+08:00</updated><id>http://0.0.0.0:4000/2019/11/30/centos7-kernel-update</id><content type="html" xml:base="http://0.0.0.0:4000/2019/11/30/centos7-kernel-update.html">&lt;h2 id=&quot;centos7升级linux内核&quot;&gt;CentOS7升级Linux内核&lt;/h2&gt;
+
+&lt;h3 id=&quot;1-关于linux内核&quot;&gt;1. 关于Linux内核&lt;/h3&gt;
+&lt;p&gt;Linux 内核分两种：官方内核（通常是内核开发人员用）和各大 Linux 发行版内核（一般用户常用）&lt;/p&gt;
+
+&lt;h4 id=&quot;11-官方内核&quot;&gt;1.1 官方内核&lt;/h4&gt;
+
+&lt;p&gt;在使用 Docker 时，发现其对 Linux 内核版本的最低要求是 3.10（这也刚好是 CentOS 7.2 的内核版本），但是在这个版本上有部分功能无法实现。目前 Linux 内核已经发布到 4.X（可以随时在 &lt;a href=&quot;https://www.kernel.org/&quot;&gt;Linux 内核官网&lt;/a&gt; 查看当前版本），为了使用最新版本的内核，只好在安装 CentOS 7 后对内核进行升级。&lt;/p&gt;
+
+&lt;p&gt;当然，内核也不能选最新的，防止有尚未发现的 BUG。而且为了减少以后停止维护带来的麻烦，最好安装长期支持版本。各个版本的支持时间在 &lt;a href=&quot;https://www.kernel.org/category/releases.html&quot;&gt;这个页面&lt;/a&gt; 查看。每个版本可能有四种类型，概述如下：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Prepatch：Prepatch 或 “RC” 内核是主要的内核预发行版本，主要针对内核开发人员和 Linux 爱好者。必须从源代码进行编译，并且通常包含必须在可以放入稳定版本之前进行测试的新功能。Prepatch 内核由 Linus Torvalds 维护和发布。&lt;/li&gt;
+  &lt;li&gt;Mainline：Mainline 主线树由 Linus Torvalds 维护。这个版本的内核会引入所有新功能。新的 Mainline 内核每 2-3 个月发布一次。&lt;/li&gt;
+  &lt;li&gt;Stable：每个主线内核被发布后，即被认为是“stable”。任何对 stable 内核的 BUG 修复都会从 Mainline 主线树中回溯并由指定的 stable 内核维护人员使用。 在下一个主线内核可用之前，通常只有几个 BUG 修复内核版本 - 除非它被指定为“longterm maintenance kernel（长期维护内核）”。stable 内核更新按需发布，通常每月 2-3 次。&lt;/li&gt;
+  &lt;li&gt;Longterm：通常会提供几个“longterm maintenance”内核版本，用于修复旧版内核的 BUG。这些内核只会修复重大 BUG，并且不会频繁发布版本&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;12-各大-linux-发行版内核&quot;&gt;1.2 各大 Linux 发行版内核&lt;/h4&gt;
+
+&lt;p&gt;一般来说，只有从 &lt;code class=&quot;highlighter-rouge&quot;&gt;kernel.org&lt;/code&gt; 下载并编译安装的内核才是官方内核。
+大多数 &lt;code class=&quot;highlighter-rouge&quot;&gt;Linux&lt;/code&gt; 发行版提供自行维护的内核，可以通过 &lt;code class=&quot;highlighter-rouge&quot;&gt;yum&lt;/code&gt; 或 &lt;code class=&quot;highlighter-rouge&quot;&gt;rpm&lt;/code&gt; 等包管理系统升级。这些内核可能不再和 &lt;code class=&quot;highlighter-rouge&quot;&gt;Linux&lt;/code&gt; 内核官方开发维护人员有关系了。通过这个由各大 &lt;code class=&quot;highlighter-rouge&quot;&gt;Linux&lt;/code&gt; 发行版支持的仓库升级内核，通常来说更简单可靠，但是可选择的内核版本也更少。&lt;/p&gt;
+
+&lt;p&gt;使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;uname -r&lt;/code&gt; 区分你用的是官方内核还是 &lt;code class=&quot;highlighter-rouge&quot;&gt;Linux&lt;/code&gt; 发行版内核，横线后面有任何东西都表示这不是官方内核：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;```text
+# uname -r
+3.10.0-514.26.2.el7.x86_64
+```  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;2-查看当前的内核版本&quot;&gt;2. 查看当前的内核版本&lt;/h3&gt;
+&lt;h4 id=&quot;21-概述&quot;&gt;2.1 概述&lt;/h4&gt;
+&lt;p&gt;Linux 只表示内核。各大 Linux 发行版（RedHat、Ubuntu、CentOS 等）在内核基础上集成了其他的一系列软件，按照各自的版本规则发布。例如 CentOS 7.2 中，通过 &lt;code class=&quot;highlighter-rouge&quot;&gt;uname -r&lt;/code&gt; 查看内核版本时，会看到 &lt;code class=&quot;highlighter-rouge&quot;&gt;3.10.0-514.26.2.el7.x86_64&lt;/code&gt;，表示对应的 Linux 内核版本是 &lt;code class=&quot;highlighter-rouge&quot;&gt;3.10&lt;/code&gt;。&lt;/p&gt;
+
+&lt;h4 id=&quot;22-常用的查看内核信息的命令&quot;&gt;2.2 常用的查看内核信息的命令&lt;/h4&gt;
+
+&lt;p&gt;**2.2.1 &lt;code class=&quot;highlighter-rouge&quot;&gt;uname&lt;/code&gt; **&lt;/p&gt;
+
+&lt;p&gt;打印指定的系统信息。不带参数时，默认使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;-s&lt;/code&gt; 参数。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;参数：
+    &lt;ul&gt;
+      &lt;li&gt;-a, –all：按照下面的顺序打印所有信息，如果 -p 和 -i 未知时排除掉。&lt;/li&gt;
+      &lt;li&gt;-s, –kernel-name：打印内核名字，一般就是 Linux。&lt;/li&gt;
+      &lt;li&gt;-n, –nodename：打印网络节点的主机名。&lt;/li&gt;
+      &lt;li&gt;-r, –kernel-release：打印内核发行版的版本。常用。3.10.0-514.26.2.el7.x86_64&lt;/li&gt;
+      &lt;li&gt;-v, –kernel-version：打印内核的版本。#1 SMP Tue Jul 4 15:04:05 UTC 2017&lt;/li&gt;
+      &lt;li&gt;-m, –machine：打印机器硬件名。&lt;/li&gt;
+      &lt;li&gt;-p, –processor：打印处理器名字或“unknown”。&lt;/li&gt;
+      &lt;li&gt;-i, –hardware-platform：打印硬件平台或“unknown”。&lt;/li&gt;
+      &lt;li&gt;-o, –operating-system：打印操作系统。&lt;/li&gt;
+      &lt;li&gt;–help：显示这个帮助并退出。&lt;/li&gt;
+      &lt;li&gt;–version：显示这版本信息并退出。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;实例&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;c&quot;&gt;# uname -r&lt;/span&gt;
+    3.10.0-514.26.2.el7.x86_64
+    &lt;span class=&quot;c&quot;&gt;# uname -a&lt;/span&gt;
+    Linux VM_139_74_centos 3.10.0-514.26.2.el7.x86_64 &lt;span class=&quot;c&quot;&gt;#1 SMP Tue Jul 4 15:04:05 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# cat /etc/redhat-release &lt;/span&gt;
+    CentOS Linux release 7.2.1511 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Core&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;2.2.2  &lt;code class=&quot;highlighter-rouge&quot;&gt;/proc&lt;/code&gt; 虚拟文件系统&lt;/strong&gt;&lt;br /&gt;
+内核空间和用户空间通过 &lt;code class=&quot;highlighter-rouge&quot;&gt;/proc&lt;/code&gt; 虚拟文件系统可以通信。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;/proc&lt;/code&gt; 目录中包含一些目录和虚拟文件，这些虚拟文件可以向用户呈现内核信息或者从用户空间向内核发送信息。&lt;/p&gt;
+
+&lt;p&gt;常用文件：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;cpuinfo：标识了处理器的类型和速度&lt;/li&gt;
+  &lt;li&gt;pci：显示在 PCI 总线上找到的设备&lt;/li&gt;
+  &lt;li&gt;modules：当前加载到内核中的模块&lt;/li&gt;
+  &lt;li&gt;version：系统版本及内核版本&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;示例：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;c&quot;&gt;# cat /proc/version &lt;/span&gt;
+    Linux version 3.10.0-514.26.2.el7.x86_64 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;builder@kbuilder.dev.centos.org&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;gcc version 4.8.5 20150623 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Red Hat 4.8.5-11&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;GCC&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#1 SMP Tue Jul 4 15:04:05 UTC 2017&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;3-备份数据&quot;&gt;3. 备份数据&lt;/h3&gt;
+&lt;h3 id=&quot;4-升级内核&quot;&gt;4. 升级内核&lt;/h3&gt;
+&lt;p&gt;记得首先更新仓库：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    yum -y update
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;41-启用-elrepo-仓库&quot;&gt;4.1 启用 ELRepo 仓库&lt;/h4&gt;
+
+&lt;p&gt;ELRepo 仓库是基于社区的用于企业级 Linux 仓库，提供对 RedHat Enterprise (RHEL) 和 其他基于 RHEL的 Linux 发行版（CentOS、Scientific、Fedora 等）的支持。&lt;br /&gt;
+ELRepo 聚焦于和硬件相关的软件包，包括文件系统驱动、显卡驱动、网络驱动、声卡驱动和摄像头驱动等。&lt;/p&gt;
+
+&lt;p&gt;启用 ELRepo 仓库：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
+# rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;42-查看可用的系统内核包&quot;&gt;4.2 查看可用的系统内核包:&lt;/h4&gt;
+
+&lt;p&gt;可以看到，只有 4.4 和 4.15 两个版本可以使用：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    # yum --disablerepo=&quot;*&quot; --enablerepo=&quot;elrepo-kernel&quot; list available
+    Loaded plugins: fastestmirror, langpacks
+    elrepo-kernel                                                   | 2.9 kB  00:00:00     
+    elrepo-kernel/primary_db                                        | 1.7 MB  00:00:02     
+    Determining fastest mirrors
+    * elrepo-kernel: elrepo.org
+    Available Packages
+    kernel-lt.x86_64                           4.4.118-1.el7.elrepo            elrepo-kernel
+    kernel-lt-devel.x86_64                     4.4.118-1.el7.elrepo            elrepo-kernel
+    kernel-lt-doc.noarch                       4.4.118-1.el7.elrepo            elrepo-kernel
+    kernel-lt-headers.x86_64                   4.4.118-1.el7.elrepo            elrepo-kernel
+    kernel-lt-tools.x86_64                     4.4.118-1.el7.elrepo            elrepo-kernel
+    kernel-lt-tools-libs.x86_64                4.4.118-1.el7.elrepo            elrepo-kernel
+    kernel-lt-tools-libs-devel.x86_64          4.4.118-1.el7.elrepo            elrepo-kernel
+    kernel-ml.x86_64                           4.15.6-1.el7.elrepo             elrepo-kernel
+    kernel-ml-devel.x86_64                     4.15.6-1.el7.elrepo             elrepo-kernel
+    kernel-ml-doc.noarch                       4.15.6-1.el7.elrepo             elrepo-kernel
+    kernel-ml-headers.x86_64                   4.15.6-1.el7.elrepo             elrepo-kernel
+    kernel-ml-tools.x86_64                     4.15.6-1.el7.elrepo             elrepo-kernel
+    kernel-ml-tools-libs.x86_64                4.15.6-1.el7.elrepo             elrepo-kernel
+    kernel-ml-tools-libs-devel.x86_64          4.15.6-1.el7.elrepo             elrepo-kernel
+    perf.x86_64                                4.15.6-1.el7.elrepo             elrepo-kernel
+    python-perf.x86_64                   
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;43-安装最新内核&quot;&gt;4.3 安装最新内核:&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    # yum --enablerepo=elrepo-kernel install kernel-ml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--enablerepo&lt;/code&gt; 选项开启 CentOS 系统上的指定仓库。默认开启的是 &lt;code class=&quot;highlighter-rouge&quot;&gt;elrepo&lt;/code&gt;，这里用 &lt;code class=&quot;highlighter-rouge&quot;&gt;elrepo-kernel&lt;/code&gt; 替换&lt;/p&gt;
+
+&lt;h3 id=&quot;5-设置-grub2&quot;&gt;5. 设置 grub2&lt;/h3&gt;
+
+&lt;p&gt;内核安装好后，需要设置为默认启动选项并重启后才会生效&lt;/p&gt;
+
+&lt;h4 id=&quot;51-查看系统上的所有可以内核&quot;&gt;5.1 查看系统上的所有可以内核：&lt;/h4&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# sudo awk -F\' '$1==&quot;menuentry &quot; {print i++ &quot; : &quot; $2}' /etc/grub2.cfg
+0 : CentOS Linux (4.15.6-1.el7.elrepo.x86_64) 7 (Core)
+1 : CentOS Linux (3.10.0-514.26.2.el7.x86_64) 7 (Core)
+2 : CentOS Linux (3.10.0-327.el7.x86_64) 7 (Core)
+3 : CentOS Linux (0-rescue-f9d400c5e1e8c3a8209e990d887d4ac1) 7 (Core)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;52-设置-grub2&quot;&gt;5.2 设置 grub2&lt;/h4&gt;
+
+&lt;p&gt;机器上存在 4 个内核，我们要使用 4.15 这个版本，可以通过 grub2-set-default 0 命令或编辑 /etc/default/grub 文件来设置。&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;通过 grub2-set-default 0&lt;/code&gt; 命令设置：&lt;br /&gt;
+ 其中 0 来自上一步的 awk 命令：&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; sudo grub2-set-default 0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;编辑 &lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/default/grub&lt;/code&gt; 文件&lt;/p&gt;
+
+    &lt;p&gt;设置 &lt;code class=&quot;highlighter-rouge&quot;&gt;GRUB_DEFAULT=0&lt;/code&gt;，表示使用上一步的 &lt;code class=&quot;highlighter-rouge&quot;&gt;awk&lt;/code&gt; 命令显示的编号为 0 的内核作为默认内核：&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; # vi /etc/default/grub
+
+ &amp;gt; GRUB_TIMEOUT=5
+ &amp;gt; GRUB_DISTRIBUTOR=&quot;$(sed 's, release .*$,,g' /etc/system-release)&quot;
+ &amp;gt; GRUB_DEFAULT=0
+ &amp;gt; GRUB_DISABLE_SUBMENU=true
+ &amp;gt; GRUB_TERMINAL_OUTPUT=&quot;console&quot;
+ &amp;gt; GRUB_CMDLINE_LINUX=&quot;crashkernel=auto console=ttyS0 console=tty0 panic=5&quot;
+ &amp;gt; GRUB_DISABLE_RECOVERY=&quot;true&quot;
+ &amp;gt; GRUB_TERMINAL=&quot;serial console&quot;
+ &amp;gt; GRUB_TERMINAL_OUTPUT=&quot;serial console&quot;
+ &amp;gt; GRUB_SERIAL_COMMAND=&quot;serial --speed=9600 --unit=0 --word=8 --parity=no --stop=1&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;53-生成-grub-配置文件并重启&quot;&gt;5.3 生成 grub 配置文件并重启&lt;/h4&gt;
+
+&lt;p&gt;下一步，通过 &lt;code class=&quot;highlighter-rouge&quot;&gt;gurb2-mkconfig&lt;/code&gt; 命令创建 &lt;code class=&quot;highlighter-rouge&quot;&gt;grub2&lt;/code&gt; 的配置文件，然后重启：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    sudo grub2-mkconfig -o /boot/grub2/grub.cfg
+    sudo reboot
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;54-验证&quot;&gt;5.4 验证&lt;/h4&gt;
+&lt;p&gt;通过 &lt;code class=&quot;highlighter-rouge&quot;&gt;uname -r&lt;/code&gt; 查看，可以发现已经生效了。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    # uname -r
+    4.15.6-1.el7.elrepo.x86_64
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;6-删除旧内核可选&quot;&gt;6. 删除旧内核（可选）&lt;/h3&gt;
+
+&lt;p&gt;内核有两种删除方式：通过 &lt;code class=&quot;highlighter-rouge&quot;&gt;yum remove&lt;/code&gt; 命令或通过 &lt;code class=&quot;highlighter-rouge&quot;&gt;yum-utils&lt;/code&gt; 工具。&lt;/p&gt;
+
+&lt;h4 id=&quot;61-通过-yum-remove-命令&quot;&gt;6.1 通过 &lt;code class=&quot;highlighter-rouge&quot;&gt;yum remove&lt;/code&gt; 命令&lt;/h4&gt;
+
+&lt;p&gt;查看系统中全部的内核：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    # rpm -qa | grep kernel
+    kernel-tools-libs-3.10.0-514.26.2.el7.x86_64
+    kernel-ml-4.15.6-1.el7.elrepo.x86_64
+    kernel-3.10.0-327.el7.x86_64
+    kernel-tools-3.10.0-514.26.2.el7.x86_64
+    kernel-headers-3.10.0-514.26.2.el7.x86_64
+    kernel-3.10.0-514.26.2.el7.x86_64
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;删除旧内核的 RPM 包&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    yum remove kernel-tools-libs-3.10.0-514.26.2.el7.x86_64 kernel-3.10.0-327.el7.x86_64 kernel-tools-3.10.0-514.26.2.el7.x86_64 kernel-headers-3.10.0-514.26.2.el7.x86_64 kernel-3.10.0-514.26.2.el7.x86_64
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;62-通过-yum-utils-工具&quot;&gt;6.2 通过 &lt;code class=&quot;highlighter-rouge&quot;&gt;yum-utils&lt;/code&gt; 工具&lt;/h3&gt;
+&lt;p&gt;如果安装的内核不多于 3 个，yum-utils 工具不会删除任何一个。只有在安装的内核大于 3 个时，才会自动删除旧内核。&lt;/p&gt;
+
+&lt;h4 id=&quot;621-安装&quot;&gt;6.2.1 安装&lt;/h4&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    yum install yum-utils
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;622-删除&quot;&gt;6.2.2 删除&lt;/h4&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    package-cleanup --oldkernels
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>qifeng</name></author><category term="centos" /><category term="kernel" /><category term="update" /><summary type="html">CentOS7升级Linux内核</summary></entry><entry><title type="html">你好</title><link href="http://0.0.0.0:4000/2019/11/30/nihao.html" rel="alternate" type="text/html" title="你好" /><published>2019-11-30T07:59:00+08:00</published><updated>2019-11-30T07:59:00+08:00</updated><id>http://0.0.0.0:4000/2019/11/30/nihao</id><content type="html" xml:base="http://0.0.0.0:4000/2019/11/30/nihao.html">&lt;h1 id=&quot;你好啊&quot;&gt;你好啊&lt;/h1&gt;
+
+&lt;h4 id=&quot;陌生人&quot;&gt;陌生人&lt;/h4&gt;
+
+&lt;p&gt;是梦，那就打碎它&lt;/p&gt;
+
+&lt;p&gt;努力去飞吧&lt;/p&gt;</content><author><name>Jekyll</name></author><category term="welcome" /><summary type="html">你好啊 陌生人 是梦，那就打碎它 努力去飞吧</summary></entry><entry><title type="html">浪潮服务器RAID 磁盘状态foreign解决方案</title><link href="http://0.0.0.0:4000/2019/11/29/langchao-raid-webbios.html" rel="alternate" type="text/html" title="浪潮服务器RAID 磁盘状态foreign解决方案" /><published>2019-11-29T04:35:13+08:00</published><updated>2019-11-29T04:35:13+08:00</updated><id>http://0.0.0.0:4000/2019/11/29/langchao-raid-webbios</id><content type="html" xml:base="http://0.0.0.0:4000/2019/11/29/langchao-raid-webbios.html">&lt;h2 id=&quot;解决方案记录&quot;&gt;解决方案记录&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://github.com/systemime/my_image/blob/master/Ctrl%2BH%20%E6%B5%AA%E6%BD%AERaid%E9%85%8D%E7%BD%AE%E6%96%87%E6%A1%A3%20-%20%E5%BC%A0%E5%86%B2andy%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD.pdf&quot;&gt;Ctrl+H 浪潮Raid配置文档&lt;/a&gt;&lt;/p&gt;
 
@@ -473,13 +712,7 @@ def name():
   &lt;span class=&quot;nt&quot;&gt;&amp;lt;/textarea&amp;gt;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
-&lt;/ul&gt;</content><author><name>qifeng</name></author><category term="mako" /><category term="django" /><summary type="html">一、安装mako</summary></entry><entry><title type="html">你好</title><link href="http://0.0.0.0:4000/2019/11/24/nihao.html" rel="alternate" type="text/html" title="你好" /><published>2019-11-24T00:00:00+08:00</published><updated>2019-11-24T00:00:00+08:00</updated><id>http://0.0.0.0:4000/2019/11/24/nihao</id><content type="html" xml:base="http://0.0.0.0:4000/2019/11/24/nihao.html">&lt;h1 id=&quot;你好啊&quot;&gt;你好啊&lt;/h1&gt;
-
-&lt;h4 id=&quot;陌生人&quot;&gt;陌生人&lt;/h4&gt;
-
-&lt;p&gt;是梦，那就打碎它&lt;/p&gt;
-
-&lt;p&gt;努力去飞吧&lt;/p&gt;</content><author><name>Jekyll</name></author><category term="welcome" /><summary type="html">你好啊 陌生人 是梦，那就打碎它 努力去飞吧</summary></entry><entry><title type="html">django2.2使用jinja配置</title><link href="http://0.0.0.0:4000/2019/11/21/django-jinja.html" rel="alternate" type="text/html" title="django2.2使用jinja配置" /><published>2019-11-21T02:40:59+08:00</published><updated>2019-11-21T02:40:59+08:00</updated><id>http://0.0.0.0:4000/2019/11/21/django-jinja</id><content type="html" xml:base="http://0.0.0.0:4000/2019/11/21/django-jinja.html">&lt;h2 id=&quot;使用jinja2jinja2代替djangodjangotemplates&quot;&gt;使用jinja2.Jinja2代替django.DjangoTemplates&lt;/h2&gt;
+&lt;/ul&gt;</content><author><name>qifeng</name></author><category term="mako" /><category term="django" /><summary type="html">一、安装mako</summary></entry><entry><title type="html">django2.2使用jinja配置</title><link href="http://0.0.0.0:4000/2019/11/21/django-jinja.html" rel="alternate" type="text/html" title="django2.2使用jinja配置" /><published>2019-11-21T02:40:59+08:00</published><updated>2019-11-21T02:40:59+08:00</updated><id>http://0.0.0.0:4000/2019/11/21/django-jinja</id><content type="html" xml:base="http://0.0.0.0:4000/2019/11/21/django-jinja.html">&lt;h2 id=&quot;使用jinja2jinja2代替djangodjangotemplates&quot;&gt;使用jinja2.Jinja2代替django.DjangoTemplates&lt;/h2&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;django2.1.2以前的版本中，django可以将原来的DjangoTempaltes模板引擎直接替换为jinja引擎,但是在django2.2.6版本中测试只能采用新增jinja模板的方式，不能直接替换，否则会产生如下错误,其他版本暂未测试，以下内容仅供参考&lt;/p&gt;
@@ -1286,26 +1519,4 @@ Also you can &lt;em&gt;put&lt;/em&gt; &lt;strong&gt;Markdown&lt;/strong&gt; into
 &lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Tom'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints 'Hi, Tom' to STDOUT.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;Check out the &lt;a href=&quot;https://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;</content><author><name>true</name></author><category term="jekyll" /><category term="update" /><summary type="html">You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated.</summary></entry><entry><title type="html">Hello Jekyll</title><link href="http://0.0.0.0:4000/2017/04/18/hello-jekyll.html" rel="alternate" type="text/html" title="Hello Jekyll" /><published>2017-04-18T00:00:00+08:00</published><updated>2017-04-18T00:00:00+08:00</updated><id>http://0.0.0.0:4000/2017/04/18/hello-jekyll</id><content type="html" xml:base="http://0.0.0.0:4000/2017/04/18/hello-jekyll.html">&lt;blockquote&gt;
-  &lt;p&gt;Transform your plain text into static websites and blogs.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h1 id=&quot;welcome&quot;&gt;Welcome&lt;/h1&gt;
-
-&lt;h2 id=&quot;welcome-1&quot;&gt;Welcome&lt;/h2&gt;
-
-&lt;h3 id=&quot;welcome-2&quot;&gt;Welcome&lt;/h3&gt;
-
-&lt;p&gt;This site aims to be a comprehensive guide to Jekyll. We’ll cover topics such as getting your site up and running, creating and managing your content, customizing the way your site works and looks, deploying to various environments, and give you some advice on participating in the future development of Jekyll itself.&lt;/p&gt;
-
-&lt;h3 id=&quot;so-what-is-jekyll-exactlypermalink&quot;&gt;So what is Jekyll, exactly?Permalink&lt;/h3&gt;
-
-&lt;p&gt;Jekyll is a simple, blog-aware, static site generator. It takes a template directory containing raw text files in various formats, runs it through a converter (like &lt;a href=&quot;https://daringfireball.net/projects/markdown/&quot;&gt;Markdown&lt;/a&gt;) and our &lt;a href=&quot;https://github.com/Shopify/liquid/wiki&quot;&gt;Liquid&lt;/a&gt; renderer, and spits out a complete, ready-to-publish static website suitable for serving with your favorite web server. Jekyll also happens to be the engine behind GitHub Pages, which means you can use Jekyll to host your project’s page, blog, or website from GitHub’s servers for free.&lt;/p&gt;
-
-&lt;h3 id=&quot;helpful-hintspermalink&quot;&gt;Helpful HintsPermalink&lt;/h3&gt;
-
-&lt;p&gt;Throughout this guide there are a number of small-but-handy pieces of information that can make using Jekyll easier, more interesting, and less hazardous. Here’s what to look out for.&lt;/p&gt;
-
-&lt;h3 id=&quot;video-test&quot;&gt;Video Test&lt;/h3&gt;
-
-&lt;iframe type=&quot;text/html&quot; width=&quot;100%&quot; height=&quot;385&quot; src=&quot;http://www.youtube.com/embed/gfmjMWjn-Xg&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;</content><author><name>Jekyll</name></author><category term="jekyll" /><summary type="html">Transform your plain text into static websites and blogs. Welcome Welcome Welcome This site aims to be a comprehensive guide to Jekyll. We’ll cover topics such as getting your site up and running, creating and managing your content, customizing the way your site works and looks, deploying to various environments, and give you some advice on participating in the future development of Jekyll itself. So what is Jekyll, exactly?Permalink Jekyll is a simple, blog-aware, static site generator. It takes a template directory containing raw text files in various formats, runs it through a converter (like Markdown) and our Liquid renderer, and spits out a complete, ready-to-publish static website suitable for serving with your favorite web server. Jekyll also happens to be the engine behind GitHub Pages, which means you can use Jekyll to host your project’s page, blog, or website from GitHub’s servers for free. Helpful HintsPermalink Throughout this guide there are a number of small-but-handy pieces of information that can make using Jekyll easier, more interesting, and less hazardous. Here’s what to look out for. Video Test</summary></entry></feed>
+&lt;p&gt;Check out the &lt;a href=&quot;https://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;</content><author><name>true</name></author><category term="jekyll" /><category term="update" /><summary type="html">You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated.</summary></entry></feed>
