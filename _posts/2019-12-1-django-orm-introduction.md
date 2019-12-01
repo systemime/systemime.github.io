@@ -2,7 +2,7 @@
 layout: post
 title: 'ORM简介'
 subtitle: '本文所属django中orm字段及使用方法概述'
-date: 2019-12-1 02:30:00
+date: 2019-12-01 02:30:00
 author: qifeng
 color: rgb(255,90,90)
 cover: 'https://raw.githubusercontent.com/systemime/my_image/master/orm_in.jpg'
