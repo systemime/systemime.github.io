@@ -1,0 +1,891 @@
+<!-- 博文的布局-Layout -->
+<!DOCTYPE html>
+<html>
+<head>
+<!-- 引入head标签 -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-sclable=0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="description" content="如果所有人都理解你会普通成什么样子" />
+<meta name="keywords" content="自述, 柒麟" />
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/media.css">
+<link rel="stylesheet" href="/assets/css/animate.min.css">
+<link rel="stylesheet" href="/assets/css/pygments/pygments_default.css">
+<link rel="stylesheet" href="/assets/css/github-markdown.css">
+<!-- SNS-icon -->
+<script src="//at.alicdn.com/t/font_856428_y9z6nq7zf5.js"></script>
+<!-- share.css -->
+<link rel="stylesheet" href="/assets/css/share.min.css">
+<!-- font -->
+<link rel="stylesheet" href="/assets/css/font.css">
+<!-- <link href="https://fonts.googleapis.com/css?family=Kaushan+Script|Pacifico|Ubuntu|Roboto+Mono|Source+Sans+Pro" rel="stylesheet"> -->
+
+<!-- Favicon -->
+<link href="/assets/profile.jpeg" rel="shortcut icon" />
+<link href="/assets/profile.jpeg" rel="apple-touch-icon-precomposed" />
+<!-- Android Lolipop Theme Color -->
+<!-- <meta name="theme-color" content="#1464FB"> -->
+<title>ORM简介</title>
+<!-- 百度统计 -->
+
+<!-- 谷歌分析 -->
+
+
+<!-- Android Lolipop Theme Color -->
+<meta name="theme-color" content=" rgb(255,90,90) ">
+</head>
+<body>
+
+<!-- 顶部锚点 -->
+<a id="htmlup" name="htmlup"></a>
+<!-- 引入博文顶部选项 -->
+
+<header id="post-header" style="background-color:rgb(255,90,90);">
+  <div class="top-center">
+      <div class="logo">
+          <a href="/" title="my awesome webtitle" style="color: white;">愿世间美好与你环环相绕</a>
+      </div>
+      <nav class="top-nav">
+          <ul>
+              
+                <li><a href="/" style="color: white;">首页</a></li>
+              
+                <li><a href="/tags.html" style="color: white;">标签</a></li>
+              
+                <li><a href="/timeline.html" style="color: white;">时间线</a></li>
+              
+                <li><a href="/about.html" style="color: white;">关于博主</a></li>
+              
+                <li><a href="/friendLink.html" style="color: white;">友情链接</a></li>
+              
+          </ul>
+      </nav>
+      <div id="top-boot">
+        <a href="javascript:;" id="boot1" style="display:block;" onclick="document.getElementById('boot-area').style.display='block';document.getElementById('boot1').style.display='none';document.getElementById('boot2').style.display='block';"><img src="/assets/boot_white.png" alt=""></a>
+        <a href="javascript:;" id="boot2" style="display: none;" onclick="document.getElementById('boot-area').style.display='none';document.getElementById('boot1').style.display='block';document.getElementById('boot2').style.display='none';"><img src="/assets/boot_white.png" alt=""></a>
+      </div>
+  </div>
+
+</header>
+
+
+<!-- 引入移动下拉选项 -->
+<div id="boot-area">
+    <ul>
+        
+          <a href="/"><li>首页</li></a>
+        
+          <a href="/tags.html"><li>标签</li></a>
+        
+          <a href="/timeline.html"><li>时间线</li></a>
+        
+          <a href="/about.html"><li>关于博主</li></a>
+        
+          <a href="/friendLink.html"><li>友情链接</li></a>
+        
+    </ul>
+</div>
+
+<!-- 引入博文顶部样式 -->
+<!-- 版本一 垃圾 -->
+<!-- <div class="wow fadeIn top" data-wow-duration="3.5s" >
+    <span class="wow fadeInUp" data-wow-delay="0.2s">ORM简介</span>
+    <span class="wow fadeInUp" data-wow-delay="0.4s"></span>
+    <span class="wow fadeInUp" data-wow-delay="0.4s"></span>
+    <span class="wow fadeInUp" data-wow-delay="0.6s">作者&nbsp;&nbsp;|&nbsp;&nbsp;qifeng</span>
+</div> -->
+
+<!-- 版本二 可切换页面 -->
+
+<div class="post-top" style="background-color:rgb(255,90,90);">
+  <!-- 页面宽度大于800px -->
+  <div class="left-area">
+    
+      <a href="javascript:;" class="btn bounceInLeft animated" onmouseover="showLeft();this.style.color='rgb(255,90,90)';" onmouseout="goneLeft();this.style.color='rgba(0,0,0,.2)';"><</a>
+      <div id="left-tab" style="display:none;"><span class="left-san"></span><span class="left-main" style="color:rgb(255,90,90);"><sapn class="main">没有上一页咯</sapn></span></div>
+    
+  </div>
+  <div class="post-titlearea">
+    <span class="wow fadeInUp" data-wow-delay="0.2s">ORM简介</span>
+    <!-- <span class="wow fadeInUp" data-wow-delay="0.4s"></span> -->
+    <!-- <span class="wow fadeInUp" data-wow-delay="0.4s"></span> -->
+    <!-- <span class="wow fadeInUp" data-wow-delay="0.6s">作者&nbsp;&nbsp;|&nbsp;&nbsp;qifeng</span> -->
+  </div>
+  <div class="right-area">
+    
+      <a href="/2019/11/30/nihao.html" class="btn bounceInRight self-animated" onmouseover="showRight();this.style.color='rgb(255,90,90)';" onmouseout="goneRight();this.style.color='rgba(0,0,0,.2)';">></a>
+      <div id="right-tab" style="display:none;"><span class="right-san"></span><span class="right-main" style="color:rgb(255,90,90);"><sapn class="main">你好</sapn></span></div>
+    
+  </div>
+
+  <!-- 页面宽度小于800px -->
+  <div class="post-changearea">
+    
+      <a href="javascript:;" class="leftchange" style="border-right: 1px solid rgb(255,90,90);border-bottom: 2px solid rgb(255,90,90);"><span><br>没有上一篇咯</span></a>
+    
+    
+      <a href="/2019/11/30/nihao.html" class="rightchange" style="border-left: 1px solid rgb(255,90,90);border-bottom: 2px solid rgb(255,90,90);"><span>下一篇<br><br>你好</span></a>
+    
+  </div>
+</div>
+
+
+<div class="markdown-body fadeInUp animated">
+
+  
+    
+      <div class="postpage-subtitle" style="border-left: 8px solid rgb(255,90,90); border-right: 8px solid rgb(255,90,90)">
+        本文所属django中orm字段及使用方法概述
+      </div>
+    
+  
+
+  <!-- 文章内容 -->
+  <h2 id="orm简介">ORM简介</h2>
+
+<blockquote>
+  <p>本文所述django中ORM</p>
+</blockquote>
+
+<h4 id="什么是orm">什么是ORM</h4>
+<ul>
+  <li>
+    <p>全称：object relational mapping，通过使用它，我们可以直接使用python的方法去使用数据库</p>
+  </li>
+  <li>
+    <p>通过把表映射成类，把行作为实例，把字段作为属性，orm在执行对象操作的时候会把对应的操作转换成数据库原生语句的方式来完成数据库开发工作</p>
+  </li>
+</ul>
+
+<h4 id="orm的优点">ORM的优点</h4>
+<ul>
+  <li>使用简单，通过将数据库语法进行封装，直接使用方法即可操作数据库</li>
+  <li>性能好，在通过orm转换成sql的时候是会有一些消耗，但这个消耗其实非常低，在对整体业务提升的角度说，这点消耗可以忽略不计，除非你对于io操作的要求非常的极端</li>
+  <li>兼容性好，支持目前市面上多数的关系型数据库，如mysql prestresql salite等</li>
+</ul>
+
+<h2 id="基础配置">基础配置</h2>
+
+<blockquote>
+  <p>注意修改自己django或其他文件安装路径</p>
+</blockquote>
+
+<h4 id="使用pymysql代替mysqlclient">使用pymysql代替mysqlclient</h4>
+
+<blockquote>
+  <p>在django中，mysql连接的默认客户端是mysqlclient，但是其并不支持python3</p>
+</blockquote>
+
+<ul>
+  <li>执行初始化命令 <code class="highlighter-rouge">python manage.py makemigrations</code> 报错信息
+    <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  (base) [soul@listener one_orm]$ python manage.py makemigrations
+  Traceback (most recent call last):
+    File "manage.py", line 21, in &lt;module&gt;
+      main()
+    File "manage.py", line 17, in main
+      execute_from_command_line(sys.argv)
+    File "/home/soul/anaconda3/lib/python3.6/site-packages/django/core/management/__init__.py", line 381, in execute_from_command_line
+      utility.execute()
+    File "/home/soul/anaconda3/lib/python3.6/site-packages/django/core/management/__init__.py", line 357, in execute
+      django.setup()
+    File "/home/soul/anaconda3/lib/python3.6/site-packages/django/__init__.py", line 24, in setup
+      apps.populate(settings.INSTALLED_APPS)
+    File "/home/soul/anaconda3/lib/python3.6/site-packages/django/apps/registry.py", line 114, in populate
+      app_config.import_models()
+    File "/home/soul/anaconda3/lib/python3.6/site-packages/django/apps/config.py", line 211, in import_models
+      self.models_module = import_module(models_module_name)
+    File "/home/soul/anaconda3/lib/python3.6/importlib/__init__.py", line 126, in import_module
+      return _bootstrap._gcd_import(name[level:], package, level)
+    File "&lt;frozen importlib._bootstrap&gt;", line 994, in _gcd_import
+    File "&lt;frozen importlib._bootstrap&gt;", line 971, in _find_and_load
+    File "&lt;frozen importlib._bootstrap&gt;", line 955, in _find_and_load_unlocked
+    File "&lt;frozen importlib._bootstrap&gt;", line 665, in _load_unlocked
+    File "&lt;frozen importlib._bootstrap_external&gt;", line 678, in exec_module
+    File "&lt;frozen importlib._bootstrap&gt;", line 219, in _call_with_frames_removed
+    File "/home/soul/anaconda3/lib/python3.6/site-packages/django/contrib/auth/models.py", line 2, in &lt;module&gt;
+      from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
+    File "/home/soul/anaconda3/lib/python3.6/site-packages/django/contrib/auth/base_user.py", line 47, in &lt;module&gt;
+      class AbstractBaseUser(models.Model):
+    File "/home/soul/anaconda3/lib/python3.6/site-packages/django/db/models/base.py", line 117, in __new__
+      new_class.add_to_class('_meta', Options(meta, app_label))
+    File "/home/soul/anaconda3/lib/python3.6/site-packages/django/db/models/base.py", line 321, in add_to_class
+      value.contribute_to_class(cls, name)
+    File "/home/soul/anaconda3/lib/python3.6/site-packages/django/db/models/options.py", line 204, in contribute_to_class
+      self.db_table = truncate_name(self.db_table, connection.ops.max_name_length())
+    File "/home/soul/anaconda3/lib/python3.6/site-packages/django/db/__init__.py", line 28, in __getattr__
+      return getattr(connections[DEFAULT_DB_ALIAS], item)
+    File "/home/soul/anaconda3/lib/python3.6/site-packages/django/db/utils.py", line 201, in __getitem__
+      backend = load_backend(db['ENGINE'])
+    File "/home/soul/anaconda3/lib/python3.6/site-packages/django/db/utils.py", line 110, in load_backend
+      return import_module('%s.base' % backend_name)
+    File "/home/soul/anaconda3/lib/python3.6/importlib/__init__.py", line 126, in import_module
+      return _bootstrap._gcd_import(name[level:], package, level)
+    File "/home/soul/anaconda3/lib/python3.6/site-packages/django/db/backends/mysql/base.py", line 36, in &lt;module&gt;
+      raise ImproperlyConfigured('mysqlclient 1.3.13 or newer is required; you have %s.' % Database.__version__)
+  django.core.exceptions.ImproperlyConfigured: mysqlclient 1.3.13 or newer is required; you have 0.9.3.
+</code></pre></div>    </div>
+  </li>
+  <li>修改 <code class="highlighter-rouge">init.py</code> 文件<br />
+  修改项目setting同文件目录下的 <code class="highlighter-rouge">init.py</code> 文件，添加如下代码：
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kn">import</span> <span class="nn">pymysql</span>
+  <span class="c"># 告诉Django，用pymysql代替MySQLdb（MySQLdb不支持中py3）</span>
+  <span class="n">pymysql</span><span class="o">.</span><span class="n">install_as_MySQLdb</span><span class="p">()</span>
+    
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h4 id="修改版本限制">修改版本限制</h4>
+
+<blockquote>
+  <p>在django中，虽然我们使用 <code class="highlighter-rouge">pymysql</code> 替换 <code class="highlighter-rouge">mysqlclient</code> ，但django仍然会检查 <code class="highlighter-rouge">mysqlclient</code> 的版本，所以会出先如下报错</p>
+</blockquote>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```text  
+(base) [soul@listener one_orm]$ python manage.py makemigrations
+Traceback (most recent call last):
+  File "manage.py", line 21, in &lt;module&gt;
+    main()
+  File "manage.py", line 17, in main
+    execute_from_command_line(sys.argv)
+  File "/home/soul/anaconda3/lib/python3.6/site-packages/django/core/management/__init__.py", line 381, in execute_from_command_line
+    utility.execute()
+  File "/home/soul/anaconda3/lib/python3.6/site-packages/django/core/management/__init__.py", line 357, in execute
+    django.setup()
+  File "/home/soul/anaconda3/lib/python3.6/site-packages/django/__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "/home/soul/anaconda3/lib/python3.6/site-packages/django/apps/registry.py", line 114, in populate
+    app_config.import_models()
+  File "/home/soul/anaconda3/lib/python3.6/site-packages/django/apps/config.py", line 211, in import_models
+    self.models_module = import_module(models_module_name)
+  File "/home/soul/anaconda3/lib/python3.6/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "&lt;frozen importlib._bootstrap&gt;", line 994, in _gcd_import
+  File "&lt;frozen importlib._bootstrap&gt;", line 971, in _find_and_load
+  File "&lt;frozen importlib._bootstrap&gt;", line 955, in _find_and_load_unlocked
+  File "&lt;frozen importlib._bootstrap&gt;", line 665, in _load_unlocked
+  File "&lt;frozen importlib._bootstrap_external&gt;", line 678, in exec_module
+  File "&lt;frozen importlib._bootstrap&gt;", line 219, in _call_with_frames_removed
+  File "/home/soul/anaconda3/lib/python3.6/site-packages/django/contrib/auth/models.py", line 2, in &lt;module&gt;
+    from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
+  File "/home/soul/anaconda3/lib/python3.6/site-packages/django/contrib/auth/base_user.py", line 47, in &lt;module&gt;
+    class AbstractBaseUser(models.Model):
+  File "/home/soul/anaconda3/lib/python3.6/site-packages/django/db/models/base.py", line 117, in __new__
+    new_class.add_to_class('_meta', Options(meta, app_label))
+  File "/home/soul/anaconda3/lib/python3.6/site-packages/django/db/models/base.py", line 321, in add_to_class
+    value.contribute_to_class(cls, name)
+  File "/home/soul/anaconda3/lib/python3.6/site-packages/django/db/models/options.py", line 204, in contribute_to_class
+    self.db_table = truncate_name(self.db_table, connection.ops.max_name_length())
+  File "/home/soul/anaconda3/lib/python3.6/site-packages/django/db/__init__.py", line 28, in __getattr__
+    return getattr(connections[DEFAULT_DB_ALIAS], item)
+  File "/home/soul/anaconda3/lib/python3.6/site-packages/django/db/utils.py", line 201, in __getitem__
+    backend = load_backend(db['ENGINE'])
+  File "/home/soul/anaconda3/lib/python3.6/site-packages/django/db/utils.py", line 110, in load_backend
+    return import_module('%s.base' % backend_name)
+  File "/home/soul/anaconda3/lib/python3.6/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "/home/soul/anaconda3/lib/python3.6/site-packages/django/db/backends/mysql/base.py", line 36, in &lt;module&gt;
+    raise ImproperlyConfigured('mysqlclient 1.3.13 or newer is required; you have %s.' % Database.__version__)
+django.core.exceptions.ImproperlyConfigured: mysqlclient 1.3.13 or newer is required; you have 0.9.3.
+(base) [soul@listener one_orm]$ ^C
+(base) [soul@listener one_orm]$ python manage.py makemigrations
+Traceback (most recent call last):
+  File "manage.py", line 21, in &lt;module&gt;
+    main()
+  File "manage.py", line 17, in main
+    execute_from_command_line(sys.argv)
+  File "/home/soul/anaconda3/lib/python3.6/site-packages/django/core/management/__init__.py", line 381, in execute_from_command_line
+    utility.execute()
+  File "/home/soul/anaconda3/lib/python3.6/site-packages/django/core/management/__init__.py", line 357, in execute
+    django.setup()
+  File "/home/soul/anaconda3/lib/python3.6/site-packages/django/__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "/home/soul/anaconda3/lib/python3.6/site-packages/django/apps/registry.py", line 114, in populate
+    app_config.import_models()
+  File "/home/soul/anaconda3/lib/python3.6/site-packages/django/apps/config.py", line 211, in import_models
+    self.models_module = import_module(models_module_name)
+  File "/home/soul/anaconda3/lib/python3.6/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "&lt;frozen importlib._bootstrap&gt;", line 994, in _gcd_import
+  File "&lt;frozen importlib._bootstrap&gt;", line 971, in _find_and_load
+  File "&lt;frozen importlib._bootstrap&gt;", line 955, in _find_and_load_unlocked
+  File "&lt;frozen importlib._bootstrap&gt;", line 665, in _load_unlocked
+  File "&lt;frozen importlib._bootstrap_external&gt;", line 678, in exec_module
+  File "&lt;frozen importlib._bootstrap&gt;", line 219, in _call_with_frames_removed
+  File "/home/soul/anaconda3/lib/python3.6/site-packages/django/contrib/auth/models.py", line 2, in &lt;module&gt;
+    from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
+  File "/home/soul/anaconda3/lib/python3.6/site-packages/django/contrib/auth/base_user.py", line 47, in &lt;module&gt;
+    class AbstractBaseUser(models.Model):
+  File "/home/soul/anaconda3/lib/python3.6/site-packages/django/db/models/base.py", line 117, in __new__
+    new_class.add_to_class('_meta', Options(meta, app_label))
+  File "/home/soul/anaconda3/lib/python3.6/site-packages/django/db/models/base.py", line 321, in add_to_class
+    value.contribute_to_class(cls, name)
+  File "/home/soul/anaconda3/lib/python3.6/site-packages/django/db/models/options.py", line 204, in contribute_to_class
+    self.db_table = truncate_name(self.db_table, connection.ops.max_name_length())
+  File "/home/soul/anaconda3/lib/python3.6/site-packages/django/db/__init__.py", line 28, in __getattr__
+    return getattr(connections[DEFAULT_DB_ALIAS], item)
+  File "/home/soul/anaconda3/lib/python3.6/site-packages/django/db/utils.py", line 201, in __getitem__
+    backend = load_backend(db['ENGINE'])
+  File "/home/soul/anaconda3/lib/python3.6/site-packages/django/db/utils.py", line 110, in load_backend
+    return import_module('%s.base' % backend_name)
+  File "/home/soul/anaconda3/lib/python3.6/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "/home/soul/anaconda3/lib/python3.6/site-packages/django/db/backends/mysql/base.py", line 36, in &lt;module&gt;
+    raise ImproperlyConfigured('mysqlclient 1.3.13 or newer is required; you have %s.' % Database.__version__)
+django.core.exceptions.ImproperlyConfigured: mysqlclient 1.3.13 or newer is required; you have 0.9.3.
+
+```  
+</code></pre></div></div>
+
+<ul>
+  <li><strong>解决方案：</strong> 修改 <code class="highlighter-rouge">django</code> 关于 <code class="highlighter-rouge">mysql</code> 配置源码
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c"># 文件路径(按照自己的修改)</span>
+  <span class="c"># /home/soul/anaconda3/lib/python3.6/site-packages/django/db/backends/mysql/base.py</span>
+  <span class="c"># 注释如下部分(35行)</span>
+      
+  <span class="c"># if version &lt; (1, 3, 13):</span>
+  <span class="c">#     raise ImproperlyConfigured('mysqlclient 1.3.13 or newer is required; you have %s.' % Database.__version__)</span>
+    
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="配置mysql连接">配置mysql连接</h2>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>在 `setting.py` 中，修改DATABASES部分配置如下  
+
+```text
+# Database
+# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',  # 数据库引擎
+        'NAME': 'lession4',
+        'USER': 'root',
+        'PASSWORD': '****,
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+    }
+}
+```
+</code></pre></div></div>
+
+<h4 id="modelspy编写">models.py编写</h4>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+
+<span class="c"># Create your models here.</span>
+
+
+<span class="k">class</span> <span class="nc">Test</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">username</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">unique</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>  <span class="c"># 唯一索引,不允许为空</span>
+    <span class="n">age</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">SmallIntegerField</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">phone</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">db_index</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c"># 普通索引</span>
+    <span class="n">email</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">EmailField</span><span class="p">(</span><span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s">''</span><span class="p">)</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s">''</span><span class="p">)</span>
+    <span class="n">create_time</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now_add</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">update_time</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+    <span class="c"># 联合索引,</span>
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">index_together</span> <span class="o">=</span> <span class="p">[</span><span class="s">'username'</span><span class="p">,</span> <span class="s">'phone'</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">'user:{}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">)</span>
+
+
+<span class="c"># 一对一数据表, 一人一个生日</span>
+<span class="k">class</span> <span class="nc">Userprofile</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">OneToOneField</span><span class="p">(</span><span class="n">User</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">SET_NULL</span><span class="p">)</span>
+    <span class="c"># 一对一, on_delete, null=True是必要参数, 删除时可以设置为空，django2.2新增类型OneToOneField</span>
+    <span class="n">birthday</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s">''</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">'user: {}, birthday: {}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">birthday</span><span class="p">)</span>
+
+
+<span class="c"># 一对多数据表， 一个人多个日记</span>
+<span class="k">class</span> <span class="nc">Diary</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">User</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s">'diary'</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">SET_NULL</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="c"># 自定义外键名称related_name</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">()</span>
+    <span class="c"># 时间类型实际存入int型，等于存入时间戳，便于不同场景下的时间转换</span>
+    <span class="n">create_time</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">()</span>
+
+<span class="c"># 多对多数据表，一个人有多个组，一个组里有多个人</span>
+<span class="k">class</span> <span class="nc">Group</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ManyToManyField</span><span class="p">(</span><span class="n">User</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s">'group'</span><span class="p">)</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+    <span class="n">create_time</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h4 id="数据同步">数据同步</h4>
+<ul>
+  <li>
+    <p>Python mange.py makemigrateions 在migrate文件夹下生成 initialpy脚本文件</p>
+  </li>
+  <li>
+    <p>Python manage.py migrate 将initialpy脚本中的代码执行，生成相对应的数据表</p>
+  </li>
+</ul>
+
+<h4 id="字段对应sql类型">字段对应SQL类型</h4>
+<ol>
+  <li>
+    <p>字符串与数字类型</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>字段名</th>
+          <th>描述</th>
+          <th>例子</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>CharField</td>
+          <td>字符串类型</td>
+          <td>‘namexxxx’</td>
+        </tr>
+        <tr>
+          <td>TextField</td>
+          <td>文本类型</td>
+          <td>‘xxxxxxxxxxxx…’</td>
+        </tr>
+        <tr>
+          <td>EmailField</td>
+          <td>邮箱类型</td>
+          <td>‘xxx@muke.com’</td>
+        </tr>
+        <tr>
+          <td>UrlField</td>
+          <td>网址类型</td>
+          <td>’http://muke.com’</td>
+        </tr>
+        <tr>
+          <td>BooleanField</td>
+          <td>布尔类型(tinyint)</td>
+          <td>True False</td>
+        </tr>
+        <tr>
+          <td>NullBooleanField</td>
+          <td>可为空的布尔类型</td>
+          <td>None True False</td>
+        </tr>
+        <tr>
+          <td>IntegerField</td>
+          <td>整型</td>
+          <td>(-2147483648, 2147483647)</td>
+        </tr>
+        <tr>
+          <td>SmallIntegerField</td>
+          <td>短整型</td>
+          <td>(-32768, 32767)</td>
+        </tr>
+        <tr>
+          <td>BigIntegerField</td>
+          <td>长整型</td>
+          <td>(-9223372036854775808, 9223372036854775807),</td>
+        </tr>
+        <tr>
+          <td>PositiveIntegerField</td>
+          <td>正整型</td>
+          <td>(0, 2147483647)</td>
+        </tr>
+        <tr>
+          <td>PositiveSmallIntegerField</td>
+          <td>短正整型</td>
+          <td>(0, 32767)</td>
+        </tr>
+        <tr>
+          <td>FloatField</td>
+          <td>浮点类型</td>
+          <td>3.14</td>
+        </tr>
+        <tr>
+          <td>DecimalField</td>
+          <td>十进制小树</td>
+          <td>12345.12312</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <p>时间类型</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>字段名</th>
+          <th>描述</th>
+          <th>例子</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>DateField</td>
+          <td>日期类型</td>
+          <td>xxxx-xx-xx</td>
+        </tr>
+        <tr>
+          <td>DateTimeField</td>
+          <td>日期类型</td>
+          <td>xxxx-xx-xx xx:xx:xx</td>
+        </tr>
+        <tr>
+          <td>TimeField</td>
+          <td>时间类型</td>
+          <td>xx:xx:xx  (时分秒)</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <p>文件类型</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>字段名</th>
+          <th>描述</th>
+          <th>例子</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ImageField</td>
+          <td>图片类型</td>
+          <td>xxx.jpg</td>
+        </tr>
+        <tr>
+          <td>FileField</td>
+          <td>文件类型</td>
+          <td>任意文件类型</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <p>特殊类型属性介绍</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>属性名</th>
+          <th>描述</th>
+          <th>例子</th>
+          <th>作用于</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>max_digits</td>
+          <td>数字中允许的最大位数</td>
+          <td>12</td>
+          <td>DecimalField</td>
+        </tr>
+        <tr>
+          <td>decimal_places</td>
+          <td>存储的十进制位数</td>
+          <td>2</td>
+          <td>DecimalField</td>
+        </tr>
+        <tr>
+          <td>width_field</td>
+          <td>图片宽(可不传)</td>
+          <td>1024</td>
+          <td>ImageField</td>
+        </tr>
+        <tr>
+          <td>height_field</td>
+          <td>图片高(可不传)</td>
+          <td>576</td>
+          <td>ImageField</td>
+        </tr>
+        <tr>
+          <td>upload_to</td>
+          <td>保存上传文件的本地文件路径，该路径由 MEDIA_ROOT 中设置</td>
+          <td>‘/xx/xx.xx’</td>
+          <td>ImageField, FileField</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <p>公共属性介绍</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>属性名</th>
+          <th>描述</th>
+          <th>例子</th>
+          <th>作用于</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>null</td>
+          <td>值是否设为空</td>
+          <td>True False</td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td>blank</td>
+          <td>值是否可为空</td>
+          <td>True False</td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td>primary_key</td>
+          <td>设置主键</td>
+          <td>True</td>
+          <td>整型</td>
+        </tr>
+        <tr>
+          <td>auto_now</td>
+          <td>时间自动添加</td>
+          <td>True</td>
+          <td>时间类型</td>
+        </tr>
+        <tr>
+          <td>auto_now_add</td>
+          <td>自动添加时间，但仅在创建的时候</td>
+          <td>True</td>
+          <td>时间类型</td>
+        </tr>
+        <tr>
+          <td>max_length</td>
+          <td>字段长度</td>
+          <td>字符串类型</td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td>default</td>
+          <td>默认值</td>
+          <td>xxx</td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td>verbose_name</td>
+          <td>admin中显示的名字</td>
+          <td>name</td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td>db_column</td>
+          <td>数据库字段名</td>
+          <td>age</td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td>unique</td>
+          <td>唯一索引</td>
+          <td>True</td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td>de_index</td>
+          <td>普通索引</td>
+          <td>True</td>
+          <td> </td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <p>表关联方法</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>字段名</th>
+          <th>描述</th>
+          <th>例子</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ForeignKey</td>
+          <td>一对多</td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td>OneToOneField</td>
+          <td>一对一</td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td>ManyToManyField</td>
+          <td>多对多</td>
+          <td> </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>定义外键关系，如 <code class="highlighter-rouge">OneToOne</code>, <code class="highlighter-rouge">OneToMany</code>, <code class="highlighter-rouge">ManyToMany</code>关系中的 <code class="highlighter-rouge">models.OneToOneField</code>, <code class="highlighter-rouge">models.ForeignKey</code>, <code class="highlighter-rouge">models.ManyToManyField</code>字段时，拥有如下属性</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>属性名</th>
+          <th>描述</th>
+          <th>例子</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>related_name</td>
+          <td>关联表的名</td>
+          <td>related_name=‘profile’</td>
+        </tr>
+        <tr>
+          <td>on_delete</td>
+          <td>外键的删除的对策</td>
+          <td>on_delete=models. SET_NULL(CASCADE, PROTECT)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>实例代码：</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">user</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">OneToOneField</span><span class="p">(</span><span class="n">User</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">SET_NULL</span><span class="p">)</span>
+    
+ <span class="n">user</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">User</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s">'diary'</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">SET_NULL</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    
+ <span class="n">user</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ManyToManyField</span><span class="p">(</span><span class="n">User</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s">'group'</span><span class="p">)</span>
+</code></pre></div>    </div>
+
+    <p>注： <code class="highlighter-rouge">ManyToManyField</code> 没有 <code class="highlighter-rouge">on_delete</code> 属性</p>
+  </li>
+</ol>
+
+
+  <!-- 引入share模块 -->
+  
+  <div class="social-share-wrapper">
+    <div class="social-share"></div>
+  </div>
+
+
+<!-- share.js -->
+<script src="/assets/js/social-share.min.js"></script>
+<script>
+  socialShare('.social-share', {
+    sites: [
+      
+        'qq'
+        ,
+        
+      
+        'wechat'
+        ,
+        
+      
+        'weibo'
+        ,
+        
+      
+        'twitter'
+        ,
+        
+      
+        'facebook'
+        
+      
+    ],
+    wechatQrcodeTitle: "分享到微信朋友圈",
+    wechatQrcodeHelper: '期待在朋友圈见到这篇文章'
+  });
+</script>
+
+</div>
+
+<!-- 底部锚点 -->
+<a id="htmldown" name="htmldown"></a>
+<!-- 引入评论模块 -->
+
+
+
+    <section class="post-footer-item comment">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80NzUwOC8yNDAwOA=="></div>
+    </section>
+
+    <!-- 来必力City版安装代码 -->
+    <script type="text/javascript">
+       (function(d, s) {
+           var j, e = d.getElementsByTagName(s)[0];
+
+           if (typeof LivereTower === 'function') { return; }
+
+           j = d.createElement(s);
+           j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+           j.async = true;
+
+           e.parentNode.insertBefore(j, e);
+       })(document, 'script');
+    </script>
+    <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+    <!-- City版安装代码已完成 -->
+
+
+
+
+
+<!-- 引入goto模块 -->
+<div class="bounceInRight animated go">
+  <a title="顶部切换页面" class="gototop" href="#htmlup" target="_self">
+    <div class="box" style="font-family:'ffad_matroregular';">
+        Top
+    </div>
+  </a>
+  <a title="底部有livere评论哦" class="gotobottom" href="#htmldown" target="_self">
+    <div class="box" style="font-family:'ffad_matroregular';">
+        Foot
+    </div>
+  </a>
+</div>
+
+<!-- 引入页面底部模块 -->
+<footer id="bottom">
+  <br>
+  <span>Breeze and me ©
+  
+  
+    2018
+    -
+  
+  2019
+  <br>
+  Powered by <a href="https://www.jekyll.com.cn/">Jekyll</a> | <a href="https://github.com/xukimseven/HardCandy-Jekyll">HardCandy-Jekyll</a></span>
+</footer>
+
+
+<!-- 引用wow.js的动画效果 -->
+<script src="/assets/js/wow.js"></script>
+<script>
+    var wow = new WOW({
+        boxClass: 'wow',
+        animateClass: 'animated',
+        // offset: 600,
+        mobile: true,
+        live: true
+    });
+    wow.init();
+</script>
+<!-- 页面刷新回到顶部 -->
+<script>
+    window.onbeforeunload = function(){
+        //刷新后页面自动回到顶部
+        document.documentElement.scrollTop = 0;  //ie下
+        document.body.scrollTop = 0;  //非ie
+    }
+</script>
+<script src="/assets/js/main.js"></script>
+</body>
+</html>

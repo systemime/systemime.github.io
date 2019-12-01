@@ -1,4 +1,625 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.1">Jekyll</generator><link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/" rel="alternate" type="text/html" /><updated>2019-11-30T15:09:45+08:00</updated><id>http://0.0.0.0:4000/</id><title type="html">Breeze and me</title><subtitle>如果所有人都理解你会普通成什么样子</subtitle><author><name>true</name></author><entry><title type="html">你好</title><link href="http://0.0.0.0:4000/2019/11/30/nihao.html" rel="alternate" type="text/html" title="你好" /><published>2019-11-30T09:30:00+08:00</published><updated>2019-11-30T09:30:00+08:00</updated><id>http://0.0.0.0:4000/2019/11/30/nihao</id><content type="html" xml:base="http://0.0.0.0:4000/2019/11/30/nihao.html">&lt;h1 id=&quot;你好啊&quot;&gt;你好啊&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.1">Jekyll</generator><link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/" rel="alternate" type="text/html" /><updated>2019-12-01T18:26:38+08:00</updated><id>http://0.0.0.0:4000/</id><title type="html">Breeze and me</title><subtitle>如果所有人都理解你会普通成什么样子</subtitle><author><name>true</name></author><entry><title type="html">ORM简介</title><link href="http://0.0.0.0:4000/2019/12/01/django-orm-introduction.html" rel="alternate" type="text/html" title="ORM简介" /><published>2019-12-01T10:30:00+08:00</published><updated>2019-12-01T10:30:00+08:00</updated><id>http://0.0.0.0:4000/2019/12/01/django-orm-introduction</id><content type="html" xml:base="http://0.0.0.0:4000/2019/12/01/django-orm-introduction.html">&lt;h2 id=&quot;orm简介&quot;&gt;ORM简介&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;本文所述django中ORM&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;什么是orm&quot;&gt;什么是ORM&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;全称：object relational mapping，通过使用它，我们可以直接使用python的方法去使用数据库&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;通过把表映射成类，把行作为实例，把字段作为属性，orm在执行对象操作的时候会把对应的操作转换成数据库原生语句的方式来完成数据库开发工作&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;orm的优点&quot;&gt;ORM的优点&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;使用简单，通过将数据库语法进行封装，直接使用方法即可操作数据库&lt;/li&gt;
+  &lt;li&gt;性能好，在通过orm转换成sql的时候是会有一些消耗，但这个消耗其实非常低，在对整体业务提升的角度说，这点消耗可以忽略不计，除非你对于io操作的要求非常的极端&lt;/li&gt;
+  &lt;li&gt;兼容性好，支持目前市面上多数的关系型数据库，如mysql prestresql salite等&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;基础配置&quot;&gt;基础配置&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;注意修改自己django或其他文件安装路径&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;使用pymysql代替mysqlclient&quot;&gt;使用pymysql代替mysqlclient&lt;/h4&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;在django中，mysql连接的默认客户端是mysqlclient，但是其并不支持python3&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;执行初始化命令 &lt;code class=&quot;highlighter-rouge&quot;&gt;python manage.py makemigrations&lt;/code&gt; 报错信息
+    &lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  (base) [soul@listener one_orm]$ python manage.py makemigrations
+  Traceback (most recent call last):
+    File &quot;manage.py&quot;, line 21, in &amp;lt;module&amp;gt;
+      main()
+    File &quot;manage.py&quot;, line 17, in main
+      execute_from_command_line(sys.argv)
+    File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/core/management/__init__.py&quot;, line 381, in execute_from_command_line
+      utility.execute()
+    File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/core/management/__init__.py&quot;, line 357, in execute
+      django.setup()
+    File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/__init__.py&quot;, line 24, in setup
+      apps.populate(settings.INSTALLED_APPS)
+    File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/apps/registry.py&quot;, line 114, in populate
+      app_config.import_models()
+    File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/apps/config.py&quot;, line 211, in import_models
+      self.models_module = import_module(models_module_name)
+    File &quot;/home/soul/anaconda3/lib/python3.6/importlib/__init__.py&quot;, line 126, in import_module
+      return _bootstrap._gcd_import(name[level:], package, level)
+    File &quot;&amp;lt;frozen importlib._bootstrap&amp;gt;&quot;, line 994, in _gcd_import
+    File &quot;&amp;lt;frozen importlib._bootstrap&amp;gt;&quot;, line 971, in _find_and_load
+    File &quot;&amp;lt;frozen importlib._bootstrap&amp;gt;&quot;, line 955, in _find_and_load_unlocked
+    File &quot;&amp;lt;frozen importlib._bootstrap&amp;gt;&quot;, line 665, in _load_unlocked
+    File &quot;&amp;lt;frozen importlib._bootstrap_external&amp;gt;&quot;, line 678, in exec_module
+    File &quot;&amp;lt;frozen importlib._bootstrap&amp;gt;&quot;, line 219, in _call_with_frames_removed
+    File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/contrib/auth/models.py&quot;, line 2, in &amp;lt;module&amp;gt;
+      from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
+    File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/contrib/auth/base_user.py&quot;, line 47, in &amp;lt;module&amp;gt;
+      class AbstractBaseUser(models.Model):
+    File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/db/models/base.py&quot;, line 117, in __new__
+      new_class.add_to_class('_meta', Options(meta, app_label))
+    File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/db/models/base.py&quot;, line 321, in add_to_class
+      value.contribute_to_class(cls, name)
+    File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/db/models/options.py&quot;, line 204, in contribute_to_class
+      self.db_table = truncate_name(self.db_table, connection.ops.max_name_length())
+    File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/db/__init__.py&quot;, line 28, in __getattr__
+      return getattr(connections[DEFAULT_DB_ALIAS], item)
+    File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/db/utils.py&quot;, line 201, in __getitem__
+      backend = load_backend(db['ENGINE'])
+    File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/db/utils.py&quot;, line 110, in load_backend
+      return import_module('%s.base' % backend_name)
+    File &quot;/home/soul/anaconda3/lib/python3.6/importlib/__init__.py&quot;, line 126, in import_module
+      return _bootstrap._gcd_import(name[level:], package, level)
+    File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/db/backends/mysql/base.py&quot;, line 36, in &amp;lt;module&amp;gt;
+      raise ImproperlyConfigured('mysqlclient 1.3.13 or newer is required; you have %s.' % Database.__version__)
+  django.core.exceptions.ImproperlyConfigured: mysqlclient 1.3.13 or newer is required; you have 0.9.3.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;修改 &lt;code class=&quot;highlighter-rouge&quot;&gt;init.py&lt;/code&gt; 文件&lt;br /&gt;
+  修改项目setting同文件目录下的 &lt;code class=&quot;highlighter-rouge&quot;&gt;init.py&lt;/code&gt; 文件，添加如下代码：
+    &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pymysql&lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;# 告诉Django，用pymysql代替MySQLdb（MySQLdb不支持中py3）&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;pymysql&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;install_as_MySQLdb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;修改版本限制&quot;&gt;修改版本限制&lt;/h4&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;在django中，虽然我们使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;pymysql&lt;/code&gt; 替换 &lt;code class=&quot;highlighter-rouge&quot;&gt;mysqlclient&lt;/code&gt; ，但django仍然会检查 &lt;code class=&quot;highlighter-rouge&quot;&gt;mysqlclient&lt;/code&gt; 的版本，所以会出先如下报错&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;```text  
+(base) [soul@listener one_orm]$ python manage.py makemigrations
+Traceback (most recent call last):
+  File &quot;manage.py&quot;, line 21, in &amp;lt;module&amp;gt;
+    main()
+  File &quot;manage.py&quot;, line 17, in main
+    execute_from_command_line(sys.argv)
+  File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/core/management/__init__.py&quot;, line 381, in execute_from_command_line
+    utility.execute()
+  File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/core/management/__init__.py&quot;, line 357, in execute
+    django.setup()
+  File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/__init__.py&quot;, line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/apps/registry.py&quot;, line 114, in populate
+    app_config.import_models()
+  File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/apps/config.py&quot;, line 211, in import_models
+    self.models_module = import_module(models_module_name)
+  File &quot;/home/soul/anaconda3/lib/python3.6/importlib/__init__.py&quot;, line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File &quot;&amp;lt;frozen importlib._bootstrap&amp;gt;&quot;, line 994, in _gcd_import
+  File &quot;&amp;lt;frozen importlib._bootstrap&amp;gt;&quot;, line 971, in _find_and_load
+  File &quot;&amp;lt;frozen importlib._bootstrap&amp;gt;&quot;, line 955, in _find_and_load_unlocked
+  File &quot;&amp;lt;frozen importlib._bootstrap&amp;gt;&quot;, line 665, in _load_unlocked
+  File &quot;&amp;lt;frozen importlib._bootstrap_external&amp;gt;&quot;, line 678, in exec_module
+  File &quot;&amp;lt;frozen importlib._bootstrap&amp;gt;&quot;, line 219, in _call_with_frames_removed
+  File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/contrib/auth/models.py&quot;, line 2, in &amp;lt;module&amp;gt;
+    from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
+  File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/contrib/auth/base_user.py&quot;, line 47, in &amp;lt;module&amp;gt;
+    class AbstractBaseUser(models.Model):
+  File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/db/models/base.py&quot;, line 117, in __new__
+    new_class.add_to_class('_meta', Options(meta, app_label))
+  File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/db/models/base.py&quot;, line 321, in add_to_class
+    value.contribute_to_class(cls, name)
+  File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/db/models/options.py&quot;, line 204, in contribute_to_class
+    self.db_table = truncate_name(self.db_table, connection.ops.max_name_length())
+  File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/db/__init__.py&quot;, line 28, in __getattr__
+    return getattr(connections[DEFAULT_DB_ALIAS], item)
+  File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/db/utils.py&quot;, line 201, in __getitem__
+    backend = load_backend(db['ENGINE'])
+  File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/db/utils.py&quot;, line 110, in load_backend
+    return import_module('%s.base' % backend_name)
+  File &quot;/home/soul/anaconda3/lib/python3.6/importlib/__init__.py&quot;, line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/db/backends/mysql/base.py&quot;, line 36, in &amp;lt;module&amp;gt;
+    raise ImproperlyConfigured('mysqlclient 1.3.13 or newer is required; you have %s.' % Database.__version__)
+django.core.exceptions.ImproperlyConfigured: mysqlclient 1.3.13 or newer is required; you have 0.9.3.
+(base) [soul@listener one_orm]$ ^C
+(base) [soul@listener one_orm]$ python manage.py makemigrations
+Traceback (most recent call last):
+  File &quot;manage.py&quot;, line 21, in &amp;lt;module&amp;gt;
+    main()
+  File &quot;manage.py&quot;, line 17, in main
+    execute_from_command_line(sys.argv)
+  File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/core/management/__init__.py&quot;, line 381, in execute_from_command_line
+    utility.execute()
+  File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/core/management/__init__.py&quot;, line 357, in execute
+    django.setup()
+  File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/__init__.py&quot;, line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/apps/registry.py&quot;, line 114, in populate
+    app_config.import_models()
+  File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/apps/config.py&quot;, line 211, in import_models
+    self.models_module = import_module(models_module_name)
+  File &quot;/home/soul/anaconda3/lib/python3.6/importlib/__init__.py&quot;, line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File &quot;&amp;lt;frozen importlib._bootstrap&amp;gt;&quot;, line 994, in _gcd_import
+  File &quot;&amp;lt;frozen importlib._bootstrap&amp;gt;&quot;, line 971, in _find_and_load
+  File &quot;&amp;lt;frozen importlib._bootstrap&amp;gt;&quot;, line 955, in _find_and_load_unlocked
+  File &quot;&amp;lt;frozen importlib._bootstrap&amp;gt;&quot;, line 665, in _load_unlocked
+  File &quot;&amp;lt;frozen importlib._bootstrap_external&amp;gt;&quot;, line 678, in exec_module
+  File &quot;&amp;lt;frozen importlib._bootstrap&amp;gt;&quot;, line 219, in _call_with_frames_removed
+  File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/contrib/auth/models.py&quot;, line 2, in &amp;lt;module&amp;gt;
+    from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
+  File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/contrib/auth/base_user.py&quot;, line 47, in &amp;lt;module&amp;gt;
+    class AbstractBaseUser(models.Model):
+  File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/db/models/base.py&quot;, line 117, in __new__
+    new_class.add_to_class('_meta', Options(meta, app_label))
+  File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/db/models/base.py&quot;, line 321, in add_to_class
+    value.contribute_to_class(cls, name)
+  File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/db/models/options.py&quot;, line 204, in contribute_to_class
+    self.db_table = truncate_name(self.db_table, connection.ops.max_name_length())
+  File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/db/__init__.py&quot;, line 28, in __getattr__
+    return getattr(connections[DEFAULT_DB_ALIAS], item)
+  File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/db/utils.py&quot;, line 201, in __getitem__
+    backend = load_backend(db['ENGINE'])
+  File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/db/utils.py&quot;, line 110, in load_backend
+    return import_module('%s.base' % backend_name)
+  File &quot;/home/soul/anaconda3/lib/python3.6/importlib/__init__.py&quot;, line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File &quot;/home/soul/anaconda3/lib/python3.6/site-packages/django/db/backends/mysql/base.py&quot;, line 36, in &amp;lt;module&amp;gt;
+    raise ImproperlyConfigured('mysqlclient 1.3.13 or newer is required; you have %s.' % Database.__version__)
+django.core.exceptions.ImproperlyConfigured: mysqlclient 1.3.13 or newer is required; you have 0.9.3.
+
+```  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;解决方案：&lt;/strong&gt; 修改 &lt;code class=&quot;highlighter-rouge&quot;&gt;django&lt;/code&gt; 关于 &lt;code class=&quot;highlighter-rouge&quot;&gt;mysql&lt;/code&gt; 配置源码
+    &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;c&quot;&gt;# 文件路径(按照自己的修改)&lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;# /home/soul/anaconda3/lib/python3.6/site-packages/django/db/backends/mysql/base.py&lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;# 注释如下部分(35行)&lt;/span&gt;
+      
+  &lt;span class=&quot;c&quot;&gt;# if version &amp;lt; (1, 3, 13):&lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;#     raise ImproperlyConfigured('mysqlclient 1.3.13 or newer is required; you have %s.' % Database.__version__)&lt;/span&gt;
+    
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;配置mysql连接&quot;&gt;配置mysql连接&lt;/h2&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;在 `setting.py` 中，修改DATABASES部分配置如下  
+
+```text
+# Database
+# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',  # 数据库引擎
+        'NAME': 'lession4',
+        'USER': 'root',
+        'PASSWORD': '****,
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+    }
+}
+```
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;modelspy编写&quot;&gt;models.py编写&lt;/h4&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;django.db&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Create your models here.&lt;/span&gt;
+
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CharField&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;max_length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;username&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CharField&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;unique&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;max_length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;blank&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;c&quot;&gt;# 唯一索引,不允许为空&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SmallIntegerField&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;default&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;phone&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IntegerField&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;db_index&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;blank&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;default&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;c&quot;&gt;# 普通索引&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;email&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;EmailField&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;blank&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;default&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;info&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TextField&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;default&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;create_time&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DateTimeField&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;auto_now_add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;update_time&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DateTimeField&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;auto_now&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;c&quot;&gt;# 联合索引,&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Meta&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;index_together&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'username'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'phone'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__str__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'user:{}'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;username&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+
+&lt;span class=&quot;c&quot;&gt;# 一对一数据表, 一人一个生日&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Userprofile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;OneToOneField&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;on_delete&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SET_NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# 一对一, on_delete, null=True是必要参数, 删除时可以设置为空，django2.2新增类型OneToOneField&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;birthday&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CharField&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;max_length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;blank&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;default&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__str__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'user: {}, birthday: {}'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;username&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;birthday&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+
+&lt;span class=&quot;c&quot;&gt;# 一对多数据表， 一个人多个日记&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Diary&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ForeignKey&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;related_name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'diary'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;on_delete&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SET_NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;blank&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# 自定义外键名称related_name&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TextField&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# 时间类型实际存入int型，等于存入时间戳，便于不同场景下的时间转换&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;create_time&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IntegerField&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# 多对多数据表，一个人有多个组，一个组里有多个人&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Group&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ManyToManyField&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;related_name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'group'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CharField&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;max_length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;create_time&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IntegerField&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;数据同步&quot;&gt;数据同步&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Python mange.py makemigrateions 在migrate文件夹下生成 initialpy脚本文件&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Python manage.py migrate 将initialpy脚本中的代码执行，生成相对应的数据表&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;字段对应sql类型&quot;&gt;字段对应SQL类型&lt;/h4&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;字符串与数字类型&lt;/p&gt;
+
+    &lt;table&gt;
+      &lt;thead&gt;
+        &lt;tr&gt;
+          &lt;th&gt;字段名&lt;/th&gt;
+          &lt;th&gt;描述&lt;/th&gt;
+          &lt;th&gt;例子&lt;/th&gt;
+        &lt;/tr&gt;
+      &lt;/thead&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;CharField&lt;/td&gt;
+          &lt;td&gt;字符串类型&lt;/td&gt;
+          &lt;td&gt;‘namexxxx’&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;TextField&lt;/td&gt;
+          &lt;td&gt;文本类型&lt;/td&gt;
+          &lt;td&gt;‘xxxxxxxxxxxx…’&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;EmailField&lt;/td&gt;
+          &lt;td&gt;邮箱类型&lt;/td&gt;
+          &lt;td&gt;‘xxx@muke.com’&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;UrlField&lt;/td&gt;
+          &lt;td&gt;网址类型&lt;/td&gt;
+          &lt;td&gt;’http://muke.com’&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;BooleanField&lt;/td&gt;
+          &lt;td&gt;布尔类型(tinyint)&lt;/td&gt;
+          &lt;td&gt;True False&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;NullBooleanField&lt;/td&gt;
+          &lt;td&gt;可为空的布尔类型&lt;/td&gt;
+          &lt;td&gt;None True False&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;IntegerField&lt;/td&gt;
+          &lt;td&gt;整型&lt;/td&gt;
+          &lt;td&gt;(-2147483648, 2147483647)&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;SmallIntegerField&lt;/td&gt;
+          &lt;td&gt;短整型&lt;/td&gt;
+          &lt;td&gt;(-32768, 32767)&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;BigIntegerField&lt;/td&gt;
+          &lt;td&gt;长整型&lt;/td&gt;
+          &lt;td&gt;(-9223372036854775808, 9223372036854775807),&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;PositiveIntegerField&lt;/td&gt;
+          &lt;td&gt;正整型&lt;/td&gt;
+          &lt;td&gt;(0, 2147483647)&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;PositiveSmallIntegerField&lt;/td&gt;
+          &lt;td&gt;短正整型&lt;/td&gt;
+          &lt;td&gt;(0, 32767)&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;FloatField&lt;/td&gt;
+          &lt;td&gt;浮点类型&lt;/td&gt;
+          &lt;td&gt;3.14&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;DecimalField&lt;/td&gt;
+          &lt;td&gt;十进制小树&lt;/td&gt;
+          &lt;td&gt;12345.12312&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;时间类型&lt;/p&gt;
+
+    &lt;table&gt;
+      &lt;thead&gt;
+        &lt;tr&gt;
+          &lt;th&gt;字段名&lt;/th&gt;
+          &lt;th&gt;描述&lt;/th&gt;
+          &lt;th&gt;例子&lt;/th&gt;
+        &lt;/tr&gt;
+      &lt;/thead&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;DateField&lt;/td&gt;
+          &lt;td&gt;日期类型&lt;/td&gt;
+          &lt;td&gt;xxxx-xx-xx&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;DateTimeField&lt;/td&gt;
+          &lt;td&gt;日期类型&lt;/td&gt;
+          &lt;td&gt;xxxx-xx-xx xx:xx:xx&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;TimeField&lt;/td&gt;
+          &lt;td&gt;时间类型&lt;/td&gt;
+          &lt;td&gt;xx:xx:xx  (时分秒)&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;文件类型&lt;/p&gt;
+
+    &lt;table&gt;
+      &lt;thead&gt;
+        &lt;tr&gt;
+          &lt;th&gt;字段名&lt;/th&gt;
+          &lt;th&gt;描述&lt;/th&gt;
+          &lt;th&gt;例子&lt;/th&gt;
+        &lt;/tr&gt;
+      &lt;/thead&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;ImageField&lt;/td&gt;
+          &lt;td&gt;图片类型&lt;/td&gt;
+          &lt;td&gt;xxx.jpg&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;FileField&lt;/td&gt;
+          &lt;td&gt;文件类型&lt;/td&gt;
+          &lt;td&gt;任意文件类型&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;特殊类型属性介绍&lt;/p&gt;
+
+    &lt;table&gt;
+      &lt;thead&gt;
+        &lt;tr&gt;
+          &lt;th&gt;属性名&lt;/th&gt;
+          &lt;th&gt;描述&lt;/th&gt;
+          &lt;th&gt;例子&lt;/th&gt;
+          &lt;th&gt;作用于&lt;/th&gt;
+        &lt;/tr&gt;
+      &lt;/thead&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;max_digits&lt;/td&gt;
+          &lt;td&gt;数字中允许的最大位数&lt;/td&gt;
+          &lt;td&gt;12&lt;/td&gt;
+          &lt;td&gt;DecimalField&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;decimal_places&lt;/td&gt;
+          &lt;td&gt;存储的十进制位数&lt;/td&gt;
+          &lt;td&gt;2&lt;/td&gt;
+          &lt;td&gt;DecimalField&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;width_field&lt;/td&gt;
+          &lt;td&gt;图片宽(可不传)&lt;/td&gt;
+          &lt;td&gt;1024&lt;/td&gt;
+          &lt;td&gt;ImageField&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;height_field&lt;/td&gt;
+          &lt;td&gt;图片高(可不传)&lt;/td&gt;
+          &lt;td&gt;576&lt;/td&gt;
+          &lt;td&gt;ImageField&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;upload_to&lt;/td&gt;
+          &lt;td&gt;保存上传文件的本地文件路径，该路径由 MEDIA_ROOT 中设置&lt;/td&gt;
+          &lt;td&gt;‘/xx/xx.xx’&lt;/td&gt;
+          &lt;td&gt;ImageField, FileField&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;公共属性介绍&lt;/p&gt;
+
+    &lt;table&gt;
+      &lt;thead&gt;
+        &lt;tr&gt;
+          &lt;th&gt;属性名&lt;/th&gt;
+          &lt;th&gt;描述&lt;/th&gt;
+          &lt;th&gt;例子&lt;/th&gt;
+          &lt;th&gt;作用于&lt;/th&gt;
+        &lt;/tr&gt;
+      &lt;/thead&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;null&lt;/td&gt;
+          &lt;td&gt;值是否设为空&lt;/td&gt;
+          &lt;td&gt;True False&lt;/td&gt;
+          &lt;td&gt; &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;blank&lt;/td&gt;
+          &lt;td&gt;值是否可为空&lt;/td&gt;
+          &lt;td&gt;True False&lt;/td&gt;
+          &lt;td&gt; &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;primary_key&lt;/td&gt;
+          &lt;td&gt;设置主键&lt;/td&gt;
+          &lt;td&gt;True&lt;/td&gt;
+          &lt;td&gt;整型&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;auto_now&lt;/td&gt;
+          &lt;td&gt;时间自动添加&lt;/td&gt;
+          &lt;td&gt;True&lt;/td&gt;
+          &lt;td&gt;时间类型&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;auto_now_add&lt;/td&gt;
+          &lt;td&gt;自动添加时间，但仅在创建的时候&lt;/td&gt;
+          &lt;td&gt;True&lt;/td&gt;
+          &lt;td&gt;时间类型&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;max_length&lt;/td&gt;
+          &lt;td&gt;字段长度&lt;/td&gt;
+          &lt;td&gt;字符串类型&lt;/td&gt;
+          &lt;td&gt; &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;default&lt;/td&gt;
+          &lt;td&gt;默认值&lt;/td&gt;
+          &lt;td&gt;xxx&lt;/td&gt;
+          &lt;td&gt; &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;verbose_name&lt;/td&gt;
+          &lt;td&gt;admin中显示的名字&lt;/td&gt;
+          &lt;td&gt;name&lt;/td&gt;
+          &lt;td&gt; &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;db_column&lt;/td&gt;
+          &lt;td&gt;数据库字段名&lt;/td&gt;
+          &lt;td&gt;age&lt;/td&gt;
+          &lt;td&gt; &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;unique&lt;/td&gt;
+          &lt;td&gt;唯一索引&lt;/td&gt;
+          &lt;td&gt;True&lt;/td&gt;
+          &lt;td&gt; &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;de_index&lt;/td&gt;
+          &lt;td&gt;普通索引&lt;/td&gt;
+          &lt;td&gt;True&lt;/td&gt;
+          &lt;td&gt; &lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;表关联方法&lt;/p&gt;
+
+    &lt;table&gt;
+      &lt;thead&gt;
+        &lt;tr&gt;
+          &lt;th&gt;字段名&lt;/th&gt;
+          &lt;th&gt;描述&lt;/th&gt;
+          &lt;th&gt;例子&lt;/th&gt;
+        &lt;/tr&gt;
+      &lt;/thead&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;ForeignKey&lt;/td&gt;
+          &lt;td&gt;一对多&lt;/td&gt;
+          &lt;td&gt; &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;OneToOneField&lt;/td&gt;
+          &lt;td&gt;一对一&lt;/td&gt;
+          &lt;td&gt; &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;ManyToManyField&lt;/td&gt;
+          &lt;td&gt;多对多&lt;/td&gt;
+          &lt;td&gt; &lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+
+    &lt;p&gt;定义外键关系，如 &lt;code class=&quot;highlighter-rouge&quot;&gt;OneToOne&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;OneToMany&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;ManyToMany&lt;/code&gt;关系中的 &lt;code class=&quot;highlighter-rouge&quot;&gt;models.OneToOneField&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;models.ForeignKey&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;models.ManyToManyField&lt;/code&gt;字段时，拥有如下属性&lt;/p&gt;
+
+    &lt;table&gt;
+      &lt;thead&gt;
+        &lt;tr&gt;
+          &lt;th&gt;属性名&lt;/th&gt;
+          &lt;th&gt;描述&lt;/th&gt;
+          &lt;th&gt;例子&lt;/th&gt;
+        &lt;/tr&gt;
+      &lt;/thead&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;related_name&lt;/td&gt;
+          &lt;td&gt;关联表的名&lt;/td&gt;
+          &lt;td&gt;related_name=‘profile’&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;on_delete&lt;/td&gt;
+          &lt;td&gt;外键的删除的对策&lt;/td&gt;
+          &lt;td&gt;on_delete=models. SET_NULL(CASCADE, PROTECT)&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+
+    &lt;p&gt;实例代码：&lt;/p&gt;
+
+    &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;OneToOneField&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;on_delete&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SET_NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    
+ &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ForeignKey&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;related_name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'diary'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;on_delete&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SET_NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;blank&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    
+ &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ManyToManyField&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;related_name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'group'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p&gt;注： &lt;code class=&quot;highlighter-rouge&quot;&gt;ManyToManyField&lt;/code&gt; 没有 &lt;code class=&quot;highlighter-rouge&quot;&gt;on_delete&lt;/code&gt; 属性&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;</content><author><name>qifeng</name></author><category term="django" /><category term="orm" /><summary type="html">ORM简介</summary></entry><entry><title type="html">你好</title><link href="http://0.0.0.0:4000/2019/11/30/nihao.html" rel="alternate" type="text/html" title="你好" /><published>2019-11-30T09:30:00+08:00</published><updated>2019-11-30T09:30:00+08:00</updated><id>http://0.0.0.0:4000/2019/11/30/nihao</id><content type="html" xml:base="http://0.0.0.0:4000/2019/11/30/nihao.html">&lt;h1 id=&quot;你好啊&quot;&gt;你好啊&lt;/h1&gt;
 
 &lt;h4 id=&quot;陌生人&quot;&gt;陌生人&lt;/h4&gt;
 
@@ -1324,89 +1945,4 @@ DIRS = os.join.path(BASE_DIR, 'templates')
 &lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{% load myfilter %}
 
 {{value|test:10}}}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>qifeng</name></author><category term="template" /><category term="django" /><summary type="html">多个参数传入方法</summary></entry><entry><title type="html">Linux下Tim/Wechat的新方案</title><link href="http://0.0.0.0:4000/2019/11/12/solve-tim-wechat.html" rel="alternate" type="text/html" title="Linux下Tim/Wechat的新方案" /><published>2019-11-12T04:35:13+08:00</published><updated>2019-11-12T04:35:13+08:00</updated><id>http://0.0.0.0:4000/2019/11/12/solve-tim-wechat</id><content type="html" xml:base="http://0.0.0.0:4000/2019/11/12/solve-tim-wechat.html">&lt;h2 id=&quot;linux下timwechat的一种解决方案&quot;&gt;Linux下Tim/Wechat的一种解决方案&lt;/h2&gt;
-&lt;p&gt;之前通过 Wine 和 CrossOver安装过TIM，但是出现了各种的Bug 乱码，输入法无法切换，闪退等等,一直用的不爽。&lt;/p&gt;
-
-&lt;p&gt;今天在逛 Docker Hub 时发现了一种Linux下的Tim和Wechat解决方案&lt;/p&gt;
-
-&lt;p&gt;[bestwu/qq] &lt;a href=&quot;https://hub.docker.com/r/bestwu/qq&quot;&gt;https://hub.docker.com/r/bestwu/qq&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;经过实践，此方法解决了上述所有的问题，安利一波&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;tim安装过程&quot;&gt;TIM安装过程&lt;/h2&gt;
-&lt;p&gt;1.首先当然是安装Docker，这个网上有很多教程。&lt;del&gt;稍微琢磨一下肯定可以弄出来，再搞个镜像加速什么的，很简单。&lt;/del&gt;&lt;/p&gt;
-
-&lt;p&gt;可以参考 &lt;a href=&quot;https://parrotsec-cn.org/t/parrotsec-docker/2494&quot;&gt;Parrotsec下 Docker&lt;/a&gt; 解决方案&lt;/p&gt;
-
-&lt;p&gt;当你输入如下内容时，出现如图输出内容，说明Docker安装成功&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;docker run hello-world&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/systemime/my_image/master/Solve-Tim-WeChat/p1.jpeg&quot; alt=&quot;p1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;2.然后从&lt;code class=&quot;highlighter-rouge&quot;&gt;Docker Hub&lt;/code&gt; 上获取 &lt;code class=&quot;highlighter-rouge&quot;&gt;bestwu/qq&lt;/code&gt;
-命令行中输入如下内容&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;docker pull bestwu/qq&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/systemime/my_image/master/Solve-Tim-WeChat/p2.png&quot; alt=&quot;p2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;del&gt;这里我已经获取过了，第一次可能要稍微等待一会儿&lt;/del&gt;&lt;/p&gt;
-
-&lt;p&gt;3.接着获取audio的组ID，下面会用到
-命令行中输入如下内容&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;getent group audio | &lt;span class=&quot;nb&quot;&gt;cut&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt;: &lt;span class=&quot;nt&quot;&gt;-f3&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/systemime/my_image/master/Solve-Tim-WeChat/p3.png&quot; alt=&quot;p3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;parrotsec系统中，值为 29&lt;/p&gt;
-
-&lt;p&gt;4.接下来创建一个yml文件，比如说这里创建 docker-tim.yml，添加如下内容&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;vim docker-tim.yml&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;version: &lt;span class=&quot;s1&quot;&gt;'2'&lt;/span&gt;
-services:
- qq:
-   image: bestwu/qq:office    &lt;span class=&quot;c&quot;&gt;# 后面这个 office 改成 latest ， 登录的就是QQ，否则是Tim&lt;/span&gt;
-   container_name: qq
-   devices:
-     - /dev/snd &lt;span class=&quot;c&quot;&gt;#声音&lt;/span&gt;
-   volumes:
-     - /tmp/.X11-unix:/tmp/.X11-unix
-     - &lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/TencentFiles:/TencentFiles
-   environment:
-     - &lt;span class=&quot;nv&quot;&gt;DISPLAY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;unix&lt;span class=&quot;nv&quot;&gt;$DISPLAY&lt;/span&gt;
-     - &lt;span class=&quot;nv&quot;&gt;XMODIFIERS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;@im&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;fcitx &lt;span class=&quot;c&quot;&gt;#中文输入&lt;/span&gt;
-     - &lt;span class=&quot;nv&quot;&gt;QT_IM_MODULE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;fcitx
-     - &lt;span class=&quot;nv&quot;&gt;GTK_IM_MODULE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;fcitx
-     - &lt;span class=&quot;nv&quot;&gt;AUDIO_GID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;29 &lt;span class=&quot;c&quot;&gt;# 可选 (29 parrotsec) 主机audio gid 解决声音设备访问权限问题&lt;/span&gt;
-     - &lt;span class=&quot;nv&quot;&gt;GID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$GID&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 可选 默认1000 主机当前用户 gid 解决挂载目录访问权限问题&lt;/span&gt;
-     - &lt;span class=&quot;nv&quot;&gt;UID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$UID&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 可选 默认1000 主机当前用户 uid 解决挂载目录访问权限问题&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/systemime/my_image/master/Solve-Tim-WeChat/p4.png&quot; alt=&quot;p4&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;5.最后通过该配置文件启动即可
-命令行中输入如下内容&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;docker-compose &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; docker-tim.yml up&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/systemime/my_image/master/Solve-Tim-WeChat/p5.png&quot; alt=&quot;p5&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;6.桌面自动跳出TIM登录界面
-&lt;img src=&quot;https://raw.githubusercontent.com/systemime/my_image/master/Solve-Tim-WeChat/p6.png&quot; alt=&quot;p6&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;7.登录即可，你会发现各种功能都是正常的
-&lt;img src=&quot;https://raw.githubusercontent.com/systemime/my_image/master/Solve-Tim-WeChat/p7.png&quot; alt=&quot;p7&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;wechat安装&quot;&gt;Wechat安装&lt;/h2&gt;
-
-&lt;p&gt;Wechat安装过程与Tim完全相同，你可以在&lt;/p&gt;
-
-&lt;p&gt;[bestwu/Wechat] &lt;a href=&quot;https://hub.docker.com/r/bestwu/wechat&quot;&gt;https://hub.docker.com/r/bestwu/wechat&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;中找到相关内容, 不多说了&lt;/p&gt;
-
-&lt;h2 id=&quot;参考来源&quot;&gt;参考来源&lt;/h2&gt;
-&lt;p&gt;[bestwu] &lt;a href=&quot;https://hub.docker.com/r/bestwu/&quot;&gt;https://hub.docker.com/r/bestwu/&lt;/a&gt;&lt;/p&gt;</content><author><name>true</name></author><category term="docker" /><category term="tim" /><category term="wechat" /><summary type="html">Linux下Tim/Wechat的一种解决方案 之前通过 Wine 和 CrossOver安装过TIM，但是出现了各种的Bug 乱码，输入法无法切换，闪退等等,一直用的不爽。</summary></entry></feed>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>qifeng</name></author><category term="template" /><category term="django" /><summary type="html">多个参数传入方法</summary></entry></feed>
