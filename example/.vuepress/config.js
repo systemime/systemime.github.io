@@ -20,9 +20,9 @@ module.exports = {
         //提供带 Content-Encoding 编码的压缩版的资源
         new CompressionPlugin({
             algorithm: 'gzip',
-            test: /\.js$|\.html$|\.css/,// 匹配文件名
+            test: /\.js$|\.html$|\.ico$|\.json$|\.css/,// 匹配文件名
             // test: /\.(js|css)$/,         
-            threshold: 10240,            // 对超过10k的数据压缩
+            threshold: 5120,            // 对超过5k的数据压缩
             deleteOriginalAssets: false, // 不删除源文件
             minRatio: 0.8                // 压缩比
         }),
