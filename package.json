@@ -1,8 +1,10 @@
 {
   "name": "vuepress-theme-gungnir",
+  "version": "1.0.0",
   "private": true,
   "license": "Apache-2.0",
   "author": "Renovamen <renovamenzxh@gmail.com>",
+  "main": "index.js",
   "workspaces": [
     "packages/plugins/*",
     "packages/theme-gungnir"
@@ -36,6 +38,9 @@
       "sort-package-json"
     ]
   },
+  "dependencies": {
+    "compression-webpack-plugin": "5.0.1"
+  },
   "devDependencies": {
     "@commitlint/cli": "^12.0.1",
     "@commitlint/config-conventional": "^12.0.1",
@@ -51,7 +56,5 @@
     "vuepress": "^1.8.2",
     "vuepress-theme-gungnir": "^0.1.7"
   },
-  "useWorkspaces": true,
-  "version": "1.0.0",
-  "main": "index.js"
+  "useWorkspaces": true
 }

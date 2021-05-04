@@ -1,3 +1,4 @@
+const CompressionPlugin = require("compression-webpack-plugin");
 module.exports = {
   title: "南柯一梦",  // 浏览器标签文字
   description: "希望热情而又企图安逸的综合体.",  // 网页简述
@@ -14,6 +15,18 @@ module.exports = {
       lang: "zh-CN"
     }
   },
+  configureWebpack: { // webpack plugins
+    plugins: [
+        //提供带 Content-Encoding 编码的压缩版的资源
+        new CompressionPlugin({
+            algorithm: 'gzip',
+            test: /\.js$|\.html$|\.css/,// 匹配文件名
+            // test: /\.(js|css)$/,         
+            threshold: 10240,            // 对超过10k的数据压缩
+            deleteOriginalAssets: false, // 不删除源文件
+            minRatio: 0.8                // 压缩比
+        }),
+    ]},
   themeConfig: {
     // 假定是 GitHub. 同时也可以是一个完整的 GitLab URL
     repo: "systemime/systemime.github.io",
