@@ -1,4 +1,4 @@
-cd ../dist
+cd /Users/qifeng/Documents/vuepress-theme-gungnir/dist
 git init
 git add -A
 git commit -m 'deploy'
