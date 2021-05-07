@@ -1,0 +1,165 @@
+---
+title: 【小记】为枚举类型的枚举值添加label
+subtitle: 简单记录
+author: systemime
+date: 2021-05-07
+header_img: /img/in-post/2020-10-29/header.jpg
+catalog: true
+tags:
+  - python
+  - 技巧
+---
+
+有时候枚举类型中比如A.a可以获取到A中a定义的code如a='vehicle'，但是vehicle对应需要展示`车辆这个文本`
+
+<!-- more -->
+
+## 1. 定义枚举元类
+
+```python
+import inspect
+import operator
+
+from enum import Enum
+from enum import EnumMeta
+from functools import reduce
+
+
+class BaseEnumMeta(EnumMeta):
+    """ 枚举元类 """
+
+    def __new__(mcs, name, bases, attrs):
+        Label = mcs.get_meta("Label", attrs)
+        Code = mcs.get_meta("Code", attrs)
+
+        obj = super().__new__(mcs, name, bases, attrs)
+
+        mcs.add_to_enum("label", obj, Label)
+        mcs.add_to_enum("code", obj, Code)
+
+        return obj
+
+    @classmethod
+    def get_meta(mcs, meta_name, attrs):
+        """ 获取元数据 """
+        meta = attrs.get(meta_name)
+        if meta is None:
+            return meta
+
+        if inspect.isclass(meta):
+            del attrs[meta_name]
+            if hasattr(attrs, '_member_names'):
+                attrs._member_names.remove(meta_name)
+            return meta
+
+        if inspect.isfunction(meta):
+            del attrs[meta_name]
+        return meta
+
+    @classmethod
+    def add_to_enum(mcs, name, obj, meta):
+        """ 添加属性到枚举值上 """
+
+        if inspect.isclass(meta):
+            for item in obj:
+                setattr(item, name, getattr(meta, item.name, None))
+
+        if inspect.isfunction(meta):
+            for item in obj:
+                setattr(item, name, meta(item))
+```
+
+
+## 2. 为了使用方便，可以再定一个父类实现其他需求
+
+```python
+class BaseEnum(Enum, metaclass=BaseEnumMeta):
+
+    @classmethod
+    def has(cls, val):
+        """ 判断一个值是否合法 """
+        for item in cls:
+            if val == item.code:
+                return True
+
+        return False
+
+    @classmethod
+    def from_code(cls, value):
+        """ 从 Code 构建枚举值 """
+        return [item for item in cls if item.code == value][0]
+
+
+class BitFlagEnum(int, BaseEnum, metaclass=BaseEnumMeta):
+    """ 标志位枚举基类 """
+
+    @classmethod
+    def bit_mask(cls, values):
+        """ 位掩码 """
+        return reduce(
+            operator.or_,
+            [item for item in cls for val in values if item.code == val],
+            0
+        )
+
+    @classmethod
+    def bit_unmask(cls, val):
+        """ 解析位掩码 """
+        return [item.code for item in cls if item & val]
+```
+
+## 3. 定义业务实现的枚举类继承上面的父类
+
+```python
+class QPrivyFieldsFlag(BitFlagEnum):
+    """用户字段标志位"""
+    NAME = 1
+    DOCUMENT = 2
+    PHONE = 4
+    EMAIL = 8
+
+    class Label:
+        NAME = "姓名"
+        DOCUMENT = "证件类型·证件号"
+        PHONE = "手机号"
+        EMAIL = "邮箱"
+
+    def Code(self):
+        return self.name.lower()
+
+class DocumentType(BaseEnum):
+    """用户证件类型"""
+    id_card = "01"
+    pass_port = "02"
+    org_code = "03"
+    credit_code = "04"
+    biz_license_code = "05"
+
+    class Label:
+        id_card = "身份证"
+        pass_port = "护照"
+        org_code = "组织机构代码"
+        credit_code = "统一社会信用代码"
+        biz_license_code = "营业执照注册号"
+
+    def Code(self):
+        return self.value
+```
+
+
+## 4. 使用效果
+
+```python
+>> DocumentType.id_card
+<DocumentType.id_card: '01'>
+
+>> DocumentType.id_card.label
+'身份证'
+
+>> DocumentType.id_card.name
+'id_card'
+
+>> DocumentType.id_card.value
+'01'
+
+```
