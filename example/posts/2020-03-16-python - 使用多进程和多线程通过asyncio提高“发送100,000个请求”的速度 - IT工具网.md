@@ -15,7 +15,7 @@ tags:
 
 首先，我想用一个连接尽快发送多个请求。下面的代码运行良好且快速，但我希望它超越异步。回到我的问题，是否有可能使用多线程或多处理并行运行这个程序。我听说你可以使用 threadpoolexecutor 或 processpoolexecutor。  
 
-```null
+```python
 import random
 import asyncio
 from aiohttp import ClientSession
@@ -54,7 +54,7 @@ processpoolexecutor 是一种进行真正多处理的方法。
 对于您的用例，基本上就像您同时启动多个程序副本一样。如果您的计算机上有所需的带宽和 cpu，那么您应该能够使用 processpoolexecutor 将性能提高 4（max_workers=4）  
 但是，您需要在每个子进程中都有一个异步事件循环，这样您就可以执行以下操作：  
 
-```null
+```python
 def main(n):
     loop = asyncio.get_event_loop()
     loop.run_until_complete(run(n))
@@ -69,7 +69,7 @@ with concurrent.futures.ProcessPoolExecutor(max_workers=4) as exc:
 
 作为`run`函数的附带说明：也不需要使用`ensure_future`或任务，`async def`函数的结果是一个协程，您可以直接等待或传递到`asyncio.gather`
 
-```null
+```python
 async def run(r):
     url = "http://www.example.com/"
     sem = asyncio.Semaphore(1000)

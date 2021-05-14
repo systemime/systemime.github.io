@@ -48,7 +48,7 @@ Scrapy-Redis 的去重机制是将 Request 的指纹存储到了 Redis 集合中
 
 ### 安装爬虫
 
-```null
+```python
 pip install scrapy
 pip install scrapy-redis-bloomfilter
 ```
@@ -61,7 +61,7 @@ pip install scrapy-redis-bloomfilter
 
 ### 编写 `items.py`
 
-```null
+```python
 
 
 
@@ -95,7 +95,7 @@ class TencentspiderItem(scrapy.Item):
 
 ### 编写 `spiders/tencent.py`
 
-```null
+```python
 
 import scrapy
 
@@ -213,7 +213,7 @@ class TencentSpider(RedisCrawlSpider):
 
 ### 编写 `pipelines.py`
 
-```null
+```python
 
 
 
@@ -247,7 +247,7 @@ class TencentspiderPipeline(object):
 
 ### 编写 `middlewares.py`
 
-```null
+```python
 
 
 
@@ -377,7 +377,7 @@ class MyUserAgentMiddleware(UserAgentMiddleware):
 
 ### 编写 `settings.py`
 
-```null
+```python
 
 
 
@@ -589,7 +589,7 @@ LOG_LEVEL = 'DEBUG'
 
 启动爬虫
 
-```null
+```python
 cd TencentSpider
 scrapy crawl tencent
 ```
@@ -600,13 +600,13 @@ scrapy crawl tencent
 
 设置 `start_urls`
 
-````null
+````python
 
 redis 127.0.0.1:6379> lpush tencent:start_urls https:```
 
 或者运行以下脚本:
 
-```null
+```python
 
 
 
@@ -635,7 +635,7 @@ if __name__ == '__main__':
 
 结果会保存在 `redis` 数据库的 key `tencent:items` 中与项目文件夹根目录下的 `tencent.json` 文件中，内容如下：
 
-```null
+```python
 {"positionname": "29302-服务采购商务岗", "positionlink": "https://hr.tencent.com/position_detail.php?id=49345&keywords=&tid=0&lid=0", "positionType": "职能类", "peopleNum": "1", "workLocation": "深圳", "publishTime": "2019-04-12", "positiondetail": "工作职责：• 负责相关产品和品类采购策略的制订及实施； • 负责相关产品及品类的采购运作管理，包括但不限于需求理解、供应商开发及选择、供应资源有效管理、商务谈判、成本控制、交付管理、组织验收等 • 支持业务部门的采购需求； • 收集、分析市场及行业相关信息，为采购决策提供依据。 工作要求：• 认同腾讯企业文化理念，正直、进取、尽责；  • 本科或以上学历，管理、传媒、经济或其他相关专业，市场营销及内容类产品运营工作背景者优先； • 五年以上工作经验，对采购理念和采购过程管理具有清晰的认知和深刻的理解；拥有二年以上营销/设计采购、招标相关类管理经验； • 熟悉采购运作及管理，具有独立管理重大采购项目的经验，具有较深厚的采购专业知识；  • 具备良好的组织协调和沟通能力、学习能力和团队合作精神强，具有敬业精神，具备较强的分析问题和解决问题的能力；  • 了解IP及新文创行业现状及发展，熟悉市场营销相关行业知识和行业运作特点； • 具有良好的英语听说读写能力，英语可作为工作语言；同时有日语听说读写能力的优先； • 具备良好的文档撰写能力。计算机操作能力强，熟练使用MS OFFICE办公软件和 ERP 等软件的熟练使用。"}
 {"positionname": "CSIG16-自动驾驶高精地图（地图编译）", "positionlink": "https://hr.tencent.com/position_detail.php?id=49346&keywords=&tid=0&lid=0", "positionType": "技术类", "peopleNum": "1", "workLocation": "北京", "publishTime": "2019-04-12", "positiondetail": "工作职责：地图数据编译工具软件开发 工作要求： 硕士以上学历，2年以上工作经验，计算机、测绘、GIS、数学等相关专业；  精通C++编程，编程基础扎实；  熟悉常见数据结构，有较复杂算法设计经验；  精通数据库编程，如MySQL、sqlite等；  有实际的地图项目经验，如地图tile、大地坐标系、OSM等；   至少熟悉一种地图数据规格，如MIF、NDS、OpenDrive等；   有较好的数学基础，熟悉几何和图形学基本算法，；   具备较好的沟通表达能力和团队合作意识。"}
 {"positionname": "32032-资深特效美术设计师（上海）", "positionlink": "https://hr.tencent.com/position_detail.php?id=49353&keywords=&tid=0&lid=0", "positionType": "设计类", "peopleNum": "1", "workLocation": "上海", "publishTime": "2019-04-12", "positiondetail": "工作职责：负责游戏3D和2D特效制作，制作规范和技术标准的制定； 与项目组开发人员深入沟通，准确实现项目开发需求。 工作要求：5年以上端游、手游特效制作经验，熟悉UE4引擎； 能熟练使用相关软件和引擎工具制作高品质的3D特效； 善于使用第三方软件制作高品质序列资源，用于引擎特效； 可以总结自己的方法论和经验用于新人和带领团队； 对游戏开发和技术有热情和追求，有责任心，善于团队合作，沟通能力良好，应聘简历须附带作品。"}

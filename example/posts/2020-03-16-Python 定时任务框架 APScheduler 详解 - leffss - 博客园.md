@@ -31,13 +31,13 @@ Apscheduler 是一个基于 Quartz 的 python 定时任务框架，相关的 api
 
 最简单的方法是使用 pip 安装：
 
-```null
+```python
 $ pip install apscheduler
 ```
 
 或者下载源码安装 [APScheduler](https://pypi.python.org/pypi/APScheduler/)：
 
-```null
+```python
 $ python setup.py install
 ```
 
@@ -95,7 +95,7 @@ APScheduler 提供了多种不同的方式来配置调度器。
 
 假设使用默认 job 存储和默认执行器运行 BackgroundScheduler：
 
-```null
+```python
 from apscheduler.schedulers.background import BackgroundScheduler
 
 scheduler = BackgroundScheduler()
@@ -115,7 +115,7 @@ scheduler = BackgroundScheduler()
 
 方法一：
 
-```null
+```python
 from pytz import utc
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.jobstores.mongodb import MongoDBJobStore
@@ -142,7 +142,7 @@ scheduler = BackgroundScheduler(jobstores=jobstores, executors=executors, job_de
 
 方法二：
 
-```null
+```python
 from apscheduler.schedulers.background import BackgroundScheduler
 
 scheduler = BackgroundScheduler({
@@ -169,7 +169,7 @@ scheduler = BackgroundScheduler({
 
 方法三：
 
-```null
+```python
 from pytz import utc
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
@@ -268,7 +268,7 @@ end_date(date|datetime|str) - 结束时间
 
 例：
 
-```null
+```python
 import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
 
@@ -355,7 +355,7 @@ end_date(date|datetime|str) - 结束时间
 
 例：
 
-```null
+```python
 from apscheduler.schedulers.background import BackgroundScheduler
 
 
@@ -397,7 +397,7 @@ scheduler.add_job(
 
 例：
 
-```null
+```python
 import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
 
@@ -458,14 +458,14 @@ scheduler.add_job(
 
 例：
 
-```null
+```python
 job = scheduler.add_job(myfunc, 'interval', minutes=2)
 job.remove()
 ```
 
 或者：
 
-```null
+```python
 scheduler.add_job(myfunc, 'interval', minutes=2, id='my_job_id')
 scheduler.remove_job('my_job_id')
 ```
@@ -478,7 +478,7 @@ scheduler.remove_job('my_job_id')
 
 暂停：
 
-```null
+```python
 job = scheduler.add_job(myfunc, 'interval', minutes=2, id='my_job_id')
 job.pause()		
 scheduler.pause_job('my_job_id')
@@ -486,7 +486,7 @@ scheduler.pause_job('my_job_id')
 
 恢复：
 
-```null
+```python
 job = scheduler.add_job(myfunc, 'interval', minutes=2, id='my_job_id')
 job.resume()	
 scheduler.resume_job('my_job_id')
@@ -496,7 +496,7 @@ scheduler.resume_job('my_job_id')
 
 使用 get_jobs() 方法获取一个列表，或者使用 print_jobs() 方法打印一个格式化的列表。
 
-```null
+```python
 jobs = scheduler.get_jobs()	
 scheduler.print_jobs()
 ```
@@ -509,7 +509,7 @@ scheduler.print_jobs()
 
 例：
 
-```null
+```python
 job.modify(max_instances=6, name='Alternate name')
 ```
 
@@ -517,7 +517,7 @@ job.modify(max_instances=6, name='Alternate name')
 
 例：
 
-```null
+```python
 scheduler.reschedule_job('my_job_id', trigger='cron', minute='*/5')
 ```
 
@@ -527,13 +527,13 @@ scheduler.reschedule_job('my_job_id', trigger='cron', minute='*/5')
 
 关闭调度器方法：
 
-```null
+```python
 scheduler.shutdown()
 ```
 
 默认情况下，会关闭 job 存储和执行器，并等待所有正在执行的 job 完成。如果不想等待则可以使用以下方法关闭：
 
-```null
+```python
 scheduler.shutdown(wait=False)
 ```
 
@@ -541,19 +541,19 @@ scheduler.shutdown(wait=False)
 
 暂停调度器：
 
-```null
+```python
 scheduler.pause()
 ```
 
 恢复调度器：
 
-```null
+```python
 scheduler.resume()
 ```
 
 启动调度器的时候可以指定 `paused=True`，以这种方式启动的调度器直接就是暂停状态。
 
-```null
+```python
 scheduler.start(paused=True)
 ```
 
@@ -576,7 +576,7 @@ scheduler.start(paused=True)
 
 例：
 
-```null
+```python
 from apscheduler.events import EVENT_JOB_EXECUTED, EVENT_JOB_ERROR
 
 
@@ -609,7 +609,7 @@ APScheduler 默认是不支持分布式运行的，详见[官方 FAQ](https://ap
 
 1、 询问储存的每个 jobStore，是否有到期要执行的任务。
 
-```null
+```python
 ...
 due_jobs = jobstore.get_due_jobs(now)
 ...
@@ -617,7 +617,7 @@ due_jobs = jobstore.get_due_jobs(now)
 
 2、due_jobs 不为空，则计算这些 jobs 中每个 job 需要运行的时间点，时间一到就 submit 给任务调度。
 
-```null
+```python
 ...
 run_times = job._get_run_times(now)
 run_times = run_times[-1:] if run_times and job.coalesce else run_times
@@ -630,7 +630,7 @@ if run_times:
 
 3、在主循环中，如果不间断地调用，而实际上没有要执行的 job，这会造成资源浪费。因此在程序中，如果每次掉用 `_process_jobs` 后，进行了预先判断，判断下一次要执行的 job（离现在最近的）还要多长时间，作为返回值告诉 main_loop, 这时主循环就可以去睡一觉，等大约这么长时间后再唤醒，执行下一次 \_process_jobs。
 
-```null
+```python
 ...
 # Determine the delay until this method should be called again
 if self.state == STATE_PAUSED:
@@ -649,7 +649,7 @@ return wait_seconds
 
 根据以上基本原理，其实可以发现重写 \_process_jobs 函数就能解决。主要思路是文件锁，当 worker 准备获取要执行的 job 时必须先获取到文件锁，获取文件锁后分配 job 到执行器后，再释放文件锁。具体代码如下：
 
-```null
+```python
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.executors.base import MaxInstancesReachedError
 from apscheduler.events import (

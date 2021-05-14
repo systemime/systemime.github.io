@@ -41,7 +41,7 @@ memory_profiler 有两种应用场景，三种使用方式。
 
 **只使用装饰器，不 import memory_profiler**。给目标函数加上 @profile 装饰器，执行代码时，给 Python 解释器传递参数 -m memory_profiler ，来加载 memory_profiler 模块。
 
-```text
+```
 @profile
 def my_func():
     a = [1] * (10 ** 6)
@@ -57,7 +57,7 @@ python -m memory_profiler example.py
 
 **使用装饰器，import memory_profiler。**给目标函数加上 @profile 装饰器，import memory_profiler，执行时不需要传递参数。
 
-```text
+```
 from memory_profiler import profile
 
 @profile
@@ -72,7 +72,7 @@ python example.py
 
 **时间维度的内存使用分析。**使用 mprof 执行程序在时间维度分析进程的内存使用情况。下面介绍了一共有四种情况，分别是：单进程，多进程，记录子进程内存占用，多进程并记录子进程内存占用。
 
-```text
+```
 mprof run <executable>
 mprof run --multiprocess <executable>
 mprof run --include-children <executable>
@@ -81,13 +81,13 @@ mprof run --include-children --multiprocess <executable>
 
 执行完成后，会生成一个 .dat 文件，类似：
 
-```text
+```
 mprofile_20200329173152.dat
 ```
 
 要绘制内存在时间维度的使用情况，需要安装 matplotlib，然后执行 mprof plot (直接执行会读取最新的 .dat 文件)：
 
-```text
+```
 pip install matplotlib
 mprof plot
 mprof plot mprofile_20200329173152.dat
@@ -97,7 +97,7 @@ mprof plot mprofile_20200329173152.dat
 
 也可以查看火焰图：
 
-```text
+```
 mprof plot --flame mprofile_20200329173152.dat
 ```
 
@@ -115,7 +115,7 @@ memory_profiler 只介绍了脚本程序的实践，曾让我以为他只能用�
 
 **服务代码：**
 
-```python3
+```python
 from gevent import monkey
 from gevent.pywsgi import WSGIServer
 monkey.patch_all()
@@ -178,13 +178,13 @@ if __name__ == "__main__":
 
 **加装饰器时，要注意一点。不要加入下面的代码：**
 
-```text
+```
 from memory_profiler import profile
 ```
 
 **下面是服务代码，也就是在我们主要的函数上增加 profile 装饰器：**
 
-```text
+```
 from gevent import monkey
 from gevent.pywsgi import WSGIServer
 monkey.patch_all()
@@ -242,7 +242,7 @@ if __name__ == "__main__":
 
 如果在服务代码中，你添加了 profile 装饰器的 import ：
 
-```text
+```
 from memory_profiler import profile
 ```
 
@@ -272,7 +272,7 @@ from memory_profiler import profile
 
 **下面是 gunicorn 的配置文件内容：**
 
-```text
+```
 # gunicorn_config.py
 import os
 import gevent.monkey
@@ -294,7 +294,7 @@ x_forwarded_for_header = 'X-FORWARDED-FOR'
 
 执行 mprof run 命令，这里需要添加相关的参数，不同的参数，结果图示也会相应有所不同：
 
-```text
+```
 mprof run gunicorn -c gunicorn_config.py profile_server:app
 mprof run --multiprocess gunicorn -c gunicorn_config.py profile_server:app
 mprof run --include-children gunicorn -c gunicorn_config.py profile_server:app

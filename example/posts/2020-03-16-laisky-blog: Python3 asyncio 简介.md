@@ -83,7 +83,7 @@ CPU bound 指的是需要密集 CPU 运行的任务，IO bound 指的是有大�
 
 tornado 中最难解决的问题就是如何去调度嵌套的异步任务，因为 tornado 是通过 yield 和 decorator 相结合的方式来实现异步任务， 所以导致异步函数很难返回值，在 tornado 里你只能通过 raise 的方式来返回值，这又导致 coroutine 很难正确的捕获到异常，为了解决这个问题我自己写了一个 decorator， 然后每次写 tornado 时都是一大堆的：
 
-```null
+```python
 @tornado.gen.coroutine
 @debug_wrapper
 def xxx():
@@ -97,7 +97,7 @@ def xxx():
 
 gevent 的一个例子：
 
-```null
+```python
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
@@ -155,7 +155,7 @@ if __name__ == '__main__':
 
 Python 3 的官方的解决方案 asyncio 选择了更为白盒的调用方式， 该方案极大的吸收了 tornado 的优点，并且为了解决 tornado 的协程返回，增加了新语法 yield from， 所以在 Python 3.4 的时代，你可以用近乎和 tornado 完全相同的方法写 asyncio：
 
-```null
+```python
 # python 3.4
 # 注意：Python 3.6 已经不这么写了
 
@@ -178,7 +178,7 @@ def coroutine_child_demo():
 
 Python 3.6 作为 asyncio 的第一个稳定版，新的语法已经变成了这样：
 
-```null
+```python
 import asyncio
 
 
@@ -209,7 +209,7 @@ if __name__ == '__main__':
 
 首先，你要会创建协程：
 
-```null
+```python
 
 async def coroutine_demo():
     await asyncio.sleep(2)
@@ -226,7 +226,7 @@ print(coroutine_demo())
 
 此时你需要做的，就是继续干你的事情，并且确保你给了这个协程足够的时间执行完成， 所以继续写完这个简短的脚本：
 
-```null
+```python
 if __name__ == '__main__':
     ioloop = asyncio.get_event_loop()  # 创建事件循环 ioloop
     coroutine = coroutine_demo()  # 启动协程
@@ -244,7 +244,7 @@ Future 有点像是一个 lazy object，当你调用一个协程时，这个协�
 
 当协程任务结束时，这个 future 对象的状态也会变化，可以通过这个 future 对象来获取该任务的结果值（或异常）：
 
-```null
+```python
 future = asyncio.ensure_future(coroutine_demo())
 
 
@@ -270,7 +270,7 @@ future.result(timeout=None)
 
 首先看一个最简单的案例，请求多个 URL：
 
-```null
+```python
 urls = [
     'https://httpbin.org/',
     'https://httpbin.org/get',
@@ -301,7 +301,7 @@ asyncio 里除了 `as_completed` 外，常用的还有 `asyncio.wait(fs, timeout
 
 所以上面的函数，`as_completed` 那段还可以写成：
 
-```null
+```python
 await asyncio.wait(futures)
 for f in futures:
     print(f.result())
@@ -311,7 +311,7 @@ for f in futures:
 
 除了上面举的那些事件触发的任务外，asyncio 还可以依靠时间进行触发。
 
-```null
+```python
 ioloop = asyncio.get_event_loop()
 
 # 一段时间后运行
@@ -346,7 +346,7 @@ asyncio 里提供了四种锁：
 
 首先讲一下协程任务的并发控制，asyncio 提供了信号量方法 `asyncio.Semaphore(value=1)` ， 这个方法会返回一个信号量，你可以初始化一个信号量后，然后在每次发起请求时都去请求这个信号量， 来实现对协程任务数量的控制，比如我们可以通过信号量来控制对服务器的请求并发数：
 
-```null
+```python
 # initiallize semaphore
 concurrency_sem = asyncio.Semaphore(50)
 
@@ -365,7 +365,7 @@ _如果不知道信号量是什么，可以参阅[《并行编程中的各种锁
 
 比如我们可以用 Queue 来限制我读取大文件时，不要一下子把整个文件都读进来， 而是读几行，处理几行：
 
-```null
+```python
 task_q = asyncio.Queue(maxsize=1000)
 
 
@@ -387,7 +387,7 @@ with open('huge_file_with_many_lines.txt', 'r') as f:
 
 最简单的互斥锁，其实会用 Semaphore 的话完全不需要用 Lock 了，毕竟 mutex 只是 Semaphore 为 1 时的特例。
 
-```null
+```python
 lock = Lock()
 async with lock():
     # ...
@@ -397,7 +397,7 @@ async with lock():
 
 事件锁，这个锁有两个状态：`set` 和 `unset`，可以调用 `evt.wait()` 挂起等待，直到这个事件被 `set()`：
 
-```null
+```python
 evt = Event()
 
 async def demo():
@@ -424,7 +424,7 @@ evt.set()  # release evt
 
 所以当你 notify 后如果需要立即生效的话，需要退出这个 mutex，并且挂起当前协程等待调度， 其他协程才能顺利的获取 mutex，并且获取到 condition 的信号，执行后续的任务，并在完成后释放锁。
 
-```null
+```python
 from asyncio import Condition, sleep, get_event_loop, wait, ensure_future
 
 
@@ -484,7 +484,7 @@ get_event_loop().run_until_complete(main())
 
 我们可以使用 `concurrent.futures` 里提供的 `ProcessPoolExecutor` 来轻松的实现多进程。
 
-```null
+```python
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from asyncio import get_event_loop, sleep, ensure_future
 
@@ -512,7 +512,7 @@ def main():
 
 代码片段示例：
 
-```null
+```python
 from concurrent.futures import ThreadPoolExecutor
 import time
 
@@ -554,7 +554,7 @@ ioloop.run_in_executor(executor, something_blocking, *args)
 
 再贴一个给同事写的批量下载 s3 图片的脚本，这个脚本需要读取一个有一千万行的图片文件地址文件， 然后按照每一行的地址去请求服务器下载文件，所以我做了一次最多读取 1000 行，最多发起 10 个 连接的并发控制：
 
-```null
+```python
 import os
 import asyncio
 import datetime

@@ -29,7 +29,7 @@ tags:
 
 定义一个枚举类，如下：
 
-````null
+```python
 package com.whfax.user.inf.constants;public enum UserProperty {    OPEN_ACCOUNT_FLAG(1, "1-开户成功"),    FDD_FLAG(1 << 1, " 2-法大大签约成功"),    RISK_FLAG(1 << 2, "4-风险测评成功"),    NEW_FLAG(1 << 3, "8-新手");    UserProperty(long value, String desc) {public static String getDesc(long value) {for (UserProperty property : UserProperty.values()) {if (property.value == value) {public static boolean isOpenAccountFlag(long flag) {return (flag & OPEN_ACCOUNT_FLAG.value) == OPEN_ACCOUNT_FLAG.value;public static boolean isFddFlag(long flag) {return (flag & FDD_FLAG.value) == FDD_FLAG.value;public static boolean isRiskFlag(long flag) {return (flag & RISK_FLAG.value) == RISK_FLAG.value;public static boolean isNewFlag(long flag) {return (flag & NEW_FLAG.value) == NEW_FLAG.value;```
 
 这种方式扩展性就很好了，后面随着业务扩展，只需要在这个枚举类中增加对应的属性就行了。
@@ -38,12 +38,12 @@ package com.whfax.user.inf.constants;public enum UserProperty {    OPEN_ACCOUNT_
 
 *   增加用户属性操作
 
-```null
+```python
 @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)public void addUserProperty(long userId, UserProperty userProperty) {        log.info("addUserProperty enter,userId:{}--userProperty:{}", userId, userProperty);        String update = "update " + TableNameContants.TABLE_USER                        + " set user_property=(user_property|?) ,update_time=now() where id=?";        List<Object> para = new ArrayList();        para.add(userProperty.value);        log.info("update:{}--para:{}", update, para.toArray());        mainDao.update(update, para.toArray());```
 
 *   剔除用户属性
 
-```null
+```python
 @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)public void removeUserProperty(long userId, UserProperty userProperty) {        log.info("removeUserProperty enter,userId:{}--userProperty:{}", userId, userProperty);        List<Object> para = new ArrayList();        String update = "update " + TableNameContants.TABLE_USER                        + " set user_property=(user_property&(~?)) ,update_time=now() where id=?";        para.add(userProperty.value);        log.info("update:{}--para:{}", update, para.toArray());        mainDao.update(update, para.toArray());```
 
 ### 说明

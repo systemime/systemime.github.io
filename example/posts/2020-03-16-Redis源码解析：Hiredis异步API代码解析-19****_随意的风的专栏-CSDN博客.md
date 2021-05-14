@@ -17,7 +17,7 @@ tags:
 
          异步 API 涉及到的函数分别是：
 
-1.  ````null
+1.  ```python
     redisAsyncContext *redisAsyncConnect(const char *ip, int port);int redisAsyncCommand(redisAsyncContext *ac, redisCallbackFn *fn, void *privdata, const char *format, ...);int redisAsyncCommandArgv(redisAsyncContext *ac, redisCallbackFn *fn, void *privdata, int argc, const char **argv, const size_t *argvlen);void redisAsyncDisconnect(redisAsyncContext *ac);```
 
     以上函数分别对应TCP建链、发送命令和TCP断链。
@@ -28,7 +28,7 @@ tags:
 
          redisAsyncContext 结构在同步上下文结构 redisContext 的基础上，增加了一些异步属性，它的定义如下：
 
-1.  ````null
+1.  ```python
     typedef struct redisAsyncContext void (*addRead)(void *privdata);void (*delRead)(void *privdata);void (*addWrite)(void *privdata);void (*delWrite)(void *privdata);void (*cleanup)(void *privdata);redisDisconnectCallback *onDisconnect;redisConnectCallback *onConnect;redisCallbackList replies;    redisCallbackList invalid;```
 
     ````
@@ -47,7 +47,7 @@ tags:
 
          函数 redisAsyncConnect 执行**异步操作**中的 TCP 建链。
 
-1.  ````null
+1.  ```python
     redisAsyncContext *redisAsyncConnect(const char *ip, int port) {c = redisConnectNonBlock(ip,port);ac = redisAsyncInitialize(c);__redisAsyncCopyError(ac);```
 
     ````
@@ -56,7 +56,7 @@ tags:
 
          redisAsyncSetConnectCallback 函数用于设置异步上下文中的建链回调函数。其代码如下：
 
-1.  ````null
+1.  ```python
     int redisAsyncSetConnectCallback(redisAsyncContext *ac, redisConnectCallback *fn) {if (ac->onConnect == NULL) {```
 
      该函数中，如果之前已经设置过建链回调函数了，则直接返回REDIS\_ERR。
@@ -65,22 +65,25 @@ tags:
 
          该函数除了设置异步上下文中的建链回调函数之外，还会调用**\_EL_ADD_WRITE，注册可写事件**。对于使用 Redis 的 ae 事件库的客户端来说，该宏定义实际上就是调用 redisAeAddWrite 函数：
 
-1.  ````null
+1.  ````python
     static void redisAeAddWrite(void *privdata) {redisAeEvents *e = (redisAeEvents*)privdata;aeEventLoop *loop = e->loop;aeCreateFileEvent(loop,e->fd,AE_WRITABLE,redisAeWriteEvent,e);```
 
     可写事件的回调函数是redisAeWriteEvent，该函数调用**redisAsyncHandleWrite实现**。redisAsyncHandleWrite中，处理建链的代码如下：
 
     ````
-2.  ````null
-    void redisAsyncHandleWrite(redisAsyncContext *ac) {redisContext *c = &(ac->c);if (!(c->flags & REDIS_CONNECTED)) {if (__redisAsyncHandleConnect(ac) != REDIS_OK)if (!(c->flags & REDIS_CONNECTED))```
 
+2.  ````python
+    void redisAsyncHandleWrite(redisAsyncContext *ac) {redisContext *c = &(ac->c);if (!(c->flags & REDIS_CONNECTED)) {if (__redisAsyncHandleConnect(ac) != REDIS_OK)if (!(c->flags & REDIS_CONNECTED))
+    ```
+
+    ```
     在该函数中，如果上下文标志位中还没有设置REDIS\_CONNECTED标记，说明目前还没有检测是否建链成功，因此调用**\_\_redisAsyncHandleConnect**，判断建链是否成功，如果建链成功，则会在异步上下文的标志位中增加REDIS\_CONNECTED标记，如果还没有建链成功，则直接返回。
 
-    ````
+    ```
 
          \_\_redisAsyncHandleConnect 的代码如下：
 
-1.  ````null
+1.  ```
     static int __redisAsyncHandleConnect(redisAsyncContext *ac) {redisContext *c = &(ac->c);if (redisCheckSocketError(c) == REDIS_ERR) {if (errno == EINPROGRESS)if (ac->onConnect) ac->onConnect(ac,REDIS_ERR);__redisAsyncDisconnect(ac);c->flags |= REDIS_CONNECTED;if (ac->onConnect) ac->onConnect(ac,REDIS_OK);```
 
              该函数中，首先调用redisCheckSocketError判断当前TCP是否建链成功，如果该函数返回REDIS\_ERR，在errno为EINPROGRESS的情况下，说明TCP尚在建链中，这种情况直接返回REDIS\_OK，等待下次处理；其他情况说明建链失败，以REDIS\_ERR为参数，调用异步上下文中的建链回调函数，然后调用\_\_redisAsyncDisconnect做清理工作，最后返回REDIS\_ERR；
@@ -91,7 +94,7 @@ tags:
 
          **redisAsyncCommand 函数，是异步 API 中用于向 Redis 发送命令的函数**。该函数与同步 API 中发送命令的函数 redisCommand 类似，同样支持 printf 式的可变参数。该函数的原型如下：
 
-````null
+````
 int redisAsyncCommand(redisAsyncContext *ac, redisCallbackFn *fn, void *privdata, const char *format, ...);```
 
          这里的**fn**和**privdata**分别表示收到命令回复后要调用的**回调函数**及其**参数**。因为Redis是**单线程处理命令**，因此当客户端使用异步API与事件库的结合之后，命令就自动的**管道化**了。也就是客户端在**单线程模式下**，**发送**命令的顺序和**接收**回复的**顺序**是**一致的**。因此，当发送命令时，就会将**回调函数fn和参数privdata**封装成回调结构redisCallback，并将该结构记录到单链表或者字典中。当收到回复后，就会依次得到链表或者字典中的redisCallback结构，调用其中的回调函数。
@@ -102,7 +105,7 @@ int redisAsyncCommand(redisAsyncContext *ac, redisCallbackFn *fn, void *privdata
 
          \_\_redisAsyncCommand函数的代码如下：
 
-1.  ```null
+1.  ```
     static int __redisAsyncCommand(redisAsyncContext *ac, redisCallbackFn *fn, void *privdata, char *cmd, size_t len) {redisContext *c = &(ac->c);if (c->flags & (REDIS_DISCONNECTING | REDIS_FREEING)) return REDIS_ERR;p = nextArgument(cmd,&cstr,&clen);pvariant = (tolower(cstr[0]) == 'p') ? 1 : 0;if (hasnext && strncasecmp(cstr,"subscribe\r\n",11) == 0) {c->flags |= REDIS_SUBSCRIBED;while ((p = nextArgument(p,&astr,&alen)) != NULL) {sname = sdsnewlen(astr,alen);dictReplace(ac->sub.patterns,sname,&cb);dictReplace(ac->sub.channels,sname,&cb);} else if (strncasecmp(cstr,"unsubscribe\r\n",13) == 0) {if (!(c->flags & REDIS_SUBSCRIBED)) return REDIS_ERR;} else if(strncasecmp(cstr,"monitor\r\n",9) == 0) {c->flags |= REDIS_MONITORING;__redisPushCallback(&ac->replies,&cb);if (c->flags & REDIS_SUBSCRIBED)__redisPushCallback(&ac->sub.invalid,&cb);__redisPushCallback(&ac->replies,&cb);__redisAppendCommand(c,cmd,len);```
     
 
@@ -128,7 +131,7 @@ int redisAsyncCommand(redisAsyncContext *ac, redisCallbackFn *fn, void *privdata
 
          redisAsyncHandleWrite函数的全部代码如下：
 
-1.  ```null
+1.  ```
     void redisAsyncHandleWrite(redisAsyncContext *ac) {redisContext *c = &(ac->c);if (!(c->flags & REDIS_CONNECTED)) {if (__redisAsyncHandleConnect(ac) != REDIS_OK)if (!(c->flags & REDIS_CONNECTED))if (redisBufferWrite(c,&done) == REDIS_ERR) {__redisAsyncDisconnect(ac);```
     
      首先处理建链尚未成功的情况，之前已经讲过，不在赘述。
@@ -142,7 +145,7 @@ int redisAsyncCommand(redisAsyncContext *ac, redisCallbackFn *fn, void *privdata
 
          redisAsyncHandleRead函数的代码如下：
 
-1.  ```null
+1.  ```
     void redisAsyncHandleRead(redisAsyncContext *ac) {redisContext *c = &(ac->c);if (!(c->flags & REDIS_CONNECTED)) {if (__redisAsyncHandleConnect(ac) != REDIS_OK)if (!(c->flags & REDIS_CONNECTED))if (redisBufferRead(c) == REDIS_ERR) {__redisAsyncDisconnect(ac);redisProcessCallbacks(ac);```
     
     该函数中，首先处理未建链的情况，与redisAsyncHandleWrite中的处理方式一致，不在赘述。
@@ -152,7 +155,7 @@ int redisAsyncCommand(redisAsyncContext *ac, redisCallbackFn *fn, void *privdata
 
          **读取成功之后，调用redisProcessCallbacks函数进行处理**。**该函数就是根据回复信息找到相应的回调结构，然后调用其中的回调函数**。redisProcessCallbacks函数的代码如下：
 
-1.  ```null
+1.  ```
     void redisProcessCallbacks(redisAsyncContext *ac) {redisContext *c = &(ac->c);redisCallback cb = {NULL, NULL, NULL};while((status = redisGetReply(c,&reply)) == REDIS_OK) {if (c->flags & REDIS_DISCONNECTING && sdslen(c->obuf) == 0) {__redisAsyncDisconnect(ac);if(c->flags & REDIS_MONITORING) {__redisPushCallback(&ac->replies,&cb);if (__redisShiftCallback(&ac->replies,&cb) != REDIS_OK) {if (((redisReply*)reply)->type == REDIS_REPLY_ERROR) {c->err = REDIS_ERR_OTHER;snprintf(c->errstr,sizeof(c->errstr),"%s",((redisReply*)reply)->str);c->reader->fn->freeObject(reply);__redisAsyncDisconnect(ac);assert((c->flags & REDIS_SUBSCRIBED || c->flags & REDIS_MONITORING));if(c->flags & REDIS_SUBSCRIBED)__redisGetSubscribeCallback(ac,reply,&cb);__redisRunCallback(ac,&cb,reply);c->reader->fn->freeObject(reply);if (c->flags & REDIS_FREEING) {c->reader->fn->freeObject(reply);__redisAsyncDisconnect(ac);```
     
      该函数循环调用redisGetReply，将解析器中输入缓存中的内容，组织成redisReply结构树，树的根节点通过参数reply返回。
@@ -172,7 +175,7 @@ int redisAsyncCommand(redisAsyncContext *ac, redisCallbackFn *fn, void *privdata
 
          \_\_redisGetSubscribeCallback函数根据回复信息，在字典结构中找到对应的回调结构并返回该结构。它的代码如下：
 
-1.  ```null
+1.  ```
     static int __redisGetSubscribeCallback(redisAsyncContext *ac, redisReply *reply, redisCallback *dstcb) {redisContext *c = &(ac->c);if (reply->type == REDIS_REPLY_ARRAY) {assert(reply->elements >= 2);assert(reply->element[0]->type == REDIS_REPLY_STRING);stype = reply->element[0]->str;pvariant = (tolower(stype[0]) == 'p') ? 1 : 0;callbacks = ac->sub.patterns;callbacks = ac->sub.channels;assert(reply->element[1]->type == REDIS_REPLY_STRING);sname = sdsnewlen(reply->element[1]->str,reply->element[1]->len);de = dictFind(callbacks,sname);memcpy(dstcb,dictGetEntryVal(de),sizeof(*dstcb));if (strcasecmp(stype+pvariant,"unsubscribe") == 0) {dictDelete(callbacks,sname);assert(reply->element[2]->type == REDIS_REPLY_INTEGER);if (reply->element[2]->integer == 0)c->flags &= ~REDIS_SUBSCRIBED;__redisShiftCallback(&ac->sub.invalid,dstcb);```
     
       正常情况下，处于订阅模式下的客户端，接收到的消息类型应该是REDIS\_REPLY\_ARRAY类型，比如：
@@ -187,7 +190,7 @@ int redisAsyncCommand(redisAsyncContext *ac, redisCallbackFn *fn, void *privdata
 
          客户端可以通过调用redisAsyncDisconnect函数主动断链。该函数的代码如下：
 
-1.  ```null
+1.  ```
     void redisAsyncDisconnect(redisAsyncContext *ac) {redisContext *c = &(ac->c);c->flags |= REDIS_DISCONNECTING;if (!(c->flags & REDIS_IN_CALLBACK) && ac->replies.head == NULL)__redisAsyncDisconnect(ac);```
     
      一般情况下，该函数是在某个命令回调函数中被调用。当调用该函数时，并不一定会立即进行断链操作，该函数将REDIS\_DISCONNECTING标记增加到上下文的标志位中。只有当**输出缓存中所有命令都发送完毕**，并且收到他们的回复，调用了**回调函数之后，才会真正的执行断链操作**，这是在函数redisProcessCallbacks中处理的。
@@ -199,7 +202,7 @@ int redisAsyncCommand(redisAsyncContext *ac, redisCallbackFn *fn, void *privdata
 
          当客户与服务器之间的交互过程中发生了错误，或者是服务器主动断链时，就会调用\_\_redisAsyncDisconnect进入断链流程。该函数代码如下：
 
-1.  ```null
+1.  ```
     static void __redisAsyncDisconnect(redisAsyncContext *ac) {redisContext *c = &(ac->c);__redisAsyncCopyError(ac);assert(__redisShiftCallback(&ac->replies,NULL) == REDIS_ERR);c->flags |= REDIS_DISCONNECTING;```
     
 
@@ -227,8 +230,9 @@ hiredis中的异步api
 
     下边简单讲一下libevent的使用。libevent本身的使用是比较复杂的，考虑到我们的重点是hiredis，所以这里只讲hiredis中要用到的。libevent首先要设置并添加你要监听的异步事件，这一步hiredis已经为你做好了，只需要两步：   
 
-```null
- redisLibeventAttach(ac, base);event_base_dispatch(base);hiredis用到的libevent函数就这么几个，是不是觉得很简单！```
+```
+ redisLibeventAttach(ac, base);event_base_dispatch(base);hiredis用到的libevent函数就这么几个，是不是觉得很简单！
+```
 
 hiredis异步APi的使用
 ---------------
@@ -237,19 +241,20 @@ hiredis异步APi的使用
 
     首先要创建连接：
 
-```null
- redisAsyncContext *c = redisAsyncConnect("127.0.0.1", 6379);```
+```
+ redisAsyncContext *c = redisAsyncConnect("127.0.0.1", 6379);
+```
 
     这里的创建连接跟同步下区别不大。但是需要注意的是异步的连接函数会立刻返回，不论你的程序是否真的连上了redis服务器。是否成功连接只能在连接回调函数中确定。所以不要指望依靠这个函数去检查你的连接是否成功建立。
 
     可以通过这个函数注册连接回调函数：
 
-```null
+```
  redisAsyncSetConnectCallback(c, ccdbRedisAsync::connectCallback);```
 
     回调函数需要是下边的格式：
 
-```null
+```
   void ccdbRedisAsync::connectCallback(const redisAsyncContext *c, int status)```
 
     其中参数status会告诉你连接是否成功。
@@ -282,7 +287,7 @@ hiredis异步APi的使用
 
 下边的例程来自hiredis的作者。注意这个历程里边没有为libevent事件处理单开线程，这在实际运用中是不多见的
 
-```null
+```
 #include <adapters/libevent.h>void getCallback(redisAsyncContext *c, void *r, void *privdata) {if (reply == NULL) return;printf("argv[%s]: %s\n", (char*)privdata, reply->str);void connectCallback(const redisAsyncContext *c, int status) {if (status != REDIS_OK) {printf("Error: %s\n", c->errstr);printf("Connected...\n");void disconnectCallback(const redisAsyncContext *c, int status) {if (status != REDIS_OK) {printf("Error: %s\n", c->errstr);printf("Disconnected...\n");int main (int argc, char **argv) {    signal(SIGPIPE, SIG_IGN);struct event_base *base = event_base_new();    redisAsyncContext *c = redisAsyncConnect("127.0.0.1", 6379);printf("Error: %s\n", c->errstr);    redisLibeventAttach(c,base);    redisAsyncSetConnectCallback(c,connectCallback);    redisAsyncSetDisconnectCallback(c,disconnectCallback);    redisAsyncCommand(c, NULL, NULL, "SET key %b", argv[argc-1], strlen(argv[argc-1]));    redisAsyncCommand(c, getCallback, (char*)"end-1", "GET key");    event_base_dispatch(base);```
 
 [https://blog.csdn.net/lls2012/article/details/71087123](https://blog.csdn.net/lls2012/article/details/71087123) 

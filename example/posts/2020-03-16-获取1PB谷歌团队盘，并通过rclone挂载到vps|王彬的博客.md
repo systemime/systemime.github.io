@@ -48,7 +48,7 @@ Centos7 安装很简单
 
 install_rclone.sh
 
-````null
+````python
 # 安装依赖
 yum -y install wget unzip screen fuse fuse-devel
 # 安装rclone
@@ -59,7 +59,7 @@ yum -y install  rclone```
 
 配置比较复杂一些，首先执行配置命令
 
-```null
+```python
 [root@9s9s-he-sjc ~]# rclone config
 2019/11/24 10:09:06 NOTICE: Config file "/root/.config/rclone/rclone.conf" not found - using defaults
 No remotes found - make a new one
@@ -71,7 +71,7 @@ name> remote```
 
 输入n，remote。创建新的remote，名称是remote
 
-```null
+```python
 Type of storage to configure.
 Enter a string value. Press Enter for the default ("").
 Choose a number from below, or type in your own value
@@ -133,7 +133,7 @@ Storage> 12```
 
 输入12。选择Google Drive
 
-```null
+```python
 ** See help for drive backend at: https://rclone.org/drive/ **
 
 Google Application Client Id
@@ -145,7 +145,7 @@ client_id> ```
 
 输入空，直接回车。使用rclone的client\_id调用google api，这个client\_id用的人肯定比较多，用的太多会被限制，不过先用着吧，后面可以根据https://rclone.org/drive/#making-your-own-client-id创建自己的client\_id
 
-```null
+```python
 Google Application Client Secret
 Setting your own is recommended.
 Enter a string value. Press Enter for the default ("").
@@ -173,7 +173,7 @@ scope> 1```
 
 输入1。有最大的使用权限。
 
-```null
+```python
 ID of the root folder
 Leave blank normally.
 Fill in to access "Computers" folders. (see docs).
@@ -182,7 +182,7 @@ root_folder_id> ```
 
 输入空，直接回车。空是跟路径，如果想用别的根路径，到google网盘页面打开那个文件夹，上面的链接是https://drive.google.com/drive/folders/1E8NDZ9OTGSM72eP0kiPG0gQoZ0RzOtyV，这儿输入最后的那部分就好了，1E8NDZ9OTGSM72eP0kiPG0gQoZ0RzOtyV。
 
-```null
+```python
 Service Account Credentials JSON file path 
 Leave blank normally.
 Needed only if you want use SA instead of interactive login.
@@ -195,7 +195,7 @@ y/n> n```
 
 输入n。不用别的高级配置。
 
-```null
+```python
 Remote config
 Use auto config?
  * Say Y if not sure
@@ -206,14 +206,14 @@ y/n> n```
 
 输入n。因为我们是vps操作，不能auto config。
 
-```null
+```python
 If your browser doesn't open automatically go to the following link: https://accounts.google.com/o/oauth2/auth?access_type=offline&client_id=202264815644.apps.googleusercontent.com&redirect_uri=urn%3Aietf%3Awg%3Aoauth%3A2.0%3Aoob&response_type=code&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive&state=e0bb55f32e81360bc1d383ec5bbc08cc
 Log in and authorize rclone for access
 Enter verification code> 4/tgEm4WM9FWvI4yZjiwLvw-52zlCpVZGx7AQBLCdGLI_Er7-NuempcXM```
 
 输入authcode。打开上面的链接授权访问，最后会获取authcode，像4/tgEm4WM9FWvI4yZjiwLvw-52zlCpVZGx7AQBLCdGLI\_Er7-NuempcXM。
 
-```null
+```python
 Configure this as a team drive?
 y) Yes
 n) No
@@ -221,7 +221,7 @@ y/n> y```
 
 输入y。因为我们之前领取了团队盘
 
-```null
+```python
 Fetching team drive list...
 Choose a number from below, or type in your own value
  1 / siyou325
@@ -230,7 +230,7 @@ Enter a Team Drive ID> 1```
 
 输入1.选择我们的团队盘。
 
-```null
+```python
 --------------------
 [remote]
 type = drive
@@ -245,7 +245,7 @@ y/e/d> y```
 
 输入y。配置好了
 
-```null
+```python
 Current remotes:
 
 Name                 Type
@@ -273,7 +273,7 @@ e/n/d/r/c/s/q> q```
 
 挂载网盘下的files目录到本地/vps/hosts/gdrive，执行下面命令就好饿了
 
-```null
+```python
 mkdir -p /vps/hosts/gdrive
 rclone mount remote:files /vps/hosts/gdrive --allow-other --allow-non-empty --vfs-cache-mode writes```
 
@@ -282,17 +282,17 @@ rclone mount remote:files /vps/hosts/gdrive --allow-other --allow-non-empty --vf
 
 列出网盘上根目录下的文件
 
-```null
+```python
 rclone ls remote:```
 
 列出网盘上根目录下的文件夹
 
-```null
+```python
 rclone lsd remote:```
 
 拷贝本地文件到网盘
 
-```null
+```python
 rclone copy /home/source remote:backup```
 
 七. 总结

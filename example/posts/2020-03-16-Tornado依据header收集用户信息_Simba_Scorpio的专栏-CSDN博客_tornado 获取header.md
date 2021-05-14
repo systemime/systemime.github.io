@@ -17,7 +17,7 @@ tags:
 
 先上代码，简单实用：
 
-````null
+```python
 import tornado.httpserverclass IndexHandle(tornado.web.RequestHandler):    	self.write("-------method:\n")        self.write(self.request.method)        self.write("\n-------uri:\n")        self.write(self.request.uri)        self.write("\n-------path:\n")        self.write(self.request.path)        self.write("\n-------query:\n")        self.write(self.request.query)        self.write("\n-------version:\n")        self.write(self.request.version)        self.write("\n-------headers:\n")        self.write(self.request.headers)        self.write("\n-------body:\n")        self.write(self.request.body)        self.write("\n-------remote_ip:\n")        self.write(self.request.remote_ip)        self.write("\n-------protocol:\n")        self.write(self.request.protocol)        self.write("\n-------host:\n")        self.write(self.request.host)        self.write("\n-------arguments:\n")        self.write(self.request.arguments)        self.write("\n-------query_arguments:\n")        self.write(self.request.query_arguments)        self.write("\n-------body_arguments:\n")        self.write(self.request.body_arguments)        self.write("\n-------files:\n")        self.write(self.request.files)        self.write("\n-------cookies:\n")        self.write(self.request.cookies)if __name__ == "__main__":    tornado.options.parse_command_line()    __app__=tornado.web.Application(handlers=[(r'/', IndexHandle)], debug=True)    __http_server__=tornado.httpserver.HTTPServer(__app__)    __http_server__.listen(8000)    tornado.ioloop.IOLoop.instance().start()```
 
 可以看见通过调用self.request获取了tornado.httputil.HTTPServerRequest 对象实例，实例里有headers(信息最丰富的)字典类型的属性，客户的信息就在里面！

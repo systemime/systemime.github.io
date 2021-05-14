@@ -26,7 +26,7 @@ ok，以上是对楼主的解答，下面我扩展的说一个相关的问题
 
 由于工作需求，需要一个更加灵活的字典形式，具备字典的哈希特性，而且在创建 nest 的时候，更加灵活，通过 stackoverflow 上的一个问答，具体搬运如下：
 
-```python3
+```python
 class AutoVivification(dict):
     """Implementation of perl's autovivification feature.
     """

@@ -38,7 +38,7 @@ tags:
 
 所以在绝大部分情况下，任何调用协程的函数本身必须是一个协程，并且在调用中要使用 `yield`。
 
-```null
+```python
 @gen.coroutine
 def good_call():
     
@@ -50,7 +50,7 @@ def good_call():
 
 -   错误的
 
-```null
+```python
 import tornado.gen
 from tornado.ioloop import IOLoop
 from tornado.gen import Return
@@ -71,7 +71,7 @@ IOLoop.current().run_sync(f)
 
 错误的原因是：`run_sync` 会调用 `f()`，然后尝试将 `f()` 的结果转换为 `Future`，转换的函数如下：
 
-```null
+```python
 
 def convert_yielded(yielded):
     """Convert a yielded object into a `.Future`.
@@ -104,7 +104,7 @@ def convert_yielded(yielded):
 
 -   正确的
 
-```null
+```python
 import tornado.gen
 from tornado.ioloop import IOLoop
 from tornado.gen import Return

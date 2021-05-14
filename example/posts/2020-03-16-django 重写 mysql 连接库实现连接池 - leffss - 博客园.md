@@ -27,7 +27,7 @@ django 项目使用 gunicorn + gevent 部署，并设置 `CONN_MAX_AGE` 会导�
 
 首先查看连接部分源码：
 
-```null
+```python
 # django/db/backends/mysql/base.py
 
 class DatabaseWrapper(BaseDatabaseWrapper):
@@ -45,7 +45,7 @@ class DatabaseWrapper(BaseDatabaseWrapper):
 
 再查看其基类 `BaseDatabaseWrapper`
 
-```null
+```python
 # django/db/backends/base/base.py
 
 class BaseDatabaseWrapper:
@@ -74,7 +74,7 @@ class BaseDatabaseWrapper:
 
 #### `settings.py` 配置
 
-```null
+```python
 
 ...
 DATABASES = {
@@ -98,7 +98,7 @@ DATABASES = {
 
 #### 目录结构
 
-```null
+```python
 db_pool/
 ├── __init__.py
 └── mysql
@@ -110,7 +110,7 @@ db_pool/
 
 #### base.py
 
-```null
+```python
 # -*- coding: utf-8 -*-
 from django.core.exceptions import ImproperlyConfigured
 import queue
@@ -189,7 +189,7 @@ class ConnectPool(object):
 
 [#1 楼](#4589607) 2020-05-28 17:37 | [wangchenxi](https://www.cnblogs.com/wongchenxi/)
 
-```null
+```python
 def get_connection(self):
         if len(self.connects) < self.pool_size:
             new_connect = Database.connect(**self.conn_params)

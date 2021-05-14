@@ -43,7 +43,7 @@ named tuple 语法规则定义的格式如下：
 
 下面这个例子，让我们看看如何定义和使用一个命名元组。
 
-```null
+```python
 from collections import namedtuple  
 
 product = namedtuple('mobile_product', 'name, color, price')  
@@ -58,7 +58,7 @@ print("Name:{}, Color:{}, Price:{}".format(obj.name, obj.color, obj.price))
 
 named tuple 还有一个非常好的一点是它与 tuple 是完全兼容的。也就是说，我们依然可以用索引去访问一个 named tuple。
 
-```null
+```python
 print("Name:{}, Color:{}, Price:{}".format(obj[0], obj[1], obj[2]))
 
 
@@ -67,7 +67,7 @@ print("Name:{}, Color:{}, Price:{}".format(obj[0], obj[1], obj[2]))
 
 所以，named tuple 比普通 tuple 具有更好的可读性，可以使代码更易于维护。同时与字典相比，又更加的轻量和高效。但是有一点需要注意，既然都叫元组，那么元组的特性就是不可变，自然在 named tuple 中的属性也都是不可变的。任何尝试改变其属性值的操作都是非法的。
 
-```null
+```python
 from collections import namedtuple
 
 product = namedtuple('mobile_product', 'name, color, price')  
@@ -85,7 +85,7 @@ obj.name = 'HUAWEI'
 
 下面的例子中，我们使用\_replace() 方法成功修改了两个参数值。
 
-```null
+```python
 from collections import namedtuple
 
 product = namedtuple('mobile_product', 'name, color, price')  
@@ -99,7 +99,7 @@ obj._replace(name = 'HUAWEI', price = 8000)
 
 我们还可以使用\_make() 方法批量给 named tuple 的元素赋值。
 
-```null
+```python
 from collections import namedtuple
 
 product = namedtuple('mobile_product', 'name, color, price')  
@@ -116,7 +116,7 @@ obj
 
 named tuple 最常用的还是在处理 csv 或者数据库返回的数据上。比如使用**\_make()**方法配合**map()**函数式编程可以快速从 csv 文件中倒入到我们的命名元组结构中。
 
-```null
+```python
 from collections import namedtuple  
 import csv
 

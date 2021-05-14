@@ -47,14 +47,14 @@ gsuite 授权团队版，这个原卖家可以管理你的账号和所有文件�
 
 首先第三方 epel 源还有 fuse 等依赖都先安一遍
 
-```null
+```python
 yum -y install epel-release
 yum -y install wget unzip screen fuse fuse-devel
 ```
 
 然后安装 rclone
 
-```null
+```python
 wget https://downloads.rclone.org/rclone-current-linux-amd64.zip
 unzip rclone-current-linux-amd64.zip
 chmod 0755 ./rclone-*/rclone
@@ -64,7 +64,7 @@ rm -rf ./rclone-*
 
 安好后运行配置
 
-```null
+```python
 rclone config
 ```
 
@@ -91,13 +91,13 @@ Enter verificaition code; 这里，回车，然后这里是选择的作为 Team 
 
 退出编辑后，本地创一个挂载目录文件夹
 
-```null
+```python
 mkdir /root/Gdrive
 ```
 
 **# 挂载**
 
-```null
+```python
 rclone mount GdriveA:movies /root/Gdrive --allow-other --allow-non-empty --vfs-cache-mode writes &
 ```
 
@@ -106,7 +106,7 @@ rclone mount GdriveA:movies /root/Gdrive --allow-other --allow-non-empty --vfs-c
 发现一个 1PB 的 GdriveA 盘，就是成功挂载了  
 卸载：
 
-```null
+```python
 fusermount -qzu LocalFolder
 ```
 
@@ -145,7 +145,7 @@ fusermount -qzu LocalFolder
 
 很好，紫红色代表是文件，那些绿底蓝字是文件夹。
 
-```null
+```python
 cp /home/transmission/Downloads/"波牛.The.Champions.1983.1080p.WEB-DL.AAC.H264-OurTV.mp4" /root/Gdrive
 ```
 
@@ -171,14 +171,14 @@ cp /home/transmission/Downloads/"波牛.The.Champions.1983.1080p.WEB-DL.AAC.H264
 三，是不是可以直接挂载到 pt 下载已完成的文件夹？比如 /home/transmission/Downloads  
 嗯，为了防止 2TB 的文件出现各种同步卡顿意外，我个人选择留点空间拷贝至挂载目录下同步，你要是足够疯狂想自动同步你所有下好的资源，请直接
 
-```null
+```python
 rclone mount GdriveA:movies /home/transmission/Downloads --allow-other --allow-non-empty --vfs-cache-mode writes
 ```
 
 务必回来告诉我效果如何，非常感谢！  
 四，cp 到挂载目录卡顿，删除文件后磁盘空间没释放的问题，
 
-```null
+```python
 cp -r /home/transmission/Downloads/Despicable.Me.3.2017.BluRay.Remux.1080p.AVC.DTS-HD.MA.7.1-OurBits /root/Gdrive
 ```
 
@@ -188,7 +188,7 @@ cp -r /home/transmission/Downloads/Despicable.Me.3.2017.BluRay.Remux.1080p.AVC.D
 
 更新：现在我已经直接用 rclone copy 指令直接从本地传到谷歌盘了
 
-```null
+```python
 rclone copy -v --stats 15s --bwlimit 40M /home/transmission/Downloads GdriveA:movies/tmp
 ```
 
@@ -205,31 +205,31 @@ rclone copy -v --stats 15s --bwlimit 40M /home/transmission/Downloads GdriveA:mo
 
 本地文件同步示例：
 
-```null
+```python
 cp -f /home/transmission/Downloads/* /home/transmission/Gdrive
 ```
 
 如果比较懒，多次上传文件夹下所有内容可以使用`--dry-run`检测具体需要拷贝的文件和结构，删本地文件夹前切记卸载挂的云盘，否则远程云盘文件也会被删除，还原的话，文件夹结构会错乱，非常麻烦！
 
-```null
+```python
 fusermount -qzu /home/transmission/Gdrive
 ```
 
 本地文件整理完毕后就可以继续挂载了
 
-```null
+```python
 rclone mount GdriveA:movies/tmp /home/transmission/Gdrive --allow-other --allow-non-empty --vfs-cache-mode writes
 ```
 
 然后检测下：
 
-```null
+```python
 rclone copy --dry-run /home/transmission/Downloads/ GdriveA:movies/tmp
 ```
 
 确认无误后，再执行下面命令，同时能显示进度，省的大文档搬运等待时间漫漫，可以考虑安装 screen 挂着让它慢慢传：
 
-```null
+```python
 rclone copy -v --stats 5s  /home/transmission/Downloads/ GdriveA:movies/tmp
 ```
 

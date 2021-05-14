@@ -27,7 +27,7 @@ tags:
 
 异步上下文管理器的一种使用方法是:
 
-```null
+```python
 class AsyncContextManager:
     async def __aenter__(self):
         await log('entering context')
@@ -40,13 +40,13 @@ class AsyncContextManager:
 
 异步上下文管理器使用一种新的语法:
 
-````null
+````python
 async with EXPR as VAR:
     BLOCK```
 
 这段代码在语义上等同于：
 
-```null
+```python
 mgr = (EXPR)
 aexit = type(mgr).__aexit__
 aenter = type(mgr).__aenter__(mgr)
@@ -69,7 +69,7 @@ else:
 
 使用`async with`能够很容易地实现一个数据库事务管理器。
 
-```null
+```python
 async def commit(session, data):
     ...
 
@@ -80,13 +80,13 @@ async def commit(session, data):
 
 需要使用锁的代码也很简单：
 
-```null
+```python
 async with lock:
     ...```
 
 而不是:
 
-```null
+```python
 with (yield from lock):
     ...```
 
@@ -101,7 +101,7 @@ with (yield from lock):
 
 异步迭代的一个例子如下:
 
-```null
+```python
 class AsyncIterable:
     def __aiter__(self):
         return self
@@ -120,7 +120,7 @@ class AsyncIterable:
 
 通过异步迭代器实现的一个新的迭代语法如下：
 
-```null
+```python
 async for TARGET in ITER:
     BLOCK
 else:
@@ -128,7 +128,7 @@ else:
 
 这在语义上等同于:
 
-```null
+```python
 iter = (ITER)
 iter = type(iter).__aiter__(iter)
 running = True
@@ -150,7 +150,7 @@ else:
 
 使用异步迭代器能够在迭代过程中异步地缓存数据：
 
-```null
+```python
 async for data in cursor:
     ...```
 
@@ -158,7 +158,7 @@ async for data in cursor:
 
 下面的语法展示了这种新的异步迭代协议的用法：
 
-```null
+```python
 class Cursor:
     def __init__(self):
         self.buffer = collections.deque()
@@ -178,7 +178,7 @@ class Cursor:
 
 接下来这个`Cursor` 类可以这样使用：
 
-```null
+```python
 async for row in Cursor():
     print(row)
 which would be equivalent to the following code:
@@ -196,7 +196,7 @@ while True:
 
 下面的代码可以将常规的迭代对象变成异步迭代对象。尽管这不是一个非常有用的东西，但这段代码说明了常规迭代器和异步迭代器之间的关系。
 
-```null
+```python
 class AsyncIteratorWrapper:
     def __init__(self, obj):
         self._it = iter(obj)
@@ -218,21 +218,21 @@ async for letter in AsyncIteratorWrapper("abc"):
 
 协程（Coroutines）内部仍然是基于生成器的。因此在[PEP 479](https://www.python.org/dev/peps/pep-0479/)之前，下面两种写法没有本质的区别：
 
-```null
+```python
 def g1():
     yield from fut
     return 'spam'```
 
 和
 
-```null
+```python
 def g2():
     yield from fut
     raise StopIteration('spam')```
 
 自从 [PEP 479](https://www.python.org/dev/peps/pep-0479/) 得到接受并成为协程 的默认实现，下面这个例子将`StopIteration`包装成一个`RuntimeError`。
 
-```null
+```python
 async def a1():
     await fut
     raise StopIteration('spam')    ```

@@ -118,7 +118,7 @@ Appium 和模拟器环境 butomo 大神已经搞好 Docker 镜像, 我们拉下�
 
 首先先进入此容器内部，我们使用:
 
-```text
+```
 docker exec -i -t 容器名或容器ID /bin/bash
 ```
 
@@ -138,7 +138,7 @@ docker exec -i -t 容器名或容器ID /bin/bash
 
 如果要部署服务器的话，写 DockerFile 命令里也行：
 
-```text
+
 curl "https://bootstrap.pypa.io/3.2/get-pip.py" -o "get-pip.py"
 
 sudo python3 get-pip.py
@@ -160,7 +160,7 @@ sudo python3 get-pip.py
 
 在终端执行（注意**不是 Docker 容器的终端，是你电脑的终端**）
 
-```text
+```
 docker cp 本地文件路径 容器名或者ID:容器路径
 如:将本地当前路径下via_test文件夹移动到名字为'android-container'的镜像的root文件夹下
 docker cp  via_test/ android-container:/root
@@ -170,7 +170,7 @@ docker cp  via_test/ android-container:/root
 
 如果**安装依赖包**，执行：
 
-```text
+```
 pip install -r requirement.txt
 ```
 

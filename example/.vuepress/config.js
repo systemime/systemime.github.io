@@ -19,9 +19,14 @@ module.exports = {
   configureWebpack: {
     plugins: [
         new CompressionWebpackPlugin({
-            filename: '[path].gz[query]',
-            algorithm: 'gzip',
-            test: new RegExp('\\.(' + productionGzipExtensions.join('|') + ')$'),//匹配文件名
+            filename: '[path][base].br',
+            algorithm: 'brotliCompress',
+            test: /\.(js|css|html|svg)$/,  //匹配文件名
+            compressionOptions: {
+              params: {
+                [zlib.constants.BROTLI_PARAM_QUALITY]: 12,  // br压缩等级
+              },
+            },
             threshold: 5120,//对10K以上的数据进行压缩
             minRatio: 0.8,
             deleteOriginalAssets:false,//是否删除源文件
