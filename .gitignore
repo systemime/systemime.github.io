@@ -1,0 +1,10 @@
+*.log
+.DS_Store
+.cache/
+node_modules
+dist
+.npmrc
+.yarnrc
+blog/drafts/
+.history
+.idea
